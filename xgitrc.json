@@ -1,0 +1,10 @@
+{
+  "project": "MOSTACK",
+  "feat": "feat",
+  "bug": "bug",
+  "hotfix": "hotfix",
+  "release": "release",
+  "docs": "docs",
+  "ticketSeparator": "_",
+  "descriptorCase": "snake"
+}

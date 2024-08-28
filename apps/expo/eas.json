@@ -1,0 +1,72 @@
+{
+  "cli": {
+    "version": ">= 4.1.2",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "base": {
+      "node": "22.17.1",
+      "ios": {
+        "resourceClass": "m-medium"
+      }
+    },
+    "qa": {
+      "extends": "base",
+      "distribution": "internal",
+      "autoIncrement": true,
+      "environment": "development"
+      /**
+       * Uncomment the Android build type below for environments lacking Google Play Services to generate an APK for internal distribution.
+       * Warning: Revert these changes (remove the build type) once Google Play Services become available.
+       * Configuration: Apply this change to each environment block in the eas.json file.
+       * https://docs.expo.dev/build-reference/apk/
+       */
+      // "android": {
+      //   "buildType": "apk"
+      // }
+    },
+    "uat": {
+      "extends": "base",
+      "distribution": "internal",
+      "autoIncrement": true,
+      "environment": "preview"
+    },
+    "production": {
+      "extends": "base",
+      "autoIncrement": true,
+      "environment": "production"
+    }
+  },
+  "submit": {
+    "qa": {
+      "ios": {
+        "ascAppId": "xxxxxx",
+        "appleTeamId": "xxxxxx"
+      },
+      "android": {
+        "releaseStatus": "draft",
+        "track": "internal"
+      }
+    },
+    "uat": {
+      "ios": {
+        "ascAppId": "xxxxxx",
+        "appleTeamId": "xxxxxx"
+      },
+      "android": {
+        "releaseStatus": "draft",
+        "track": "internal"
+      }
+    },
+    "production": {
+      "ios": {
+        "ascAppId": "xxxxxx",
+        "appleTeamId": "xxxxxx"
+      },
+      "android": {
+        "releaseStatus": "draft",
+        "track": "internal"
+      }
+    }
+  }
+}

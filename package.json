@@ -1,0 +1,68 @@
+{
+  "name": "no-stack",
+  "private": true,
+  "scripts": {
+    "_git:pre-commit": "pnpm exec lint-staged",
+    "_git:pre-push": "node scripts/checkTags.js",
+    "build": "turbo build",
+    "clean": "git clean -xdf node_modules && rm pnpm-lock.yaml",
+    "clean:workspaces": "turbo clean",
+    "db:generate": "pnpm -F db generate",
+    "db:generate-custom": "pnpm -F db generate-custom",
+    "db:introspect": "pnpm -F db introspect ",
+    "db:migrate-local": "pnpm -F supabase supabase:migrate-local",
+    "db:push": "pnpm -F db push",
+    "db:studio": "pnpm -F db studio",
+    "dev": "turbo dev --parallel --ui=tui",
+    "dev:without-expo": "turbo -F=!@no-stack/expo dev --parallel --ui=tui",
+    "expo:android": "pnpm --filter expo android",
+    "expo:dev": "pnpm --filter expo dev",
+    "expo:ios": "pnpm --filter expo ios",
+    "expo:prebuild": "pnpm --filter expo expo:prebuild",
+    "expo:prebuild:clean": "pnpm --filter expo expo:prebuild:clean",
+    "format": "turbo format --continue -- --cache --cache-location node_modules/.cache/.prettiercache",
+    "format:fix": "turbo format --continue -- --write --cache --cache-location node_modules/.cache/.prettiercache",
+    "postinstall": "pnpm lint:ws",
+    "lint": "turbo lint --continue -- --cache --cache-location node_modules/.cache/.eslintcache",
+    "lint:fix": "turbo lint --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache",
+    "lint:ws": "pnpm dlx sherif@latest -i react -i react-dom -i @types/react -i @types/react-dom",
+    "prepare": "husky",
+    "rename-project": "read -p 'Enter new project name: ' NEW_NAME && npx replace 'no-stack' $NEW_NAME . -r --exclude=\"node_modules,.git,dist,.next\" && npx sort-package-json \"**/package.json\"",
+    "supabase:clean-db": "pnpm -F supabase clean-db",
+    "supabase:deploy": "pnpm -F supabase supabase:deploy",
+    "supabase:update-config": "pnpm -F supabase update-config",
+    "typecheck": "turbo typecheck"
+  },
+  "lint-staged": {
+    "*.{js, ts, jsx, tsx}": [
+      "pnpm format:fix",
+      "pnpm lint:fix"
+    ]
+  },
+  "prettier": "@no-stack/prettier-config",
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@no-stack/prettier-config": "workspace:*",
+    "@turbo/gen": "^2.5.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.4",
+    "prettier": "catalog:",
+    "sort-package-json": "^2.8.0",
+    "turbo": "^2.5.8",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@10.19.1-oidc-test.3+sha512.e5961a4b56bb37620f97b65da4ca56216634bf39ed358eda925f0f036534d458fa249d93ed0021410523f8bb7ed8512b61fe5532ed3e81777793366c6be026b5",
+  "engines": {
+    "node": ">=20.12.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "cross-spawn@<6.0.6": ">=6.0.6",
+      "esbuild": "0.25.5",
+      "form-data": ">=4.0.4",
+      "glob@>10.3.7 <=11.0.3": ">=11.1.0",
+      "qs@<6.14.1": ">=6.14.1"
+    }
+  }
+}

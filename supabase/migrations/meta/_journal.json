@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1726674177705,
+      "tag": "0000_harsh_vermin",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1726674446807,
+      "tag": "0001_panoramic_menace",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1773348665986,
+      "tag": "0002_supabase_storage_avatars",
+      "breakpoints": true
+    }
+  ]
+}

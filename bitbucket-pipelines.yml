@@ -1,0 +1,101 @@
+image: node:20
+
+definitions:
+  caches:
+    node: node_modules
+    pnpm: $BITBUCKET_CLONE_DIR/.pnpm-store
+
+  # This step is defined here to be reused throughout all the different environment pipelines
+  steps:
+    - step: &deploy_to_supabase
+        name: Apply Supabase Config
+        caches:
+          - pnpm
+        script:
+          - corepack enable
+          - corepack prepare pnpm@9.1.0 --activate # Pin pnpm version until this is solved: https://github.com/nodejs/corepack/issues/612
+          - pnpm install
+          - pnpm supabase:deploy
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Mark QA release
+          script:
+            - echo "Vercel will auto-deploy to QA"
+      - step:
+          <<: *deploy_to_supabase
+          deployment: QA
+      - step:
+          name: Build native app
+          caches:
+            - pnpm
+          trigger: manual
+          script:
+            - cd apps/expo
+            - corepack enable
+            - corepack prepare pnpm@9.1.0 --activate # Pin pnpm version until this is solved: https://github.com/nodejs/corepack/issues/612
+            - pnpm install
+            - npx eas-cli build --platform all --non-interactive --no-wait --profile qa --auto-submit
+
+  tags:
+    uat/v*:
+      - step:
+          name: Deploy to UAT
+          script:
+            - git remote set-url origin https://MO_Deploy:${DEPLOY_APP_SECRET}@bitbucket.org/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}
+            - git branch --force uat $BITBUCKET_TAG
+            - git push --force origin uat
+      - step:
+          <<: *deploy_to_supabase
+          deployment: UAT
+      - step:
+          name: Build native app
+          caches:
+            - pnpm
+          trigger: manual
+          script:
+            - cd apps/expo
+            - corepack enable
+            - corepack prepare pnpm@9.1.0 --activate # Pin pnpm version until this is solved: https://github.com/nodejs/corepack/issues/612
+            - pnpm install
+            - npx eas-cli build --platform all --non-interactive --no-wait --profile uat --auto-submit
+
+    prod/v*:
+      - step:
+          name: Are you sure?
+          script:
+            - echo "You are about to deploy to production"
+            - echo "Please confirm by clicking the 'Deploy' button"
+      - step:
+          name: Deploy to Prod
+          trigger: manual
+          script:
+            - git remote set-url origin https://MO_Deploy:${DEPLOY_APP_SECRET}@bitbucket.org/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}
+            - git branch --force prod $BITBUCKET_TAG
+            - git push --force origin prod
+      - step:
+          <<: *deploy_to_supabase
+          deployment: Production
+      - step:
+          name: Build native app
+          caches:
+            - pnpm
+          script:
+            - cd apps/expo
+            - corepack enable
+            - corepack prepare pnpm@9.1.0 --activate # Pin pnpm version until this is solved: https://github.com/nodejs/corepack/issues/612
+            - pnpm install
+            - npx eas-cli build --platform all --non-interactive --no-wait --profile production --auto-submit
+
+  pull-requests:
+    "**":
+      - step:
+          name: Run audits on PR
+          caches:
+            - pnpm
+          script:
+            - corepack enable
+            - corepack prepare pnpm@9.1.0 --activate # Pin pnpm version until this is solved: https://github.com/nodejs/corepack/issues/612
+            - pnpm audit --audit-level=high

@@ -1,0 +1,62 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+next-env.d.ts
+
+# nitro
+.nitro/
+.output/
+
+# expo
+.expo/
+apps/expo/.gitignore
+ios/
+android/
+
+# production
+build
+
+# misc
+.DS_Store
+*.pem
+.cache
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env
+.env*.local
+*.local.*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+dist/
+
+# turbo
+.turbo
+
+# Example secret file
+docs/setup/DO_NOT_COMMIT_temporary_secrets_file.txt
+
+# ide settings
+.idea
+
+# Supabase SSL certificate
+prod-ca-2021.crt

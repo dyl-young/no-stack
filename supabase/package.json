@@ -1,0 +1,13 @@
+{
+  "name": "@no-stack/supabase",
+  "scripts": {
+    "clean-db": "npx supabase db reset || npx supabase start",
+    "dev": "npx supabase status || npx supabase start",
+    "supabase:deploy": "npx supabase link --project-ref $SUPABASE_PROJECT_REF --password $SUPABASE_DB_PASSWORD && npx supabase db push",
+    "supabase:migrate-local": "npx supabase db push --local",
+    "update-config": "npx supabase stop --all --no-backup && npx supabase start"
+  },
+  "devDependencies": {
+    "supabase": "^2.51.0"
+  }
+}
