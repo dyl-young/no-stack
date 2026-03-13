@@ -18,16 +18,6 @@
 - [ ] **Replace `alert()` with toast** — `apps/nextjs/src/components/composite/user/account-form.tsx:108` uses `alert()` for image upload errors. Should use the existing `toast` from sonner.
 - [ ] **Remove debug console.logs** — `apps/nextjs/src/trpc/react.tsx` has ~15 `console.log` statements with emoji prefixes (`🔍`) throughout the tRPC link. Remove or gate behind `NODE_ENV === "development"`.
 
-### Database
-
-- [ ] **Add database indexes** — No indexes on `post.author_id` or `post.created_at` (used for ordering). Add via a new migration:
-  ```sql
-  CREATE INDEX idx_post_author_id ON post(author_id);
-  CREATE INDEX idx_post_created_at ON post(created_at DESC);
-  ```
-- [ ] **Fix column name mismatch** — `packages/db/src/schema/post.ts:9` maps `title` to column `"name"` in the database. Either rename the column to `title` or document why this is intentional.
-- [ ] **Add ON DELETE CASCADE to posts** — `post.author_id` FK has `ON DELETE no action`. If a profile is deleted, orphaned posts will cause FK violations.
-
 ### Testing
 
 - [ ] **Set up Vitest** — Zero test files or test config exists. Set up Vitest at the monorepo root with workspace config. Priority test targets:
@@ -46,13 +36,6 @@
 
 - [ ] **Add Vitest UI** — After setting up Vitest, add `@vitest/ui` for a visual test runner in dev.
 - [ ] **Add Playwright/Cypress for E2E** — Auth flows and critical paths would benefit from E2E tests.
-- [ ] **Clean up unused env vars** — `.env.example` defines `OPENAI_API_KEY`, `KV_URL`, `KV_REST_API_*` but none are used in the app. Remove or add a comment explaining future use.
-- [ ] **Add `updatedAt` column name consistency** — `packages/db/src/schema/post.ts:17` uses camelCase `"updatedAt"` for the column while all other columns use snake_case. Should be `"updated_at"`.
-
-### SEO & Metadata
-
-- [ ] **Add metadata to auth pages** — Auth pages (signin, signup, forgot-password, reset-password) have no `Metadata` export. Add basic titles.
-- [ ] **Add sitemap.ts and robots.ts** — Standard Next.js SEO files are missing.
 
 ### Error Tracking & Observability
 
@@ -72,10 +55,19 @@
 ### Performance
 
 - [ ] **Consider `useSuspenseQuery`** — `apps/nextjs/src/components/composite/posts/posts.tsx:88` has a TODO about making `useSuspenseQuery` work with RSC. Worth revisiting.
-- [ ] **Optimise post queries** — `post.router.ts:13-18` `all` query has a hardcoded `limit: 10` with no pagination. Add cursor-based pagination for scalability.
 
 ### Infrastructure
 
-- [ ] **Add health check endpoint** — No `/api/health` route for monitoring/load balancer checks.
 - [ ] **Add CSP headers** — No Content Security Policy headers configured. Add via `next.config.ts` or middleware.
 - [ ] **Review middleware matcher** — `middleware.ts:12` matcher pattern is copied from Clerk docs but this uses Supabase auth. Verify it's appropriate.
+
+### Upstream Alignment (create-t3-turbo)
+
+- [ ] **Upgrade Tailwind CSS v3 → v4** — Upstream is on `^4.1.16` with CSS-first config (`@tailwindcss/postcss`, `@tailwindcss/vite`). Replaces JS config files with `theme.css`. `tw-animate-css` replaces `tailwindcss-animate`. Affects `tooling/tailwind`, both apps, and all component styling.
+- [ ] **Upgrade NativeWind v4 → v5** — Upstream is on `5.0.0-preview.2` with new `react-native-css` (`3.0.1`) dependency. Aligns with Tailwind v4's CSS-first approach. Do alongside Tailwind v4 migration.
+- [ ] **Upgrade Zod 3 → Zod 4** — Upstream is on `^4.1.12`. Breaking API changes — affects `packages/validators`, `drizzle-zod` (upgrade to `^0.8.3`), and all Zod usage across the monorepo.
+- [ ] **Upgrade tRPC to ^11.7 and switch to `@trpc/tanstack-react-query`** — Upstream replaced `@trpc/react-query` with `@trpc/tanstack-react-query`. Also uses `localLink` for direct SSR procedure invocation (no HTTP round-trip during SSR).
+- [ ] **Upgrade Drizzle ORM** — From `^0.40.1` / `drizzle-kit ^0.30.5` to `^0.44.7` / `drizzle-kit ^0.31.5`. Likely non-breaking.
+- [ ] **Consolidate Radix UI packages** — Upstream uses a single `radix-ui` package (`^1.4.3`) instead of 20+ individual `@radix-ui/react-*` packages. Simplifies `apps/nextjs/package.json`.
+- [ ] **Upgrade `@t3-oss/env-nextjs`** — From `^0.11.1` to `^0.13.8`.
+- [ ] **Switch `@shopify/flash-list` → `@legendapp/list`** — Upstream switched virtualised list libraries in the Expo app.
