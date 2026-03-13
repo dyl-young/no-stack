@@ -1,0 +1,38 @@
+name: EAS Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Build profile
+        required: true
+        type: choice
+        options:
+          - qa
+          - uat
+          - production
+
+jobs:
+  build:
+    name: EAS Build (${{ inputs.profile }})
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build and submit
+        working-directory: apps/expo
+        run: eas build --platform all --non-interactive --no-wait --profile ${{ inputs.profile }} --auto-submit

@@ -91,7 +91,7 @@ Expo provides built-in support for environment variables.
 
 Use the `eas build` command to create builds for different environments.
 
-Local Build Instructions While the project uses bitbucket-pipelines.yml for automated CI/CD, you can perform manual local builds using the following commands
+Local Build Instructions While the project uses [GitHub Actions](/.github/workflows/eas-build.yml) for automated CI/CD, you can perform manual local builds using the following commands
 
 ### Build Commands
 

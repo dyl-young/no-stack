@@ -12,3 +12,7 @@ The C1 and C2 diagrams are available [here](docs/diagrams/C4.md)
 
 1. Setup your local environment by following the instructions in [LOCAL_SETUP.md](docs/setup/LOCAL_SETUP.md)
 2. Run the applications by following instructions in [RUNNING_LOCALLY.md](docs/development/RUNNING_LOCALLY.md)
+
+## Deployment & CI/CD
+
+See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for GitHub Actions workflows, environment setup, and new project configuration.
