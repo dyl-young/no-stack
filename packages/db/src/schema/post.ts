@@ -3,21 +3,16 @@ import { text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 import { createTable } from "./_table";
 import { Profile } from "./profile";
+import { timestamps } from "../lib";
 
 export const Post = createTable("post", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  title: varchar("name", { length: 256 }).notNull(),
-  content: text("content").notNull(),
-  authorId: uuid("author_id")
+  id: uuid().primaryKey().defaultRandom(),
+  title: varchar({ length: 256 }).notNull(),
+  content: text().notNull(),
+  authorId: uuid()
     .notNull()
-    .references(() => Profile.id),
-  createdAt: timestamp("created_at")
-    .default(sql`now()`)
-    .notNull(),
-  updatedAt: timestamp("updatedAt", {
-    mode: "date",
-    withTimezone: true,
-  }).$onUpdateFn(() => sql`now()`),
+    .references(() => Profile.id, { onDelete: "cascade" }),
+  ...timestamps(),
 });
 
 export const PostRelations = relations(Post, ({ one }) => ({

@@ -49,4 +49,4 @@ const client = process.env.VERCEL_ENV
       connectionString: env.POSTGRES_URL,
     });
 
-export const db = drizzle(client as Pool, { schema });
+export const db = drizzle(client as Pool, { schema, casing: "snake_case" });
