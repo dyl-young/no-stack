@@ -1,6 +1,6 @@
 "use client";
 
-import type * as LabelPrimitive from "@radix-ui/react-label";
+import type { Label as LabelPrimitive } from "radix-ui";
 import type {
   ControllerProps,
   FieldPath,
@@ -10,7 +10,7 @@ import type {
 import type { ZodType, ZodTypeDef } from "zod";
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot } from "radix-ui";
 import {
   useForm as __useForm,
   Controller,
@@ -122,14 +122,14 @@ const FormLabel = React.forwardRef<
 FormLabel.displayName = "FormLabel";
 
 const FormControl = React.forwardRef<
-  React.ElementRef<typeof Slot>,
-  React.ComponentPropsWithoutRef<typeof Slot>
+  React.ElementRef<typeof Slot.Root>,
+  React.ComponentPropsWithoutRef<typeof Slot.Root>
 >(({ ...props }, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
   return (
-    <Slot
+    <Slot.Root
       ref={ref}
       id={formItemId}
       aria-describedby={
@@ -143,6 +143,7 @@ const FormControl = React.forwardRef<
   );
 });
 FormControl.displayName = "FormControl";
+
 
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,
