@@ -160,7 +160,7 @@ function SelectLabel({
 
 function SelectItem({
   className,
-  children,
+  children: _children,
   ...props
 }: SelectPrimitive.ItemProps & {
   ref?: React.RefObject<SelectPrimitive.ItemRef>;

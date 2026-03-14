@@ -71,8 +71,8 @@ function ToggleGroupItem({
       <ToggleGroupPrimitive.Item
         className={cn(
           toggleVariants({
-            variant: context.variant || variant,
-            size: context.size || size,
+            variant: context.variant ?? variant,
+            size: context.size ?? size,
           }),
           props.disabled && "web:pointer-events-none opacity-50",
           ToggleGroupPrimitive.utils.getIsSelected(value, props.value) &&

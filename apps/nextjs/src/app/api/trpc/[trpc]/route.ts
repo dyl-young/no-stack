@@ -37,6 +37,7 @@ const handler = async (req: NextRequest) => {
     createContext: () =>
       createTRPCContext({
         headers: req.headers,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Supabase SDK generic variance mismatch
         supabase,
         supabaseAdminServerClient,
       }),

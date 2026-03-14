@@ -30,7 +30,7 @@ function Alert({
   children,
   icon: Icon,
   iconSize = 16,
-  iconClassName,
+  iconClassName: _iconClassName,
   ...props
 }: ViewProps &
   VariantProps<typeof alertVariants> & {
@@ -46,7 +46,7 @@ function Alert({
       className={alertVariants({ variant, className })}
       {...props}
     >
-      <View className="absolute left-3.5 top-4 -translate-y-0.5">
+      <View className="absolute top-4 left-3.5 -translate-y-0.5">
         <Icon
           size={iconSize}
           color={variant === "destructive" ? colors.notification : colors.text}
@@ -64,7 +64,7 @@ function AlertTitle({
   return (
     <Text
       className={cn(
-        "mb-1 pl-7 text-base font-medium leading-none tracking-tight text-foreground",
+        "mb-1 pl-7 text-base leading-none font-medium tracking-tight text-foreground",
         className,
       )}
       {...props}

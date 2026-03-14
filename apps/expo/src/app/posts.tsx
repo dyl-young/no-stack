@@ -30,7 +30,7 @@ function PostAuthorAvatar({
   email: string | null;
 }) {
   const [imgError, setImgError] = useState(false);
-  const fallback = initials(name || email || "").slice(0, 2) || "?";
+  const fallback = initials(name ?? email ?? "").slice(0, 2) || "?";
 
   if (image && !imgError) {
     return (
@@ -60,7 +60,7 @@ function PostCard(props: { post: RouterOutputs["post"]["all"][number] }) {
 
   const { mutate: deletePost } = useMutation(
     trpc.post.delete.mutationOptions({
-      onSuccess: async () => {
+      onSuccess: () => {
         toast.success("Post deleted successfully!");
       },
       onSettled: () =>

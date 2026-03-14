@@ -7,7 +7,9 @@ import { AuthAvatar } from "~/components/header";
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- React Native image require
 const logoDark = require("../../assets/logo-white.png") as number;
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- React Native image require
 const logoLight = require("../../assets/logo.png") as number;
 
 export default function HomeScreen() {

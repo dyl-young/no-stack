@@ -1,11 +1,11 @@
-import { SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 type FileBody =
   | Blob
   | ArrayBuffer
   | ArrayBufferView
   | FormData
-  | ReadableStream<any>;
+  | ReadableStream<Uint8Array>;
 export type FilePrivacy = "public" | "private";
 
 export interface ImageUploadResult {

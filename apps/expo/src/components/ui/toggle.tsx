@@ -14,7 +14,7 @@ const toggleVariants = cva(
       variant: {
         default: "bg-transparent",
         outline:
-          "web:hover:bg-accent border border-input bg-transparent active:bg-accent active:bg-accent",
+          "web:hover:bg-accent border border-input bg-transparent active:bg-accent",
       },
       size: {
         default: "native:h-12 native:px-[12] h-10 px-3",
@@ -57,8 +57,8 @@ function Toggle({
   size,
   ...props
 }: TogglePrimitive.RootProps &
-  VariantProps<typeof toggleVariants> &
-  VariantProps<typeof toggleVariants> & {
+  VariantProps<typeof toggleVariants> 
+   & {
     ref?: React.RefObject<TogglePrimitive.RootRef>;
   }) {
   return (

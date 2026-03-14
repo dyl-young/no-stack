@@ -70,10 +70,11 @@ export function AuthAvatar() {
 }
 
 export function ThemeToggle() {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+  const nativewind = useColorScheme();
+  const { colorScheme } = nativewind;
   return (
     <HeaderButton
-      onPress={toggleColorScheme}
+      onPress={() => nativewind.toggleColorScheme()}
       accessibilityLabel={`Switch to ${colorScheme === "dark" ? "light" : "dark"} mode`}
       className="p-2"
     >

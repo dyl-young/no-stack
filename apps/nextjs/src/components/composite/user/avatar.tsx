@@ -42,7 +42,7 @@ export function UserAvatar({ imageUrl, name, email }: UserAvatarProps = {}) {
     imageUrl ?? (hasUserData ? undefined : userProfile?.image) ?? undefined;
 
   const userInitials =
-    initials(resolvedName || resolvedEmail || "").slice(0, 2) || "?";
+    initials(resolvedName ?? resolvedEmail ?? "").slice(0, 2) || "?";
 
   // Ref callback catches images that failed before React hydration
   const imgRef = useCallback(

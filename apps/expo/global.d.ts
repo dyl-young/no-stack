@@ -1,4 +1,4 @@
-import Reactotron from "@/util/reactotron";
+import type Reactotron from "@/util/reactotron";
 
 declare global {
   interface Console {

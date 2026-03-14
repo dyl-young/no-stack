@@ -10,15 +10,11 @@ export async function uploadAvatar(
   const fileName = `${Date.now()}.${fileExt}`;
   const filePath = `${userId}/${fileName}`;
 
-  const { data, error } = await supabase.storage
-    .from("avatars")
-    .upload(filePath, file);
+  await supabase.storage.from("avatars").upload(filePath, file);
 
   const { data: publicUrlData } = supabase.storage
     .from("avatars")
     .getPublicUrl(filePath);
 
-  const publicUrl = publicUrlData?.publicUrl;
-
-  return publicUrl;
+  return publicUrlData.publicUrl;
 }

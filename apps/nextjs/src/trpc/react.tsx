@@ -1,15 +1,15 @@
 "use client";
 
+import type { TRPCLink } from "@trpc/client";
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   createTRPCClient,
   httpBatchStreamLink,
   loggerLink,
-  TRPCLink,
 } from "@trpc/client";
-import { createTRPCContext } from "@trpc/tanstack-react-query";
 import { observable } from "@trpc/server/observable";
+import { createTRPCContext } from "@trpc/tanstack-react-query";
 import SuperJSON from "superjson";
 
 import type { AppRouter } from "@no-stack/api";
@@ -97,11 +97,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
               observable((observer) => {
                 return next(op).subscribe({
                   next(value) {
-                    if (
-                      op.type === "mutation" &&
-                      value.result &&
-                      "error" in value.result
-                    ) {
+                    if (op.type === "mutation" && "error" in value.result) {
                       const result = value.result as { error?: unknown };
                       const description =
                         getErrorMessage(result.error) || "Unknown error";
@@ -121,7 +117,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
                     }
 
                     if (op.type === "mutation") {
-                      const operationName = op.path.split(".").pop() || op.path;
+                      const operationName = op.path.split(".").pop() ?? op.path;
                       const rawMsg = getErrorMessage(err);
                       let errorMsg: string;
 

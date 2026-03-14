@@ -7,6 +7,7 @@ import type {
   FieldValues,
   UseFormProps,
 } from "react-hook-form";
+import type { z } from "zod";
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Slot } from "radix-ui";
@@ -16,7 +17,6 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form";
-import { z } from "zod";
 
 import { cn } from "@/lib/utils";
 import { Label } from "./label";
@@ -29,7 +29,7 @@ const useForm = <TSchema extends z.ZodType<any, any>>(
 ) => {
   const form = __useForm<z.input<TSchema>>({
     ...props,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
     resolver: zodResolver(props.schema) as any,
   });
 
@@ -145,7 +145,6 @@ const FormControl = React.forwardRef<
   );
 });
 FormControl.displayName = "FormControl";
-
 
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,

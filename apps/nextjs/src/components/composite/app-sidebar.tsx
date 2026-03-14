@@ -1,25 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Brain,
-  ChevronUp,
-  Disc3,
-  File,
-  FileText,
-  FormInput,
-  Home,
-} from "lucide-react";
+import { FileText, Home } from "lucide-react";
 
-import { SignOutButtonSlim } from "@/components/composite/auth/sign-out-button";
-import { UserAvatar } from "@/components/composite/user/avatar";
-import { UserDisplayName } from "@/components/composite/user/user-display-name";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Sidebar,
   SidebarContent,

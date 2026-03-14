@@ -26,7 +26,9 @@ export default function RootLayout() {
   const { colorScheme } = useColorScheme();
 
   if (__DEV__) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports -- Reactotron dev-only dynamic require
     const { default: tron } = require("~/utils/reactotron");
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     console.tron = tron;
   }
 

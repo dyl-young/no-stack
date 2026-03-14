@@ -1,5 +1,6 @@
 import type { VariantProps } from "class-variance-authority";
-import { View, ViewProps } from "react-native";
+import type { ViewProps } from "react-native";
+import { View } from "react-native";
 import * as Slot from "@rn-primitives/slot";
 import { cva } from "class-variance-authority";
 
@@ -26,7 +27,7 @@ const badgeVariants = cva(
   },
 );
 
-const badgeTextVariants = cva("text-xs font-semibold ", {
+const badgeTextVariants = cva("text-xs font-semibold", {
   variants: {
     variant: {
       default: "text-primary-foreground",

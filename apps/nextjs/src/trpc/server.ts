@@ -17,6 +17,7 @@ const createContext = cache(async () => {
   const supabaseAdminServerClient = createAdminClient();
 
   return createTRPCContext({
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Supabase SDK generic variance mismatch
     supabase,
     supabaseAdminServerClient,
     headers: heads,

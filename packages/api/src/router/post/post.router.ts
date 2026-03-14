@@ -1,6 +1,5 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import { TRPCError } from "@trpc/server";
-import { z } from "zod";
 
 import { desc, eq } from "@no-stack/db";
 import { Post } from "@no-stack/db/schema";

@@ -4,9 +4,9 @@ import { FontAwesome } from "@expo/vector-icons";
 import initials from "initials";
 import { useColorScheme } from "nativewind";
 
+import type { UserProfile } from "./types";
 import { Text } from "~/components/ui/text";
 import { cn } from "~/lib/utils";
-import { UserProfile } from "./types";
 
 interface UserAvatarProps {
   userProfile?: UserProfile;
@@ -25,7 +25,7 @@ export function UserAvatar({ userProfile, size = "medium" }: UserAvatarProps) {
   const iconSize = size === "small" ? 16 : size === "medium" ? 24 : 32;
 
   const fallbackInitials = userProfile
-    ? initials(userProfile.name ?? userProfile.email ?? "").slice(0, 2)
+    ? initials(userProfile.name || (userProfile.email ?? "")).slice(0, 2)
     : null;
 
   if (userProfile?.image && !imgError) {

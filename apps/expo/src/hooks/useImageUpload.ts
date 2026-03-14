@@ -4,7 +4,8 @@ import * as ImagePicker from "expo-image-picker";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner-native";
 
-import { FilePrivacy, uploadImageFile } from "@no-stack/files";
+import type { FilePrivacy } from "@no-stack/files";
+import { uploadImageFile } from "@no-stack/files";
 
 import { useTRPC } from "~/utils/api";
 import { supabase } from "~/utils/supabase";
@@ -17,12 +18,14 @@ export const useImageUpload = () => {
 
   // Get API mutations
   const trpc = useTRPC();
+  /* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- tRPC types not resolved in Expo */
   const createPublicImageMutation = useMutation(
     trpc.files.createPublicImage.mutationOptions(),
   );
   const createPrivateImageMutation = useMutation(
     trpc.files.createPrivateImage.mutationOptions(),
   );
+  /* eslint-enable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 
   const pickImage = async (source: "gallery" | "camera") => {
     const permissionFn =
@@ -31,7 +34,7 @@ export const useImageUpload = () => {
         : ImagePicker.requestCameraPermissionsAsync;
 
     const { status } = await permissionFn();
-    if (status !== "granted") {
+    if (status !== ImagePicker.PermissionStatus.GRANTED) {
       setError(`Permission to access ${source} is required!`);
       return;
     }

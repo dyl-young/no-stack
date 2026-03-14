@@ -75,7 +75,7 @@ function MenubarSubTrigger({
   return (
     <TextClassContext.Provider
       value={cn(
-        "native:text-lg select-none text-sm text-primary",
+        "native:text-lg text-sm text-primary select-none",
         open && "native:text-accent-foreground",
       )}
     >
@@ -108,7 +108,7 @@ function MenubarSubContent({
         "z-50 mt-1 min-w-[8rem] overflow-hidden rounded-md border border-border bg-popover p-1 shadow-sm shadow-foreground/5 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         open
           ? "web:animate-in web:fade-in-0 web:zoom-in-95"
-          : "web:animate-out web:fade-out-0 web:zoom-out ",
+          : "web:animate-out web:fade-out-0 web:zoom-out",
         className,
       )}
       {...props}
@@ -179,7 +179,7 @@ function MenubarCheckboxItem({
   return (
     <MenubarPrimitive.CheckboxItem
       className={cn(
-        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pl-8 pr-2 active:bg-accent",
+        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pr-2 pl-8 active:bg-accent",
         props.disabled && "web:pointer-events-none opacity-50",
         className,
       )}
@@ -207,7 +207,7 @@ function MenubarRadioItem({
   return (
     <MenubarPrimitive.RadioItem
       className={cn(
-        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pl-8 pr-2 active:bg-accent",
+        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pr-2 pl-8 active:bg-accent",
         props.disabled && "web:pointer-events-none opacity-50",
         className,
       )}

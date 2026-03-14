@@ -21,9 +21,9 @@ function ThemeToggle() {
   }, []);
 
   return (
-    <div className="flex flex-row rounded-full bg-accent ring-1 ring-inset ring-zinc-500">
+    <div className="flex flex-row rounded-full bg-accent ring-1 ring-zinc-500 ring-inset">
       <span
-        ref={buttonRefs["light"]}
+        ref={buttonRefs.light}
         onClick={() => setTheme("light")}
         className={`flex flex-1 rounded-full border p-1 ${
           mounted && theme === "light"
@@ -34,7 +34,7 @@ function ThemeToggle() {
         <Sun size={16} />
       </span>
       <span
-        ref={buttonRefs["dark"]}
+        ref={buttonRefs.dark}
         onClick={() => setTheme("dark")}
         className={`flex flex-1 rounded-full border p-1 ${
           mounted && theme === "dark"
@@ -45,7 +45,7 @@ function ThemeToggle() {
         <Moon size={16} />
       </span>
       <span
-        ref={buttonRefs["system"]}
+        ref={buttonRefs.system}
         onClick={() => setTheme("system")}
         className={`flex flex-1 rounded-full border p-1 ${
           mounted && theme === "system"

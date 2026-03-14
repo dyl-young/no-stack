@@ -13,7 +13,7 @@ export default function LandingPage() {
 
       <main className="flex flex-grow flex-col items-center justify-center px-4">
         <div className="w-full max-w-4xl space-y-8">
-          <div className="relative h-64 w-full md:h-80 lg:h-96">
+          <div className="relative h-32 w-full md:h-50 lg:h-68 xl:h-96">
             <ThemedLogo />
           </div>
           <div className="fixed bottom-4 right-4">

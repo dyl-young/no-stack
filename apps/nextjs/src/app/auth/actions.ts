@@ -34,7 +34,6 @@ export const signInWithPassword = actionClient
 export const signUp = actionClient
   .schema(SignUpSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    const origin = (await headers()).get("origin");
     const supabase = await createClient();
 
     const { error, data } = await supabase.auth.signUp({
@@ -43,7 +42,7 @@ export const signUp = actionClient
     });
 
     // User already exists, so fake data is returned. See https://supabase.com/docs/reference/javascript/auth-signup
-    if (data.user?.identities && data.user.identities.length === 0) {
+    if (data.user?.identities?.length === 0) {
       throw new Error("An error occurred. Please try again.");
     }
 
@@ -63,7 +62,7 @@ export const signInWithGithub = async () => {
   });
 
   if (res.data.url) redirect(res.data.url);
-  throw res.error;
+  throw res.error ?? new Error("OAuth sign-in failed");
 };
 
 export const signOut = async () => {

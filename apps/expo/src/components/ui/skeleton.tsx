@@ -22,6 +22,7 @@ function Skeleton({
       withSequence(withTiming(0.5, { duration }), withTiming(1, { duration })),
       -1,
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- sv is a stable shared value from useSharedValue
   }, []);
 
   const style = useAnimatedStyle(() => ({
