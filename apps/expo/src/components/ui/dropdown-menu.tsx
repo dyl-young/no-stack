@@ -45,7 +45,7 @@ function DropdownMenuSubTrigger({
     >
       <DropdownMenuPrimitive.SubTrigger
         className={cn(
-          "web:cursor-default web:select-none web:focus:bg-accent web:hover:bg-accent native:py-2 web:outline-none flex flex-row items-center gap-2 rounded-sm px-2 py-1.5 active:bg-accent",
+          "web:cursor-default web:select-none web:focus:bg-accent web:hover:bg-accent native:py-2 web:outline-hidden flex flex-row items-center gap-2 rounded-xs px-2 py-1.5 active:bg-accent",
           open && "bg-accent",
           inset && "pl-8",
           className,
@@ -69,7 +69,7 @@ function DropdownMenuSubContent({
   return (
     <DropdownMenuPrimitive.SubContent
       className={cn(
-        "z-50 mt-1 min-w-[8rem] overflow-hidden rounded-md border border-border bg-popover p-1 shadow-md shadow-foreground/5 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        "z-50 mt-1 min-w-[8rem] overflow-hidden rounded-md border border-border bg-popover p-1 shadow-sm shadow-foreground/5 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         open
           ? "web:animate-in web:fade-in-0 web:zoom-in-95"
           : "web:animate-out web:fade-out-0 web:zoom-out",
@@ -110,7 +110,7 @@ function DropdownMenuContent({
       >
         <DropdownMenuPrimitive.Content
           className={cn(
-            "web:data-[side=bottom]:slide-in-from-top-2 web:data-[side=left]:slide-in-from-right-2 web:data-[side=right]:slide-in-from-left-2 web:data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] overflow-hidden rounded-md border border-border bg-popover p-1 shadow-md shadow-foreground/5",
+            "web:data-[side=bottom]:slide-in-from-top-2 web:data-[side=left]:slide-in-from-right-2 web:data-[side=right]:slide-in-from-left-2 web:data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] overflow-hidden rounded-md border border-border bg-popover p-1 shadow-sm shadow-foreground/5",
             open
               ? "web:animate-in web:fade-in-0 web:zoom-in-95"
               : "web:animate-out web:fade-out-0 web:zoom-out-95",
@@ -136,7 +136,7 @@ function DropdownMenuItem({
     <TextClassContext.Provider value="select-none text-sm native:text-lg text-popover-foreground web:group-focus:text-accent-foreground">
       <DropdownMenuPrimitive.Item
         className={cn(
-          "web:cursor-default native:py-2 web:outline-none web:focus:bg-accent web:hover:bg-accent group relative flex flex-row items-center gap-2 rounded-sm px-2 py-1.5 active:bg-accent",
+          "web:cursor-default native:py-2 web:outline-hidden web:focus:bg-accent web:hover:bg-accent group relative flex flex-row items-center gap-2 rounded-xs px-2 py-1.5 active:bg-accent",
           inset && "pl-8",
           props.disabled && "web:pointer-events-none opacity-50",
           className,
@@ -159,7 +159,7 @@ function DropdownMenuCheckboxItem({
   return (
     <DropdownMenuPrimitive.CheckboxItem
       className={cn(
-        "web:cursor-default web:group native:py-2 web:outline-none web:focus:bg-accent relative flex flex-row items-center rounded-sm py-1.5 pl-8 pr-2 active:bg-accent",
+        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pl-8 pr-2 active:bg-accent",
         props.disabled && "web:pointer-events-none opacity-50",
         className,
       )}
@@ -187,7 +187,7 @@ function DropdownMenuRadioItem({
   return (
     <DropdownMenuPrimitive.RadioItem
       className={cn(
-        "web:cursor-default web:group native:py-2 web:outline-none web:focus:bg-accent relative flex flex-row items-center rounded-sm py-1.5 pl-8 pr-2 active:bg-accent",
+        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pl-8 pr-2 active:bg-accent",
         props.disabled && "web:pointer-events-none opacity-50",
         className,
       )}

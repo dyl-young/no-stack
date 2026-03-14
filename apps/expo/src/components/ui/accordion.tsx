@@ -86,7 +86,7 @@ function AccordionTrigger({
         <AccordionPrimitive.Trigger {...props} asChild>
           <Trigger
             className={cn(
-              "web:flex-1 web:transition-all web:focus-visible:outline-none web:focus-visible:ring-1 web:focus-visible:ring-muted-foreground group flex flex-row items-center justify-between py-4",
+              "web:flex-1 web:transition-all web:focus-visible:outline-hidden web:focus-visible:ring-1 web:focus-visible:ring-muted-foreground group flex flex-row items-center justify-between py-4",
               className,
             )}
           >

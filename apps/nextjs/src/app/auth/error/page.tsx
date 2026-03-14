@@ -20,7 +20,7 @@ export default function AuthErrorPage() {
     "An error occurred during authentication";
 
   return (
-    <Card className="w-[400px] p-4 shadow-md">
+    <Card className="w-[400px] p-4 shadow-sm">
       <CardHeader>
         <div className="flex flex-col items-center justify-center space-y-2">
           <h1 className="text-2xl font-semibold">Authentication Error</h1>

@@ -81,7 +81,7 @@ function AlertDialogContent({
       <AlertDialogOverlay>
         <AlertDialogPrimitive.Content
           className={cn(
-            "web:duration-200 z-50 max-w-lg gap-4 rounded-lg border border-border bg-background p-6 shadow-lg shadow-foreground/10",
+            "web:duration-200 z-50 max-w-lg gap-4 rounded-lg border border-border bg-background p-6 shadow-md shadow-foreground/10",
             open
               ? "web:animate-in web:fade-in-0 web:zoom-in-95"
               : "web:animate-out web:fade-out-0 web:zoom-out-95",

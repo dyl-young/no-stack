@@ -56,7 +56,7 @@ function NavigationMenuList({
 const NavigationMenuItem = NavigationMenuPrimitive.Item;
 
 const navigationMenuTriggerStyle = cva(
-  "web:group web:inline-flex native:h-12 native:px-3 web:transition-colors web:hover:bg-accent web:hover:text-accent-foreground web:focus:bg-accent web:focus:text-accent-foreground web:focus:outline-none web:disabled:pointer-events-none web:data-[active]:bg-accent/50 web:data-[state=open]:bg-accent/50 h-10 w-max flex-row items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium active:bg-accent disabled:opacity-50",
+  "web:group web:inline-flex native:h-12 native:px-3 web:transition-colors web:hover:bg-accent web:hover:text-accent-foreground web:focus:bg-accent web:focus:text-accent-foreground web:focus:outline-hidden web:disabled:pointer-events-none web:data-[active]:bg-accent/50 web:data-[state=open]:bg-accent/50 h-10 w-max flex-row items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium active:bg-accent disabled:opacity-50",
 );
 
 function NavigationMenuTrigger({
@@ -119,7 +119,7 @@ function NavigationMenuContent({
     <NavigationMenuPrimitive.Portal hostName={portalHost}>
       <NavigationMenuPrimitive.Content
         className={cn(
-          "native:border native:border-border native:rounded-lg native:shadow-lg native:bg-popover native:text-popover-foreground native:overflow-hidden w-full",
+          "native:border native:border-border native:rounded-lg native:shadow-md native:bg-popover native:text-popover-foreground native:overflow-hidden w-full",
           value === itemValue
             ? "web:animate-in web:fade-in web:slide-in-from-right-20"
             : "web:animate-out web:fade-out web:slide-out-to-left-20",
@@ -150,7 +150,7 @@ function NavigationMenuViewport({
     <View className={cn("absolute left-0 top-full flex justify-center")}>
       <View
         className={cn(
-          "web:origin-top-center web:h-[var(--radix-navigation-menu-viewport-height)] web:animate-in web:zoom-in-90 relative mt-1.5 w-full overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-lg",
+          "web:origin-top-center web:h-[var(--radix-navigation-menu-viewport-height)] web:animate-in web:zoom-in-90 relative mt-1.5 w-full overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-md",
           className,
         )}
         {...props}
@@ -183,7 +183,7 @@ function NavigationMenuIndicator({
       )}
       {...props}
     >
-      <View className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md shadow-foreground/5" />
+      <View className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-sm shadow-foreground/5" />
     </NavigationMenuPrimitive.Indicator>
   );
 }

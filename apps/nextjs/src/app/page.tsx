@@ -20,7 +20,7 @@ export default function LandingPage() {
             <ThemeToggle />
           </div>
 
-          <div className="rounded-lg bg-card p-6 text-card-foreground shadow-lg">
+          <div className="rounded-lg bg-card p-6 text-card-foreground shadow-md">
             <h1 className="mb-4 text-center text-2xl font-bold">no-stack</h1>
             <div className="text-muted-foreground">
               <p>A full-stack starter for web and native applications.</p>

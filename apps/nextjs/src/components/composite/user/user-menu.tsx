@@ -100,7 +100,7 @@ function SidebarTrigger() {
         className="group flex h-auto w-full justify-between p-2"
       >
         <div className="flex w-full items-center gap-2">
-          <div className="h-6 w-6 flex-shrink-0">
+          <div className="h-6 w-6 shrink-0">
             <UserAvatar />
           </div>
           <div className="flex w-full flex-row items-center justify-between truncate group-data-[collapsible=icon]:hidden">

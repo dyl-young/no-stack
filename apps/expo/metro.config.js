@@ -5,10 +5,7 @@ const { FileStore } = require("metro-cache");
 const { withNativeWind } = require("nativewind/metro");
 
 module.exports = withTurborepoManagedCache(
-  withNativeWind(getDefaultConfig(__dirname), {
-    input: "./src/styles.css",
-    configPath: "./tailwind.config.ts",
-  }),
+  withNativeWind(getDefaultConfig(__dirname)),
 );
 
 /**

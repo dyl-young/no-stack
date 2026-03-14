@@ -16,7 +16,7 @@ export default function PostsPage() {
 
   return (
     <main className="">
-      <div className="rounded-lg bg-card p-6 text-card-foreground shadow-lg">
+      <div className="rounded-lg bg-card p-6 text-card-foreground shadow-md">
         <h1 className="mb-4 text-center text-2xl font-bold">Posts</h1>
         <div className="text-muted-foreground">
           <p>Perform CRUD operations to the posts table in the database</p>

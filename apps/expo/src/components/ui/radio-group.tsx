@@ -26,7 +26,7 @@ function RadioGroupItem({
   return (
     <RadioGroupPrimitive.Item
       className={cn(
-        "native:h-5 native:w-5 web:ring-offset-background web:focus:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2 aspect-square h-4 w-4 items-center justify-center rounded-full border border-primary text-primary",
+        "native:h-5 native:w-5 web:ring-offset-background web:focus:outline-hidden web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2 aspect-square h-4 w-4 items-center justify-center rounded-full border border-primary text-primary",
         props.disabled && "web:cursor-not-allowed opacity-50",
         className,
       )}
