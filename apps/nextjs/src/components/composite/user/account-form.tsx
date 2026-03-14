@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { RouterOutputs } from "@no-stack/api";
 
@@ -25,7 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/sonner";
-import { api } from "@/trpc/react";
+import { useTRPC } from "@/trpc/react";
 import { uploadAvatar } from "@/utils/supabase/storage";
 
 type UserProfile = RouterOutputs["user"]["getUserProfile"];
@@ -36,27 +37,31 @@ interface AccountFormProps {
 
 export function AccountForm({ initialProfile }: AccountFormProps) {
   const router = useRouter();
-  const utils = api.useUtils();
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
   const [name, setName] = useState(initialProfile?.name ?? "");
   const [imageUrl, setImageUrl] = useState(initialProfile?.image ?? "");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState("");
   const [isUploading, setIsUploading] = useState(false);
 
-  const { mutate: updateProfile, isPending: isUpdating } =
-    api.user.updateUserProfile.useMutation({
+  const { mutate: updateProfile, isPending: isUpdating } = useMutation(
+    trpc.user.updateUserProfile.mutationOptions({
       onSuccess: async () => {
-        await utils.user.invalidate();
+        await queryClient.invalidateQueries({
+          queryKey: [["user"]],
+        });
         toast.success("Profile updated.");
         router.refresh();
       },
       onError: (error) => {
         toast.error(error.message);
       },
-    });
+    }),
+  );
 
-  const { mutate: deleteProfile, isPending: isDeleting } =
-    api.user.deleteUserProfile.useMutation({
+  const { mutate: deleteProfile, isPending: isDeleting } = useMutation(
+    trpc.user.deleteUserProfile.mutationOptions({
       onSuccess: () => {
         setShowDeleteDialog(false);
         router.push("/");
@@ -64,7 +69,8 @@ export function AccountForm({ initialProfile }: AccountFormProps) {
       onError: (error) => {
         toast.error(error.message);
       },
-    });
+    }),
+  );
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();

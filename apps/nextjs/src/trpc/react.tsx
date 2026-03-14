@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
+  createTRPCClient,
+  httpBatchStreamLink,
   loggerLink,
   TRPCLink,
-  unstable_httpBatchStreamLink,
 } from "@trpc/client";
-import { createTRPCReact } from "@trpc/react-query";
+import { createTRPCContext } from "@trpc/tanstack-react-query";
 import { observable } from "@trpc/server/observable";
 import SuperJSON from "superjson";
 
@@ -15,6 +16,8 @@ import type { AppRouter } from "@no-stack/api";
 
 import { toast } from "~/components/ui/sonner";
 import { env } from "~/env";
+
+export const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
 
 const createQueryClient = () =>
   new QueryClient({
@@ -38,13 +41,11 @@ const getQueryClient = () => {
   }
 };
 
-export const api = createTRPCReact<AppRouter>();
-
 export function TRPCReactProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 
   const [trpcClient] = useState(() =>
-    api.createClient({
+    createTRPCClient<AppRouter>({
       links: [
         loggerLink({
           enabled: (op) =>
@@ -155,7 +156,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
 
           return link;
         })(),
-        unstable_httpBatchStreamLink({
+        httpBatchStreamLink({
           transformer: SuperJSON,
           url: getBaseUrl() + "/api/trpc",
           headers() {
@@ -170,9 +171,9 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <api.Provider client={trpcClient} queryClient={queryClient}>
+      <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
         {props.children}
-      </api.Provider>
+      </TRPCProvider>
     </QueryClientProvider>
   );
 }

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Link, Stack } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import initials from "initials";
 import { toast } from "sonner-native";
 
@@ -17,7 +18,7 @@ import type { RouterOutputs } from "~/utils/api";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Text } from "~/components/ui/text";
-import { api } from "~/utils/api";
+import { useTRPC } from "~/utils/api";
 
 function PostAuthorAvatar({
   image,
@@ -54,21 +55,27 @@ function PostAuthorAvatar({
 function PostCard(props: { post: RouterOutputs["post"]["all"][number] }) {
   const { post } = props;
 
-  const utils = api.useUtils();
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
 
-  const { mutate: deletePost } = api.post.delete.useMutation({
-    onSuccess: async () => {
-      toast.success("Post deleted successfully!");
-    },
-    onSettled: () => utils.post.all.invalidate(),
-    onError: (error) => {
-      if (error.data?.code === "UNAUTHORIZED") {
-        toast.error("Only the author can delete their post.");
-      } else {
-        toast.error("Something went wrong, please try again.");
-      }
-    },
-  });
+  const { mutate: deletePost } = useMutation(
+    trpc.post.delete.mutationOptions({
+      onSuccess: async () => {
+        toast.success("Post deleted successfully!");
+      },
+      onSettled: () =>
+        queryClient.invalidateQueries({
+          queryKey: trpc.post.all.queryKey(),
+        }),
+      onError: (error) => {
+        if (error.data?.code === "UNAUTHORIZED") {
+          toast.error("Only the author can delete their post.");
+        } else {
+          toast.error("Something went wrong, please try again.");
+        }
+      },
+    }),
+  );
 
   return (
     <View className="mx-2 flex flex-row rounded-lg bg-muted p-4">
@@ -102,27 +109,32 @@ function PostCard(props: { post: RouterOutputs["post"]["all"][number] }) {
 }
 
 function CreatePost() {
-  const utils = api.useUtils();
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
 
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
 
-  const { mutate: createPost, error } = api.post.create.useMutation({
-    onSuccess: async () => {
-      setTitle("");
-      setContent("");
-      Keyboard.dismiss();
-      await utils.post.all.invalidate();
-      toast.success("Post created!");
-    },
-    onError: (error) => {
-      if (error.data?.code === "UNAUTHORIZED") {
-        toast.error("You must be logged in to create a post.");
-      } else {
-        toast.error("Something went wrong, please try again.");
-      }
-    },
-  });
+  const { mutate: createPost, error } = useMutation(
+    trpc.post.create.mutationOptions({
+      onSuccess: async () => {
+        setTitle("");
+        setContent("");
+        Keyboard.dismiss();
+        await queryClient.invalidateQueries({
+          queryKey: trpc.post.all.queryKey(),
+        });
+        toast.success("Post created!");
+      },
+      onError: (error) => {
+        if (error.data?.code === "UNAUTHORIZED") {
+          toast.error("You must be logged in to create a post.");
+        } else {
+          toast.error("Something went wrong, please try again.");
+        }
+      },
+    }),
+  );
 
   return (
     <KeyboardAvoidingView
@@ -170,9 +182,10 @@ function CreatePost() {
 }
 
 export default function HomeScreen() {
-  const utils = api.useUtils();
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
 
-  const postQuery = api.post.all.useQuery();
+  const postQuery = useQuery(trpc.post.all.queryOptions());
 
   return (
     <View className="h-full w-full bg-background p-4">
@@ -183,7 +196,14 @@ export default function HomeScreen() {
           ),
         }}
       />
-      <Button className="my-4" onPress={() => void utils.post.all.invalidate()}>
+      <Button
+        className="my-4"
+        onPress={() =>
+          void queryClient.invalidateQueries({
+            queryKey: trpc.post.all.queryKey(),
+          })
+        }
+      >
         <Text>Refresh posts</Text>
       </Button>
       <View className="py-2">

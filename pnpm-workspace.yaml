@@ -7,10 +7,9 @@ packages:
 
 catalog:
   "@tanstack/react-query": ^5.87.1
-  "@trpc/client": ^11.5.1
-  "@trpc/react-query": ^11.6.0
-  "@trpc/server": ^11.5.1
-  "@trpc/tanstack-react-query": ^11.5.1
+  "@trpc/client": ^11.7.1
+  "@trpc/server": ^11.7.1
+  "@trpc/tanstack-react-query": ^11.7.1
   "@types/node": ^22.18.1
   eslint: ^9.37.0
   prettier: ^3.6.2

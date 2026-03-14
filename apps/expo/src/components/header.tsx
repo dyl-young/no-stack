@@ -4,9 +4,10 @@ import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useSession } from "@supabase/auth-helpers-react";
+import { useQuery } from "@tanstack/react-query";
 import { useColorScheme } from "nativewind";
 
-import { api } from "~/utils/api";
+import { useTRPC } from "~/utils/api";
 import { UserAvatar } from "./user-avatar";
 
 function HeaderButton({
@@ -47,7 +48,9 @@ export function AuthAvatar() {
   const color = colorScheme == "dark" ? "#F2F2F3" : "#232325";
   const session = useSession();
   const userId = session?.user.id;
-  const { data: userProfile } = api.user.getUserProfile.useQuery(undefined, {
+  const trpc = useTRPC();
+  const { data: userProfile } = useQuery({
+    ...trpc.user.getUserProfile.queryOptions(),
     enabled: !!userId,
   });
 

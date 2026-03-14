@@ -1,21 +1,26 @@
 "use client";
 
-import { api } from "@/trpc/react";
+import { useQuery } from "@tanstack/react-query";
+
+import { useTRPC } from "@/trpc/react";
 
 export function UserDisplayName({
   preferEmail = false,
 }: { preferEmail?: boolean } = {}) {
-  const { data: user, isLoading: isLoadingAuth } = api.auth.me.useQuery();
+  const trpc = useTRPC();
+  const { data: user, isLoading: isLoadingAuth } = useQuery(
+    trpc.auth.me.queryOptions(),
+  );
 
   // Only query user profile if auth check is complete AND user is authenticated
   const shouldQueryProfile = !isLoadingAuth && !!user;
-  const { data: userProfile, isLoading: _isLoading } =
-    api.user.getUserProfile.useQuery(undefined, {
-      enabled: shouldQueryProfile,
-      retry: false,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-    });
+  const { data: userProfile, isLoading: _isLoading } = useQuery({
+    ...trpc.user.getUserProfile.queryOptions(),
+    enabled: shouldQueryProfile,
+    retry: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
   if (isLoadingAuth) {
     return (

@@ -2,8 +2,8 @@ import { useState } from "react";
 import Constants from "expo-constants";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { httpBatchLink, loggerLink } from "@trpc/client";
-import { createTRPCReact } from "@trpc/react-query";
+import { createTRPCClient, httpBatchLink, loggerLink } from "@trpc/client";
+import { createTRPCContext } from "@trpc/tanstack-react-query";
 import superjson from "superjson";
 
 import type { AppRouter } from "@no-stack/api";
@@ -11,7 +11,8 @@ import type { AppRouter } from "@no-stack/api";
 /**
  * A set of typesafe hooks for consuming your API.
  */
-export const api = createTRPCReact<AppRouter>();
+export const { TRPCProvider: TRPCInnerProvider, useTRPC } =
+  createTRPCContext<AppRouter>();
 export { type RouterInputs, type RouterOutputs } from "@no-stack/api";
 
 const getBaseUrl = () => {
@@ -54,7 +55,7 @@ export const TRPCProvider = (props: { children: React.ReactNode }) => {
 
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
-    api.createClient({
+    createTRPCClient<AppRouter>({
       links: [
         loggerLink({
           enabled: (opts) =>
@@ -86,10 +87,10 @@ export const TRPCProvider = (props: { children: React.ReactNode }) => {
   );
 
   return (
-    <api.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <TRPCInnerProvider trpcClient={trpcClient} queryClient={queryClient}>
         {props.children}
-      </QueryClientProvider>
-    </api.Provider>
+      </TRPCInnerProvider>
+    </QueryClientProvider>
   );
 };

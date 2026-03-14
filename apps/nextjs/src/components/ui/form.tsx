@@ -7,7 +7,6 @@ import type {
   FieldValues,
   UseFormProps,
 } from "react-hook-form";
-import type { ZodType } from "zod";
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Slot } from "radix-ui";
@@ -17,18 +16,21 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form";
+import { z } from "zod";
 
 import { cn } from "@/lib/utils";
 import { Label } from "./label";
 
-const useForm = <TOut, TIn extends FieldValues>(
-  props: Omit<UseFormProps<TIn>, "resolver"> & {
-    schema: ZodType<TOut, TIn>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const useForm = <TSchema extends z.ZodType<any, any>>(
+  props: Omit<UseFormProps<z.input<TSchema>>, "resolver"> & {
+    schema: TSchema;
   },
 ) => {
-  const form = __useForm<TIn>({
+  const form = __useForm<z.input<TSchema>>({
     ...props,
-    resolver: zodResolver(props.schema, undefined),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(props.schema) as any,
   });
 
   return form;

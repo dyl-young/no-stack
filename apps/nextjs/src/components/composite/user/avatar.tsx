@@ -1,11 +1,12 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import initials from "initials";
 import { User } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar";
-import { api } from "~/trpc/react";
+import { useTRPC } from "~/trpc/react";
 
 interface UserAvatarProps {
   /** Override the image URL directly */
@@ -20,21 +21,20 @@ export function UserAvatar({ imageUrl, name, email }: UserAvatarProps = {}) {
   const [imgError, setImgError] = useState(false);
   const hasUserData = name !== undefined || email !== undefined;
 
-  const { data: user, isLoading: isLoadingAuth } = api.auth.me.useQuery(
-    undefined,
-    { enabled: !hasUserData },
-  );
+  const trpc = useTRPC();
+  const { data: user, isLoading: isLoadingAuth } = useQuery({
+    ...trpc.auth.me.queryOptions(),
+    enabled: !hasUserData,
+  });
 
   const shouldQueryProfile = !hasUserData && !isLoadingAuth && !!user;
-  const { data: userProfile, isLoading } = api.user.getUserProfile.useQuery(
-    undefined,
-    {
-      enabled: shouldQueryProfile,
-      retry: false,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-    },
-  );
+  const { data: userProfile, isLoading } = useQuery({
+    ...trpc.user.getUserProfile.queryOptions(),
+    enabled: shouldQueryProfile,
+    retry: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
   const resolvedName = hasUserData ? name : userProfile?.name;
   const resolvedEmail = hasUserData ? email : userProfile?.email;

@@ -1,11 +1,12 @@
 "use client";
 
 import { use } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { RouterOutputs } from "@no-stack/api";
 import { CreatePostSchema } from "@no-stack/validators";
 
-import { api } from "~/trpc/react";
+import { useTRPC } from "~/trpc/react";
 import { UserAvatar } from "@/components/composite/user/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,20 +30,23 @@ export function CreatePostForm() {
     },
   });
 
-  const utils = api.useUtils();
-  const createPost = api.post.create.useMutation({
-    onSuccess: async () => {
-      form.reset();
-      await utils.post.invalidate();
-    },
-    onError: (err) => {
-      toast.error(
-        err.data?.code === "UNAUTHORIZED"
-          ? "You must be logged in to post"
-          : "Failed to create post",
-      );
-    },
-  });
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+  const createPost = useMutation(
+    trpc.post.create.mutationOptions({
+      onSuccess: async () => {
+        form.reset();
+        await queryClient.invalidateQueries({ queryKey: [["post"]] });
+      },
+      onError: (err) => {
+        toast.error(
+          err.data?.code === "UNAUTHORIZED"
+            ? "You must be logged in to post"
+            : "Failed to create post",
+        );
+      },
+    }),
+  );
 
   return (
     <Form {...form}>
@@ -87,7 +91,9 @@ export function PostList(props: {
 }) {
   // TODO: Make `useSuspenseQuery` work without having to pass a promise from RSC
   const initialData = use(props.posts);
-  const { data: posts } = api.post.all.useQuery(undefined, {
+  const trpc = useTRPC();
+  const { data: posts } = useQuery({
+    ...trpc.post.all.queryOptions(),
     initialData,
   });
 
@@ -117,19 +123,24 @@ export function PostList(props: {
 export function PostCard(props: {
   post: RouterOutputs["post"]["all"][number];
 }) {
-  const utils = api.useUtils();
-  const deletePost = api.post.delete.useMutation({
-    onSuccess: async () => {
-      await utils.post.invalidate();
-    },
-    onError: (err) => {
-      toast.error(
-        err.data?.code === "UNAUTHORIZED"
-          ? "Only authors can delete their posts"
-          : "Failed to delete post",
-      );
-    },
-  });
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+  const deletePost = useMutation(
+    trpc.post.delete.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: [["post"]],
+        });
+      },
+      onError: (err) => {
+        toast.error(
+          err.data?.code === "UNAUTHORIZED"
+            ? "Only authors can delete their posts"
+            : "Failed to delete post",
+        );
+      },
+    }),
+  );
   const { post } = props;
 
   return (

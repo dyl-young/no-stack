@@ -1,11 +1,12 @@
 import { useState } from "react";
 import * as Crypto from "expo-crypto";
 import * as ImagePicker from "expo-image-picker";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner-native";
 
 import { FilePrivacy, uploadImageFile } from "@no-stack/files";
 
-import { api } from "~/utils/api";
+import { useTRPC } from "~/utils/api";
 import { supabase } from "~/utils/supabase";
 
 export const useImageUpload = () => {
@@ -15,8 +16,13 @@ export const useImageUpload = () => {
   const [progress, setProgress] = useState(0);
 
   // Get API mutations
-  const createPublicImageMutation = api.files.createPublicImage.useMutation();
-  const createPrivateImageMutation = api.files.createPrivateImage.useMutation();
+  const trpc = useTRPC();
+  const createPublicImageMutation = useMutation(
+    trpc.files.createPublicImage.mutationOptions(),
+  );
+  const createPrivateImageMutation = useMutation(
+    trpc.files.createPrivateImage.mutationOptions(),
+  );
 
   const pickImage = async (source: "gallery" | "camera") => {
     const permissionFn =
