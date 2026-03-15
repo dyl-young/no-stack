@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { Trash } from "lucide-react";
 
 export function CreatePostForm() {
   const form = useForm({
@@ -144,7 +145,7 @@ export function PostCard(props: {
   const { post } = props;
 
   return (
-    <div className="flex flex-row rounded-lg bg-muted p-4">
+    <div className="flex flex-row rounded-lg bg-accent/80 p-4">
       <div className="mr-2 h-16 w-16 self-center">
         <UserAvatar
           imageUrl={post.author.image ?? undefined}
@@ -159,10 +160,10 @@ export function PostCard(props: {
       <div>
         <Button
           variant="ghost"
-          className="cursor-pointer text-sm font-bold uppercase hover:bg-transparent hover:text-secondary-foreground"
+          className="cursor-pointer text-sm font-bold "
           onClick={() => deletePost.mutate(props.post.id)}
         >
-          Delete
+          DELETE
         </Button>
       </div>
     </div>

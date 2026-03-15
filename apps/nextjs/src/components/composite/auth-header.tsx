@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SignOutButton } from "@/components/composite/auth/sign-out-button";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
-import { ThemedLogo } from "./landing/themed-logo";
+import { AnimatedCubeLogo } from "./animated-cube-logo";
 
 export const AuthHeader = async () => {
   const client = await createClient();
@@ -13,8 +13,8 @@ export const AuthHeader = async () => {
   } = await client.auth.getUser();
 
   const logoLink = (
-    <Link href="/" className="relative mr-auto h-8 w-8 shrink-0">
-      <ThemedLogo />
+    <Link href="/" className="relative mr-auto h-8 w-8 shrink-0 ml-[1px]">
+      <AnimatedCubeLogo size={32} />
     </Link>
   );
 

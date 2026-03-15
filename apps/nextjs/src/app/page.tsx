@@ -1,6 +1,6 @@
 import { AuthHeader } from "@/components/composite/auth-header";
 import { SignUpOrDashboard } from "@/components/composite/landing/sign-up-or-dashboard";
-import { ThemedLogo } from "@/components/composite/landing/themed-logo";
+import { AnimatedCubeLogo } from "@/components/composite/animated-cube-logo";
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/ui/theme";
 
@@ -13,8 +13,8 @@ export default function LandingPage() {
 
       <main className="flex flex-grow flex-col items-center justify-center px-4">
         <div className="w-full max-w-4xl space-y-8">
-          <div className="relative h-32 w-full md:h-50 lg:h-68 xl:h-96">
-            <ThemedLogo />
+          <div className="relative h-32 w-full md:h-50 lg:h-68 xl:h-96 flex items-center justify-center">
+            <AnimatedCubeLogo size={250} />
           </div>
           <div className="fixed bottom-4 right-4">
             <ThemeToggle />

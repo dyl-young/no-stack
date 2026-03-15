@@ -16,7 +16,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { ThemedLogo } from "./landing/themed-logo";
+import { AnimatedCubeLogo } from "./animated-cube-logo";
 import { UserMenu } from "./user/user-menu";
 
 // Menu items.
@@ -36,11 +36,11 @@ const items = [
 export function AppSidebar() {
   const { open } = useSidebar();
   return (
-    <Sidebar variant={open ? "inset" : "floating"} className="border-none">
+    <Sidebar variant={open ? "inset" : "floating"} className="border-none" collapsible="icon">
       <SidebarContent>
-        <SidebarHeader className="m-1 flex items-start justify-center">
-          <Link href="/" className="relative h-6 w-6">
-            <ThemedLogo />
+        <SidebarHeader className="mx-auto flex items-start justify-center">
+          <Link href="/">
+            <AnimatedCubeLogo size={32} animateFaces={["top", "left", "right"]} className=" mt-[1px] text-primary" />
           </Link>
         </SidebarHeader>
         <SidebarGroup>
