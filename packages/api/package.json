@@ -26,7 +26,7 @@
     "@supabase/supabase-js": "^2.87.1",
     "@trpc/server": "catalog:",
     "ai": "^6.0.116",
-    "nanoid": "^5.0.9",
+    "nanoid": "^5.1.6",
     "pg": "^8.12.0",
     "postgres": "^3.4.4",
     "superjson": "2.2.2",

@@ -4,13 +4,29 @@ import type { UIMessage } from "ai";
 import { useEffect, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { useMutation } from "@tanstack/react-query";
+import { Bot } from "lucide-react";
 
+import {
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+} from "@/components/ai-elements/conversation";
+import {
+  PromptInput,
+  PromptInputBody,
+  PromptInputFooter,
+  PromptInputSubmit,
+  PromptInputTextarea,
+  PromptInputTools,
+} from "@/components/ai-elements/prompt-input";
+import {
+  Suggestion,
+  Suggestions,
+} from "@/components/ai-elements/suggestion";
 import { toast } from "@/components/ui/sonner";
 import { useTRPC } from "~/trpc/react";
-import { ChatInput } from "./chat-input";
-import { ChatMessages } from "./chat-messages";
-
-export type ResponseStatus = "error" | "submitted" | "streaming" | "ready";
+import { ChatMessage } from "./chat-message";
 
 interface ChatProps {
   id: string;
@@ -46,14 +62,6 @@ export default function Chat({ id, messages: initialMessages }: ChatProps) {
     }
   }, [error]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || ["streaming", "submitted"].includes(status)) return;
-    const text = input;
-    setInput("");
-    void sendMessage({ text });
-  };
-
   const handleMessageReload = (message: UIMessage, newContent?: string) => {
     let messageIndex = messages.findIndex((m) => m.id === message.id);
     if (messageIndex === -1) return;
@@ -87,8 +95,7 @@ export default function Chat({ id, messages: initialMessages }: ChatProps) {
     void regenerate();
   };
 
-  const handleStop = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleStop = () => {
     void stop();
 
     // Clear out empty assistant messages
@@ -104,21 +111,72 @@ export default function Chat({ id, messages: initialMessages }: ChatProps) {
     }
   };
 
+  const handleSubmit = ({ text }: { text: string }) => {
+    if (!text.trim() || ["streaming", "submitted"].includes(status)) return;
+    setInput("");
+    void sendMessage({ text });
+  };
+
+  const handleSuggestion = (suggestion: string) => {
+    setInput("");
+    void sendMessage({ text: suggestion });
+  };
+
+  const suggestions = [
+    "What can you help me with?",
+    "Explain quantum computing",
+    "Write a haiku about code",
+  ];
+
   return (
     <div className="mx-auto flex h-full w-full flex-1 flex-col overflow-hidden text-muted-foreground">
-      <ChatMessages
-        messages={messages}
-        status={status}
-        handleMessageReload={handleMessageReload}
-      />
-      <ChatInput
-        input={input}
-        status={status}
-        handleInput={setInput}
-        handleSubmit={handleSubmit}
-        handleStop={handleStop}
-        className="mx-10 max-w-2xl"
-      />
+      <Conversation>
+        <ConversationContent>
+          {messages.length === 0 && (
+            <ConversationEmptyState
+              title="How can I help?"
+              description="Ask me anything to get started."
+              icon={<Bot className="size-6" />}
+            />
+          )}
+          {messages.map((m) => (
+            <ChatMessage
+              key={m.id}
+              message={m}
+              status={status}
+              handleMessageReload={handleMessageReload}
+            />
+          ))}
+        </ConversationContent>
+        <ConversationScrollButton />
+      </Conversation>
+
+      {messages.length === 0 && (
+        <Suggestions className="mx-auto mb-3 justify-center px-4">
+          {suggestions.map((s) => (
+            <Suggestion key={s} suggestion={s} onClick={handleSuggestion} />
+          ))}
+        </Suggestions>
+      )}
+
+      <div className="mx-auto mb-2 w-full max-w-2xl px-4">
+        <PromptInput
+          onSubmit={handleSubmit}
+        >
+          <PromptInputBody>
+            <PromptInputTextarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask something..."
+              autoFocus
+            />
+          </PromptInputBody>
+          <PromptInputFooter>
+            <PromptInputTools />
+            <PromptInputSubmit status={status} onStop={handleStop} />
+          </PromptInputFooter>
+        </PromptInput>
+      </div>
     </div>
   );
 }

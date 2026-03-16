@@ -3,17 +3,22 @@
 import type { UIMessage } from "ai";
 import { isToolUIPart } from "ai";
 import { useState } from "react";
-import { Send, X } from "lucide-react";
+import { Copy, Pencil, RefreshCw, Send, X } from "lucide-react";
 
-import type { ResponseStatus } from "./chat";
+import type { ChatStatus } from "ai";
+import {
+  Message,
+  MessageAction,
+  MessageActions,
+  MessageContent,
+  MessageResponse,
+} from "@/components/ai-elements/message";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import Markdown from "./markdown";
-import { CopyButton, EditButton, RegenerateButton } from "./message-buttons";
 
 interface MessageProps {
   message: UIMessage;
-  status: ResponseStatus;
+  status: ChatStatus;
   handleMessageReload?: (message: UIMessage, newContent?: string) => void;
 }
 
@@ -51,10 +56,14 @@ export function ChatMessage({
     }
   };
 
+  const handleCopy = () => {
+    void navigator.clipboard.writeText(content);
+  };
+
   return (
-    <div className="group flex flex-col">
+    <Message from={message.role}>
       {!content.length && (
-        <span className="mt-2 animate-pulse text-sm font-bold text-muted-foreground">
+        <span className="animate-pulse text-sm font-bold text-muted-foreground">
           {formatToolName(
             (() => {
               const toolPart = message.parts.find((part) =>
@@ -68,82 +77,71 @@ export function ChatMessage({
           )}
         </span>
       )}
-      <div
-        className={`flex max-w-[70vw] flex-col ${
-          message.role === "user"
-            ? "ml-20 rounded-lg border-b border-l border-r p-3 text-right shadow-md"
-            : "mr-20 pl-3 text-left"
-        }`}
-      >
-        <div className="mb-1 text-xs font-bold capitalize">
-          {message.role === "user"
-            ? "You"
-            : content.length > 0 && "Assistant"}
-        </div>
-        <div className="text-left text-base">
-          {message.role === "user" && isEditing ? (
-            <div className="flex flex-col">
-              <Textarea
-                value={editedContent}
-                placeholder="Type something..."
-                onChange={(e) => setEditedContent(e.target.value)}
-                className="h-32 w-[45vw] resize-none border-none shadow-none focus-visible:ring-transparent"
-                onKeyDown={handleKeyDown}
-                autoFocus
-              />
-              <div className="flex justify-end gap-2">
-                <Button
-                  size="sm"
-                  onClick={handleCancelEdit}
-                  variant="ghost"
-                  className="h-8 w-8 rounded-full"
-                >
-                  <X />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 w-8 rounded-full"
-                  disabled={
-                    editedContent.trim() === "" ||
-                    ["streaming", "submitted"].includes(status)
-                  }
-                  onClick={handleSaveEdit}
-                >
-                  <Send />
-                </Button>
-              </div>
+
+      <MessageContent>
+        {message.role === "user" && isEditing ? (
+          <div className="flex flex-col">
+            <Textarea
+              value={editedContent}
+              placeholder="Type something..."
+              onChange={(e) => setEditedContent(e.target.value)}
+              className="h-32 w-full resize-none border-none shadow-none focus-visible:ring-transparent"
+              onKeyDown={handleKeyDown}
+              autoFocus
+            />
+            <div className="flex justify-end gap-2">
+              <Button
+                size="sm"
+                onClick={handleCancelEdit}
+                variant="ghost"
+                className="h-8 w-8 rounded-full"
+              >
+                <X />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 rounded-full"
+                disabled={
+                  editedContent.trim() === "" ||
+                  ["streaming", "submitted"].includes(status)
+                }
+                onClick={handleSaveEdit}
+              >
+                <Send />
+              </Button>
             </div>
-          ) : (
-            content.length > 0 && <Markdown content={content} />
-          )}
-        </div>
-      </div>
-      {content.length > 0 && (
-        <div
-          className={`flex flex-row ${message.role === "user" ? "self-end" : "self-start"}`}
-        >
-          <CopyButton
-            text={content}
-            className="invisible bg-transparent text-gray-400 hover:bg-transparent group-hover:visible"
-          />
+          </div>
+        ) : (
+          content.length > 0 && (
+            <MessageResponse>{content}</MessageResponse>
+          )
+        )}
+      </MessageContent>
+
+      {content.length > 0 && !isEditing && (
+        <MessageActions className="opacity-0 transition-opacity group-hover:opacity-100">
+          <MessageAction tooltip="Copy" onClick={handleCopy}>
+            <Copy className="size-3.5" />
+          </MessageAction>
           {message.role === "assistant" &&
             status !== "streaming" &&
             handleMessageReload && (
-              <RegenerateButton
+              <MessageAction
+                tooltip="Regenerate"
                 onClick={() => handleMessageReload(message)}
-                className="invisible bg-transparent text-gray-400 hover:bg-transparent group-hover:visible"
-              />
+              >
+                <RefreshCw className="size-3.5" />
+              </MessageAction>
             )}
-          {message.role === "user" && !isEditing && handleMessageReload && (
-            <EditButton
-              onClick={() => setIsEditing(true)}
-              className="invisible bg-transparent text-gray-400 hover:bg-transparent group-hover:visible"
-            />
+          {message.role === "user" && handleMessageReload && (
+            <MessageAction tooltip="Edit" onClick={() => setIsEditing(true)}>
+              <Pencil className="size-3.5" />
+            </MessageAction>
           )}
-        </div>
+        </MessageActions>
       )}
-    </div>
+    </Message>
   );
 }
 
