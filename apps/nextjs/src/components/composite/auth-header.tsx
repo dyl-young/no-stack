@@ -13,7 +13,7 @@ export const AuthHeader = async () => {
   } = await client.auth.getUser();
 
   const logoLink = (
-    <Link href="/" className="relative mr-auto h-8 w-8 shrink-0 ml-[1px]">
+    <Link href="/" className="relative mr-auto ml-[1px] h-8 w-8 shrink-0">
       <AnimatedCubeLogo size={32} />
     </Link>
   );

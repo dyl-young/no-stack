@@ -3,7 +3,6 @@ import { PlusCircle } from "lucide-react-native";
 
 import { HeaderButton, ThemeToggle } from "~/components/header";
 import { useThemeColours } from "~/lib/theme";
-
 import { createPostSheetRef } from "./index";
 
 export default function FeedStack() {
@@ -29,17 +28,16 @@ export default function FeedStack() {
             >
               <PlusCircle size={22} color={theme.primary} />
             </HeaderButton>
-
           ),
           headerRight: () => <ThemeToggle />,
         }}
       />
-      < Stack.Screen
+      <Stack.Screen
         name="post/[id]"
         options={{
           title: "Post",
         }}
       />
-    </Stack >
+    </Stack>
   );
 }

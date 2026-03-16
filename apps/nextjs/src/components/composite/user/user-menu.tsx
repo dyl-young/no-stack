@@ -1,5 +1,6 @@
 "use client";
 
+import { start } from "repl";
 import Link from "next/link";
 import { ChevronUp, LogOut, User } from "lucide-react";
 
@@ -15,11 +16,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/ui/theme";
 import { UserDisplayName } from "./user-display-name";
-import { start } from "repl";
-
 
 export function UserMenu() {
-
   return (
     <DropdownMenu>
       <SidebarTrigger />
@@ -78,7 +76,7 @@ function SidebarTrigger() {
         className="group flex h-auto w-full justify-between p-1"
       >
         <div className="flex w-full items-center gap-2">
-          <div className={"h-6 w-6 shrink-0 m-0"}>
+          <div className={"m-0 h-6 w-6 shrink-0"}>
             <UserAvatar />
           </div>
           <div className="flex w-full flex-row items-center justify-between truncate group-data-[collapsible=icon]:hidden">

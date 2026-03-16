@@ -35,9 +35,7 @@ export default function ProfileScreen() {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    await queryClient.invalidateQueries(
-      trpc.user.getUserProfile.queryFilter(),
-    );
+    await queryClient.invalidateQueries(trpc.user.getUserProfile.queryFilter());
     setRefreshing(false);
   }, [queryClient, trpc]);
 
@@ -296,7 +294,7 @@ function EmailForm() {
             placeholder="Password"
           />
           <Pressable
-            className="absolute right-3 top-3"
+            className="absolute top-3 right-3"
             onPress={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? (
@@ -307,7 +305,11 @@ function EmailForm() {
           </Pressable>
         </View>
 
-        <Button variant="ghost" size="sm" onPress={() => setIsSignUp((prev) => !prev)}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onPress={() => setIsSignUp((prev) => !prev)}
+        >
           <Text>
             {isSignUp ? "Already have an account?" : "Don't have an account?"}
           </Text>

@@ -1,10 +1,10 @@
 import { relations } from "drizzle-orm";
 import { text, uuid } from "drizzle-orm/pg-core";
 
+import { timestamps } from "../../lib";
 import { Profile } from "../profile";
 import { Message } from "./message";
 import { AIChatSchema } from "./schema";
-import { timestamps } from "../../lib";
 
 export const Chat = AIChatSchema.table("chat", {
   id: uuid().notNull().primaryKey().defaultRandom(),

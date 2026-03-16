@@ -2,9 +2,7 @@ import { timestamp } from "drizzle-orm/pg-core";
 
 export function timestamps() {
   return {
-    createdAt: timestamp({ withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp({ withTimezone: true })
       .notNull()
       .defaultNow()

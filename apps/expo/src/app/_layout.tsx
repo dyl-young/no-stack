@@ -2,14 +2,14 @@ import "@bacons/text-decoder/install";
 
 import { useColorScheme } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Slot } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { Slot } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { Toaster } from "sonner-native";
 
@@ -33,9 +33,7 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider
-        value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-      >
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <SessionContextProvider supabaseClient={supabase}>
           <TRPCProvider>
             <BottomSheetModalProvider>

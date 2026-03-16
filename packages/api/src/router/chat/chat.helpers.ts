@@ -23,11 +23,7 @@ export async function createStreamingChat({
   });
 }
 
-export async function generateChatTitle({
-  message,
-}: {
-  message: string;
-}) {
+export async function generateChatTitle({ message }: { message: string }) {
   const { text: title } = await generateText({
     model: openai("gpt-4o-mini"),
     system: titleGenerationPrompt,

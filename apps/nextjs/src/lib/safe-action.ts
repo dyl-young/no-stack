@@ -6,13 +6,15 @@ import { createClient } from "~/utils/supabase/server";
 export const actionClient = createSafeActionClient();
 
 // Create and export authenticated action client
-export const authActionClient = createSafeActionClient().use(async ({ next }) => {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.getUser();
+export const authActionClient = createSafeActionClient().use(
+  async ({ next }) => {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.getUser();
 
-  if (error ?? !data.user) {
-    throw new Error("Unauthorized");
-  }
+    if (error ?? !data.user) {
+      throw new Error("Unauthorized");
+    }
 
-  return next({ ctx: { user: data.user } });
-});
+    return next({ ctx: { user: data.user } });
+  },
+);

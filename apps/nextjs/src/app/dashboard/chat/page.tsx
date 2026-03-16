@@ -29,8 +29,8 @@ export default function ChatPage() {
             key={m.id}
             className={`rounded-lg p-3 ${
               m.role === "user"
-                ? "bg-primary text-primary-foreground ml-auto max-w-[80%]"
-                : "bg-muted max-w-[80%]"
+                ? "ml-auto max-w-[80%] bg-primary text-primary-foreground"
+                : "max-w-[80%] bg-muted"
             }`}
           >
             <p className="text-xs font-medium opacity-70">
@@ -45,8 +45,8 @@ export default function ChatPage() {
         ))}
 
         {isLoading && messages.at(-1)?.role !== "assistant" && (
-          <div className="bg-muted max-w-[80%] rounded-lg p-3">
-            <p className="text-muted-foreground animate-pulse text-sm">
+          <div className="max-w-[80%] rounded-lg bg-muted p-3">
+            <p className="animate-pulse text-sm text-muted-foreground">
               Thinking...
             </p>
           </div>
@@ -64,12 +64,12 @@ export default function ChatPage() {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Type a message..."
-          className="border-input bg-background flex-1 rounded-md border px-3 py-2 text-sm"
+          className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm"
         />
         <button
           type="submit"
           disabled={isLoading || !text.trim()}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm disabled:opacity-50"
+          className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
         >
           Send
         </button>

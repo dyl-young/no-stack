@@ -18,7 +18,7 @@ export default function ProfileStack() {
         name="index"
         options={{
           title: "Profile",
-          headerRight: () => <ThemeToggle />
+          headerRight: () => <ThemeToggle />,
         }}
       />
     </Stack>

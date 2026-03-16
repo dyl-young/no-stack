@@ -1,5 +1,5 @@
-import type { UIMessage } from "ai";
 import type { TRPCRouterRecord } from "@trpc/server";
+import type { UIMessage } from "ai";
 import { TRPCError } from "@trpc/server";
 
 import { desc, eq, inArray } from "@no-stack/db";
@@ -92,9 +92,7 @@ export const chatRouter = {
   deleteMessages: protectedProcedure
     .input(deleteMessagesSchema)
     .mutation(async ({ ctx, input }) => {
-      await ctx.db
-        .delete(Message)
-        .where(inArray(Message.id, input.messageIds));
+      await ctx.db.delete(Message).where(inArray(Message.id, input.messageIds));
     }),
 
   streamChat: protectedProcedure
@@ -102,9 +100,7 @@ export const chatRouter = {
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.user.id;
 
-      const lastUserMessage = input.messages.find(
-        (msg) => msg.role === "user",
-      );
+      const lastUserMessage = input.messages.find((msg) => msg.role === "user");
 
       if (!lastUserMessage) {
         throw new TRPCError({

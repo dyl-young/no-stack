@@ -3,6 +3,7 @@ import { Image, Pressable, View } from "react-native";
 import { Link, router } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import initials from "initials";
+import { Trash2 } from "lucide-react-native";
 import { toast } from "sonner-native";
 
 import type { RouterOutputs } from "~/utils/api";
@@ -10,7 +11,6 @@ import { Text } from "~/components/ui/text";
 import { useThemeColours } from "~/lib/theme";
 import { confirmDelete } from "~/lib/utils";
 import { useTRPC } from "~/utils/api";
-import { Trash2 } from "lucide-react-native";
 
 function PostAuthorAvatar({
   image,
@@ -51,7 +51,13 @@ function PostAuthorAvatar({
         justifyContent: "center",
       }}
     >
-      <Text style={{ fontSize: 14, fontWeight: "500", color: theme.mutedForeground }}>
+      <Text
+        style={{
+          fontSize: 14,
+          fontWeight: "500",
+          color: theme.mutedForeground,
+        }}
+      >
         {fallback}
       </Text>
     </View>
@@ -115,9 +121,20 @@ export function PostCard({
             email={post.author.email}
           />
           <View style={{ flex: 1, gap: 2 }}>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+              }}
+            >
               <Text
-                style={{ fontSize: 17, fontWeight: "600", color: theme.foreground, flex: 1 }}
+                style={{
+                  fontSize: 17,
+                  fontWeight: "600",
+                  color: theme.foreground,
+                  flex: 1,
+                }}
                 numberOfLines={2}
               >
                 {post.title}
@@ -129,7 +146,13 @@ export function PostCard({
                 }}
                 style={{ paddingLeft: 8, paddingVertical: 2 }}
               >
-                <Text style={{ fontSize: 13, fontWeight: "600", color: theme.destructive }}>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: "600",
+                    color: theme.destructive,
+                  }}
+                >
                   <Trash2 size={16} color={theme.primary} />
                 </Text>
               </Pressable>

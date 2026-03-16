@@ -39,7 +39,7 @@ function DropdownMenuSubTrigger({
   return (
     <TextClassContext.Provider
       value={cn(
-        "native:text-lg select-none text-sm text-primary",
+        "native:text-lg text-sm text-primary select-none",
         open && "native:text-accent-foreground",
       )}
     >
@@ -159,7 +159,7 @@ function DropdownMenuCheckboxItem({
   return (
     <DropdownMenuPrimitive.CheckboxItem
       className={cn(
-        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pl-8 pr-2 active:bg-accent",
+        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pr-2 pl-8 active:bg-accent",
         props.disabled && "web:pointer-events-none opacity-50",
         className,
       )}
@@ -187,7 +187,7 @@ function DropdownMenuRadioItem({
   return (
     <DropdownMenuPrimitive.RadioItem
       className={cn(
-        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pl-8 pr-2 active:bg-accent",
+        "web:cursor-default web:group native:py-2 web:outline-hidden web:focus:bg-accent relative flex flex-row items-center rounded-xs py-1.5 pr-2 pl-8 active:bg-accent",
         props.disabled && "web:pointer-events-none opacity-50",
         className,
       )}

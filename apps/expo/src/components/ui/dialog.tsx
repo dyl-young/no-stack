@@ -25,7 +25,7 @@ function DialogOverlayWeb({
   return (
     <DialogPrimitive.Overlay
       className={cn(
-        "absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-black/80 p-2",
+        "absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-black/80 p-2",
         open
           ? "web:animate-in web:fade-in-0"
           : "web:animate-out web:fade-out-0",
@@ -95,7 +95,7 @@ function DialogContent({
           {children}
           <DialogPrimitive.Close
             className={
-              "web:group web:ring-offset-background web:transition-opacity web:hover:opacity-100 web:focus:outline-hidden web:focus:ring-2 web:focus:ring-ring web:focus:ring-offset-2 web:disabled:pointer-events-none absolute right-4 top-4 rounded-xs p-0.5 opacity-70"
+              "web:group web:ring-offset-background web:transition-opacity web:hover:opacity-100 web:focus:outline-hidden web:focus:ring-2 web:focus:ring-ring web:focus:ring-offset-2 web:disabled:pointer-events-none absolute top-4 right-4 rounded-xs p-0.5 opacity-70"
             }
           >
             <X
@@ -145,7 +145,7 @@ function DialogTitle({
   return (
     <DialogPrimitive.Title
       className={cn(
-        "native:text-xl text-lg font-semibold leading-none tracking-tight text-foreground",
+        "native:text-xl text-lg leading-none font-semibold tracking-tight text-foreground",
         className,
       )}
       {...props}

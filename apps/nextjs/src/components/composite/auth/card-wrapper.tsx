@@ -42,7 +42,7 @@ export const CardWrapper = ({
       {showCredentials && (
         <>
           {showSocial && (
-            <div className="flex items-center justify-center px-6 pb-4 pt-0">
+            <div className="flex items-center justify-center px-6 pt-0 pb-4">
               <div className="flex-grow border-t border-muted-foreground" />
               <span className="px-3 text-muted-foreground">or</span>
               <div className="flex-grow border-t border-muted-foreground" />

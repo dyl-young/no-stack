@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 type CubeFace = "top" | "left" | "right";
 
@@ -14,7 +14,7 @@ interface AnimatedCubeLogoProps {
 /**
  * Animated cube logo component that renders a 3D cube with optional face animations on hover.
  * The cube faces use `currentColor` for fill, which inherits the current text color from CSS.
- * 
+ *
  * @param props - The props for the component.
  * @param props.size - The size of the cube in pixels. Defaults to 80.
  * @param props.className - Additional CSS classes to apply. Defaults to an empty string.
@@ -36,9 +36,12 @@ export function AnimatedCubeLogo({
     const extra = isExpanded && canAnimate ? expandDistance : 0;
 
     switch (face) {
-      case "left": return { x: -(gap + extra), y: (gap + extra) / 2 };
-      case "right": return { x: gap + extra, y: (gap + extra) / 2 };
-      case "top": return { x: 0, y: -(gap + extra) };
+      case "left":
+        return { x: -(gap + extra), y: (gap + extra) / 2 };
+      case "right":
+        return { x: gap + extra, y: (gap + extra) / 2 };
+      case "top":
+        return { x: 0, y: -(gap + extra) };
     }
   }
 
@@ -88,6 +91,6 @@ export function AnimatedCubeLogo({
           transition={spring}
         />
       </svg>
-    </div >
+    </div>
   );
 }

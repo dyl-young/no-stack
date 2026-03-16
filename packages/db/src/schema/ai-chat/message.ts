@@ -1,9 +1,9 @@
 import { relations } from "drizzle-orm";
 import { json, uuid, varchar } from "drizzle-orm/pg-core";
 
-import { AIChatSchema } from "./schema";
-import { Chat } from "./chat";
 import { timestamps } from "../../lib";
+import { Chat } from "./chat";
+import { AIChatSchema } from "./schema";
 
 export const Message = AIChatSchema.table("message", {
   id: uuid().notNull().primaryKey().defaultRandom(),

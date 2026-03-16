@@ -1,5 +1,5 @@
-import dynamic from "next/dynamic";
 import type { LucideProps } from "lucide-react";
+import dynamic from "next/dynamic";
 import dynamicIconImports from "lucide-react/dynamicIconImports";
 
 interface IconProps extends LucideProps {
