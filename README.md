@@ -24,6 +24,10 @@ A full-stack TypeScript monorepo template for building web and mobile applicatio
 
 > Based on [create-t3-turbo](https://github.com/supabase-community/create-t3-turbo) by the Supabase community.
 
+<p align="center">
+<img src="docs/assets/image.png" alt="app screenshot" />
+</p>
+
 ## Overview
 
 A production-ready monorepo with shared code across web (Next.js) and mobile (Expo/React Native), backed by a type-safe API layer and PostgreSQL database.

@@ -5,7 +5,7 @@ export default function ForgotPasswordPage() {
   return (
     <CardWrapper
       headerLabel="Forgot password"
-      backButtonLabel="Remebered it again?"
+      backButtonLabel="Remembered it again?"
       backButtonHref="/auth/signin"
       backButtonLinkLabel="Sign in"
       showSocial={false}

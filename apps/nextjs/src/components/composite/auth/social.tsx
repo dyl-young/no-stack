@@ -1,7 +1,6 @@
-import { Github } from "lucide-react";
-
-import { signInWithGithub } from "~/app/auth/actions";
+import { signInWithGoogle } from "~/app/auth/actions";
 import { Button } from "@/components/ui/button";
+import { GoogleIcon } from "../google-icon";
 
 export const Social = () => {
   return (
@@ -10,11 +9,11 @@ export const Social = () => {
         size="lg"
         className="flex w-full flex-row items-center justify-center gap-2"
         variant="outline"
-        formAction={signInWithGithub}
+        formAction={signInWithGoogle}
       >
-        <Github size={20} />
+        <GoogleIcon />
         <span className="font-medium text-muted-foreground">
-          Continue with GitHub
+          Continue with Google
         </span>
       </Button>
     </form>

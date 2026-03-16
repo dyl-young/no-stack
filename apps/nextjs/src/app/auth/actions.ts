@@ -50,14 +50,14 @@ export const signUp = actionClient
     return data.user;
   });
 
-export const signInWithGithub = async () => {
+export const signInWithGoogle = async () => {
   const origin = (await headers()).get("origin");
   const supabase = await createClient();
 
   const redirectUrl = `${origin}/auth/callback?next=${encodeURIComponent(DEFAULT_LOGIN_REDIRECT)}`;
 
   const res = await supabase.auth.signInWithOAuth({
-    provider: "github",
+    provider: "google",
     options: { redirectTo: redirectUrl },
   });
 

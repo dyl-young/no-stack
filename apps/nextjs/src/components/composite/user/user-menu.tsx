@@ -15,30 +15,15 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/ui/theme";
 import { UserDisplayName } from "./user-display-name";
+import { start } from "repl";
 
-type UserMenuVariant = "sidebar" | "header";
 
-interface UserMenuProps {
-  variant?: UserMenuVariant;
-  showAccount?: boolean;
-  showTheme?: boolean;
-}
-
-export function UserMenu({
-  variant = "sidebar",
-  showAccount,
-  showTheme,
-}: UserMenuProps) {
-  const shouldShowAccount = showAccount ?? variant === "sidebar";
-  const shouldShowTheme = showTheme ?? variant === "sidebar";
+export function UserMenu() {
 
   return (
     <DropdownMenu>
-      {variant === "sidebar" ? <SidebarTrigger /> : <HeaderTrigger />}
-      <DropdownMenuContent
-        align={variant === "sidebar" ? "start" : "end"}
-        className="w-64"
-      >
+      <SidebarTrigger />
+      <DropdownMenuContent align={"start"} className="w-64">
         {/* User info header */}
         <div className="flex items-center gap-3 p-2">
           <div className="flex min-w-0 flex-col">
@@ -51,36 +36,29 @@ export function UserMenu({
           </div>
         </div>
 
-        {/* Settings */}
-        {shouldShowAccount && (
-          <DropdownMenuItem asChild>
-            <Link
-              href="/dashboard/user/account"
-              className="flex w-full items-center gap-2"
-              replace
-            >
-              <User className="h-4 w-4" />
-              Profile
-            </Link>
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem asChild>
+          <Link
+            href="/dashboard/user/account"
+            className="flex w-full items-center gap-2"
+            replace
+          >
+            <User className="h-4 w-4" />
+            Profile
+          </Link>
+        </DropdownMenuItem>
 
         {/* Theme Toggle */}
-        {shouldShowTheme && (
-          <DropdownMenuItem
-            className="focus:bg-transparent"
-            onSelect={(e) => e.preventDefault()}
-          >
-            <div className="flex w-full flex-row items-center justify-between">
-              <span className="text-sm text-muted-foreground">Theme</span>
-              <ThemeToggle />
-            </div>
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem
+          className="focus:bg-transparent"
+          onSelect={(e) => e.preventDefault()}
+        >
+          <div className="flex w-full flex-row items-center justify-between">
+            <span className="text-sm text-muted-foreground">Theme</span>
+            <ThemeToggle />
+          </div>
+        </DropdownMenuItem>
 
-        {(shouldShowAccount || shouldShowTheme) && (
-          <Separator className="my-1" />
-        )}
+        <Separator className="my-1" />
 
         {/* Sign Out */}
         <DropdownMenuItem>
@@ -97,28 +75,16 @@ function SidebarTrigger() {
     <DropdownMenuTrigger asChild>
       <Button
         variant="ghost"
-        className="group flex h-auto w-full justify-between p-2"
+        className="group flex h-auto w-full justify-between p-1"
       >
         <div className="flex w-full items-center gap-2">
-          <div className="h-6 w-6 shrink-0">
+          <div className={"h-6 w-6 shrink-0 m-0"}>
             <UserAvatar />
           </div>
           <div className="flex w-full flex-row items-center justify-between truncate group-data-[collapsible=icon]:hidden">
             <UserDisplayName />
             <ChevronUp className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:scale-y-[-1]" />
           </div>
-        </div>
-      </Button>
-    </DropdownMenuTrigger>
-  );
-}
-
-function HeaderTrigger() {
-  return (
-    <DropdownMenuTrigger asChild>
-      <Button variant="ghost" className="relative h-9 w-9 rounded-full p-0">
-        <div className="h-full w-full">
-          <UserAvatar />
         </div>
       </Button>
     </DropdownMenuTrigger>

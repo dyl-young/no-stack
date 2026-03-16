@@ -72,7 +72,7 @@ export function AccountForm({ initialProfile }: AccountFormProps) {
     }),
   );
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = (e: React.SubmitEvent) => {
     e.preventDefault();
     updateProfile({
       name,
@@ -80,7 +80,7 @@ export function AccountForm({ initialProfile }: AccountFormProps) {
     });
   };
 
-  const handleDeleteAccount = (e: React.FormEvent) => {
+  const handleDeleteAccount = (e: React.SubmitEvent) => {
     e.preventDefault();
     if (deleteConfirmation.toLowerCase() === "delete account") {
       deleteProfile();

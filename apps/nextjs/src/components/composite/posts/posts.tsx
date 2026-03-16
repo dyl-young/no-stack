@@ -20,7 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
-import { Trash } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 export function CreatePostForm() {
   const form = useForm({
@@ -163,7 +163,7 @@ export function PostCard(props: {
           className="cursor-pointer text-sm font-bold "
           onClick={() => deletePost.mutate(props.post.id)}
         >
-          DELETE
+          <Trash2 className="h-4 w-4" />
         </Button>
       </div>
     </div>

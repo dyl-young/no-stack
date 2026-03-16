@@ -6,54 +6,37 @@ type FileBody =
   | ArrayBufferView
   | FormData
   | ReadableStream<Uint8Array>;
-export type FilePrivacy = "public" | "private";
 
-export interface ImageUploadResult {
+export interface UploadImageOptions {
+  bucket: string;
   path: string;
-  userId: string;
-  privacy: FilePrivacy;
-  publicUrl?: string;
+  upsert?: boolean;
 }
 
-export async function uploadImageFile(
+export interface UploadImageResult {
+  path: string;
+  publicUrl: string;
+}
+
+export async function uploadImage(
   supabase: SupabaseClient,
   file: FileBody,
-  fileName: string,
-  filePrivacy: FilePrivacy,
-): Promise<ImageUploadResult> {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) throw new Error("User not authenticated");
-
-  const bucket = filePrivacy === "private" ? "private_images" : "public_images";
-  const filePath =
-    filePrivacy === "private" ? `${user.id}/${fileName}` : fileName;
+  options: UploadImageOptions,
+): Promise<UploadImageResult> {
+  const { bucket, path, upsert = true } = options;
 
   const { data, error: uploadError } = await supabase.storage
     .from(bucket)
-    .upload(filePath, file, {
+    .upload(path, file, {
       cacheControl: "3600",
-      upsert: false,
+      upsert,
     });
 
   if (uploadError) throw uploadError;
 
-  const result: ImageUploadResult = {
-    path: data.path,
-    userId: user.id,
-    privacy: filePrivacy,
-  };
+  const {
+    data: { publicUrl },
+  } = supabase.storage.from(bucket).getPublicUrl(data.path);
 
-  // If public, also get the public URL
-  if (filePrivacy === "public") {
-    const {
-      data: { publicUrl },
-    } = supabase.storage.from(bucket).getPublicUrl(data.path);
-
-    result.publicUrl = publicUrl;
-  }
-
-  return result;
+  return { path: data.path, publicUrl };
 }

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Image, View } from "react-native";
+import { Image, useColorScheme, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import initials from "initials";
-import { useColorScheme } from "nativewind";
 
 import type { UserProfile } from "./types";
 import { Text } from "~/components/ui/text";
@@ -10,19 +9,23 @@ import { cn } from "~/lib/utils";
 
 interface UserAvatarProps {
   userProfile?: UserProfile;
-  size?: "small" | "medium" | "large";
+  size?: "small" | "medium" | "large" | "extra-large";
 }
 
+const SIZES = {
+  small: { px: 32, text: "text-sm", icon: 18 },
+  medium: { px: 48, text: "text-lg", icon: 24 },
+  large: { px: 80, text: "text-2xl", icon: 36 },
+  "extra-large": { px: 120, text: "text-4xl", icon: 54 },
+} as const;
+
 export function UserAvatar({ userProfile, size = "medium" }: UserAvatarProps) {
-  const { colorScheme } = useColorScheme();
-  const color = colorScheme == "dark" ? "#FFFFFF" : "#000000";
+  const colorScheme = useColorScheme();
+  const color = colorScheme === "dark" ? "#FFFFFF" : "#000000";
   const [imgError, setImgError] = useState(false);
 
-  const sizeClass =
-    size === "small" ? "h-6 w-6" : size === "medium" ? "h-8 w-8" : "h-10 w-10";
-  const textSize =
-    size === "small" ? "text-xs" : size === "medium" ? "text-sm" : "text-base";
-  const iconSize = size === "small" ? 16 : size === "medium" ? 24 : 32;
+  const { px, text, icon } = SIZES[size];
+  const dimensionStyle = { width: px, height: px, borderRadius: px / 2 };
 
   const fallbackInitials = userProfile
     ? initials(userProfile.name || (userProfile.email ?? "")).slice(0, 2)
@@ -31,7 +34,8 @@ export function UserAvatar({ userProfile, size = "medium" }: UserAvatarProps) {
   if (userProfile?.image && !imgError) {
     return (
       <Image
-        className={cn("rounded-full bg-muted", sizeClass)}
+        className="rounded-full bg-muted"
+        style={dimensionStyle}
         source={{ uri: userProfile.image }}
         resizeMode="cover"
         alt="User Avatar"
@@ -43,12 +47,10 @@ export function UserAvatar({ userProfile, size = "medium" }: UserAvatarProps) {
   if (fallbackInitials) {
     return (
       <View
-        className={cn(
-          "items-center justify-center rounded-full bg-muted",
-          sizeClass,
-        )}
+        className="items-center justify-center rounded-full border border-1 border-primary bg-muted"
+        style={dimensionStyle}
       >
-        <Text className={cn("font-medium text-muted-foreground", textSize)}>
+        <Text className={cn("font-medium text-muted-foreground text-center", text)}>
           {fallbackInitials}
         </Text>
       </View>
@@ -57,12 +59,10 @@ export function UserAvatar({ userProfile, size = "medium" }: UserAvatarProps) {
 
   return (
     <View
-      className={cn(
-        "items-center justify-center rounded-full border border-primary",
-        sizeClass,
-      )}
+      className="items-center justify-center rounded-full border border-primary"
+      style={dimensionStyle}
     >
-      <FontAwesome name="user" size={iconSize} color={color} />
+      <FontAwesome name="user" size={icon} color={color} />
     </View>
   );
 }

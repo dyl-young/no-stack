@@ -12,7 +12,7 @@ export const postRouter = {
   all: publicProcedure.query(({ ctx }) => {
     return ctx.db.query.Post.findMany({
       with: { author: true },
-      orderBy: desc(Post.id),
+      orderBy: desc(Post.createdAt),
       limit: 50,
     });
   }),

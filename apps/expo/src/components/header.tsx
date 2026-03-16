@@ -1,16 +1,11 @@
 import type { ReactNode } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Appearance, TouchableOpacity, useColorScheme } from "react-native";
 import * as Haptics from "expo-haptics";
-import { useRouter } from "expo-router";
-import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { useSession } from "@supabase/auth-helpers-react";
-import { useQuery } from "@tanstack/react-query";
-import { useColorScheme } from "nativewind";
+import { MaterialIcons } from "@expo/vector-icons";
 
-import { useTRPC } from "~/utils/api";
-import { UserAvatar } from "./user-avatar";
+import { useThemeColours } from "~/lib/theme";
 
-function HeaderButton({
+export function HeaderButton({
   children,
   onPress,
   accessibilityLabel,
@@ -35,78 +30,29 @@ function HeaderButton({
       hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
-      className={`items-center justify-center ${className}`}
+      className={`items-center justify-center px-3 text-primary ${className}`}
     >
       {children}
     </TouchableOpacity>
   );
 }
 
-export function AuthAvatar() {
-  const router = useRouter();
-  const { colorScheme } = useColorScheme();
-  const color = colorScheme == "dark" ? "#F2F2F3" : "#232325";
-  const session = useSession();
-  const userId = session?.user.id;
-  const trpc = useTRPC();
-  const { data: userProfile } = useQuery({
-    ...trpc.user.getUserProfile.queryOptions(),
-    enabled: !!userId,
-  });
-
-  return (
-    <HeaderButton
-      onPress={() => router.push("/profile")}
-      accessibilityLabel={userId ? "View profile" : "Log in"}
-      className="p-1"
-    >
-      {userId && userProfile ? (
-        <UserAvatar userProfile={userProfile} />
-      ) : (
-        <Entypo name="login" size={24} color={color} />
-      )}
-    </HeaderButton>
-  );
-}
-
 export function ThemeToggle() {
-  const nativewind = useColorScheme();
-  const { colorScheme } = nativewind;
+  const colorScheme = useColorScheme();
+  const theme = useThemeColours();
+
   return (
     <HeaderButton
-      onPress={() => nativewind.toggleColorScheme()}
+      onPress={() =>
+        Appearance.setColorScheme(colorScheme === "dark" ? "light" : "dark")
+      }
       accessibilityLabel={`Switch to ${colorScheme === "dark" ? "light" : "dark"} mode`}
-      className="p-2"
     >
       <MaterialIcons
-        name={colorScheme == "dark" ? "dark-mode" : "light-mode"}
-        size={24}
-        color={colorScheme == "dark" ? "white" : "black"}
+        name={colorScheme === "dark" ? "dark-mode" : "light-mode"}
+        size={22}
+        color={theme.foreground}
       />
     </HeaderButton>
-  );
-}
-
-export function HeaderBackButton() {
-  const { colorScheme } = useColorScheme();
-  const router = useRouter();
-  return (
-    <HeaderButton
-      onPress={() => router.back()}
-      accessibilityLabel="Go back"
-      className="justify-center px-2"
-    >
-      <Ionicons
-        name="arrow-back"
-        size={24}
-        color={colorScheme == "dark" ? "#F2F2F3" : "#232325"}
-      />
-    </HeaderButton>
-  );
-}
-
-export function HeaderTitle(props: { children: ReactNode }) {
-  return (
-    <Text className="text-xl font-bold text-primary">{props.children}</Text>
   );
 }
