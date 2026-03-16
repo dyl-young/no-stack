@@ -15,6 +15,7 @@
   },
   "prettier": "@no-stack/prettier-config",
   "dependencies": {
+    "@ai-sdk/react": "^3.0.118",
     "@hookform/resolvers": "^5.2.0",
     "@no-stack/api": "workspace:*",
     "@no-stack/db": "workspace:*",
@@ -29,6 +30,7 @@
     "@trpc/client": "catalog:",
     "@trpc/server": "catalog:",
     "@trpc/tanstack-react-query": "catalog:",
+    "ai": "^6.0.116",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",

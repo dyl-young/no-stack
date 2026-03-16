@@ -6,7 +6,7 @@ const nonPoolingUrl = env.POSTGRES_URL.replace(":6543", ":5432");
 
 export default {
   schema: "./src/schema",
-  schemaFilter: ["public", "auth", "storage"],
+  schemaFilter: ["public", "auth", "storage", "ai_chat"],
   out: "../../supabase/migrations",
   dialect: "postgresql",
   dbCredentials: { url: nonPoolingUrl },
