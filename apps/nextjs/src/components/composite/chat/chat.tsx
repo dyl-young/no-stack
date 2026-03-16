@@ -4,7 +4,7 @@ import type { UIMessage } from "ai";
 import { useEffect, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { useMutation } from "@tanstack/react-query";
-import { Bot } from "lucide-react";
+import { Bot, Globe, ImagePlus, Paperclip, Send, Square } from "lucide-react";
 
 import {
   Conversation,
@@ -14,12 +14,11 @@ import {
 } from "@/components/ai-elements/conversation";
 import {
   PromptInput,
-  PromptInputBody,
-  PromptInputFooter,
   PromptInputSubmit,
   PromptInputTextarea,
-  PromptInputTools,
 } from "@/components/ai-elements/prompt-input";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import {
   Suggestion,
   Suggestions,
@@ -159,23 +158,62 @@ export default function Chat({ id, messages: initialMessages }: ChatProps) {
         </Suggestions>
       )}
 
-      <div className="mx-auto mb-2 w-full max-w-2xl px-4">
-        <PromptInput
-          onSubmit={handleSubmit}
-        >
-          <PromptInputBody>
+      <div className="mx-auto w-full max-w-2xl px-4">
+        <div className="relative">
+          <PromptInput
+            onSubmit={handleSubmit}
+            className="mx-auto relative z-10 [&_[data-slot=input-group]]:items-end [&_[data-slot=input-group]]:rounded-xl [&_[data-slot=input-group]]:border-none [&_[data-slot=input-group]]:bg-muted [&_[data-slot=input-group]]:shadow-none [&_[data-slot=input-group]]:focus-within:ring-0 [&_[data-slot=input-group-control]]:border-none [&_[data-slot=input-group-control]]:shadow-none [&_[data-slot=input-group-control]]:focus-visible:ring-transparent"
+          >
             <PromptInputTextarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask something..."
               autoFocus
+              className="min-h-16 py-2.5"
             />
-          </PromptInputBody>
-          <PromptInputFooter>
-            <PromptInputTools />
-            <PromptInputSubmit status={status} onStop={handleStop} />
-          </PromptInputFooter>
-        </PromptInput>
+          </PromptInput>
+          <div className="-mt-5 flex items-end gap-1 rounded-b-3xl border-4 border-accent px-2 pb-1.5 pt-5">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="size-7 text-primary hover:text-muted-foreground  cursor-pointer"
+            >
+              <Paperclip className="size-4" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="size-7 text-primary hover:text-muted-foreground  cursor-pointer"
+            >
+              <ImagePlus className="size-4" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="size-7 text-primary hover:text-muted-foreground  cursor-pointer"
+            >
+              <Globe className="size-4" />
+            </Button>
+            <div className="ml-auto flex items-center">
+              <PromptInputSubmit
+                status={status}
+                onStop={handleStop}
+                className="size-8 rounded-full bg-primary/80 cursor-pointer"
+              >
+                {status === "submitted" ? (
+                  <Spinner className="size-4" />
+                ) : status === "streaming" ? (
+                  <Square className="size-3 fill-current" />
+                ) : (
+                  <Send className="size-4 text-secondary" />
+                )}
+              </PromptInputSubmit>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
