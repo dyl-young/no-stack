@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FileText, Home } from "lucide-react";
+import { FileText, Home, MessageSquare } from "lucide-react";
 
 import {
   Sidebar,
@@ -25,6 +25,11 @@ const items = [
     title: "Home",
     url: "/dashboard",
     icon: Home,
+  },
+  {
+    title: "Chat",
+    url: "/dashboard/chat",
+    icon: MessageSquare,
   },
   {
     title: "CRUD",
