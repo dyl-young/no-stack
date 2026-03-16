@@ -1,8 +1,4 @@
-import {
-  Icon,
-  Label,
-  NativeTabs,
-} from "expo-router/unstable-native-tabs";
+import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
 
 import { useThemeColours } from "~/lib/theme";
 
@@ -13,6 +9,10 @@ export default function TabLayout() {
       <NativeTabs.Trigger name="(feed)">
         <Icon sf={{ default: "newspaper", selected: "newspaper.fill" }} />
         <Label>Feed</Label>
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="(chat)">
+        <Icon sf={{ default: "bubble.left", selected: "bubble.left.fill" }} />
+        <Label>Chat</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(profile)">
         <Icon sf={{ default: "person", selected: "person.fill" }} />
