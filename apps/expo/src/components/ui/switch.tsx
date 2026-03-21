@@ -55,14 +55,14 @@ function SwitchNative({
   ref?: React.RefObject<SwitchPrimitives.RootRef>;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call -- nativewind useColorScheme types can't be resolved
-  const { colorScheme } = useColorScheme();
+  const { colorScheme: rawColorScheme } = useColorScheme();
+  const colorScheme = (rawColorScheme ?? "light") as keyof typeof RGB_COLORS;
   const translateX = useDerivedValue(() => (props.checked ? 18 : 0));
   const animatedRootStyle = useAnimatedStyle(() => {
     return {
       backgroundColor: interpolateColor(
         translateX.value,
         [0, 18],
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- nativewind colorScheme type resolution
         [RGB_COLORS[colorScheme].input, RGB_COLORS[colorScheme].primary],
       ),
     };
