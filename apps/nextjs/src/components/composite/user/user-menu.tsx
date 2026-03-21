@@ -1,6 +1,5 @@
 "use client";
 
-import { start } from "repl";
 import Link from "next/link";
 import { ChevronUp, LogOut, User } from "lucide-react";
 

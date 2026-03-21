@@ -19,7 +19,6 @@ import {
   useForm,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Social } from "./social";
 
 export const SignInForm = () => {
   const form = useForm({
