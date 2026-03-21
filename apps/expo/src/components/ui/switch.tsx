@@ -54,9 +54,8 @@ function SwitchNative({
 }: SwitchPrimitives.RootProps & {
   ref?: React.RefObject<SwitchPrimitives.RootRef>;
 }) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call -- nativewind useColorScheme types can't be resolved
   const { colorScheme: rawColorScheme } = useColorScheme();
-  const colorScheme = (rawColorScheme ?? "light") as keyof typeof RGB_COLORS;
+  const colorScheme: keyof typeof RGB_COLORS = rawColorScheme ?? "light";
   const translateX = useDerivedValue(() => (props.checked ? 18 : 0));
   const animatedRootStyle = useAnimatedStyle(() => {
     return {
