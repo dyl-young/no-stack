@@ -2,6 +2,7 @@
 
 import { use } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Trash2 } from "lucide-react";
 
 import type { RouterOutputs } from "@no-stack/api";
 import { CreatePostSchema } from "@no-stack/validators";
@@ -20,7 +21,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
-import { Trash2 } from "lucide-react";
 
 export function CreatePostForm() {
   const form = useForm({
@@ -160,7 +160,7 @@ export function PostCard(props: {
       <div>
         <Button
           variant="ghost"
-          className="cursor-pointer text-sm font-bold "
+          className="cursor-pointer text-sm font-bold"
           onClick={() => deletePost.mutate(props.post.id)}
         >
           <Trash2 className="h-4 w-4" />

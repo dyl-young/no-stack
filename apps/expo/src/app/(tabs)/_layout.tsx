@@ -1,8 +1,4 @@
-import {
-  Icon,
-  Label,
-  NativeTabs,
-} from "expo-router/unstable-native-tabs";
+import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
 
 import { useThemeColours } from "~/lib/theme";
 

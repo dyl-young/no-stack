@@ -50,7 +50,9 @@ export function UserAvatar({ userProfile, size = "medium" }: UserAvatarProps) {
         className="items-center justify-center rounded-full border border-1 border-primary bg-muted"
         style={dimensionStyle}
       >
-        <Text className={cn("font-medium text-muted-foreground text-center", text)}>
+        <Text
+          className={cn("text-center font-medium text-muted-foreground", text)}
+        >
           {fallbackInitials}
         </Text>
       </View>

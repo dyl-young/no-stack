@@ -13,13 +13,16 @@ import { cn } from "~/lib/utils";
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
 
-export type ChartConfig = Record<string, {
+export type ChartConfig = Record<
+  string,
+  {
     label?: React.ReactNode;
     icon?: React.ComponentType;
   } & (
     | { color?: string; theme?: never }
     | { color?: never; theme: Record<keyof typeof THEMES, string> }
-  )>;
+  )
+>;
 
 interface ChartContextProps {
   config: ChartConfig;
@@ -55,7 +58,7 @@ const ChartContainer = React.forwardRef<
         data-chart={chartId}
         ref={ref}
         className={cn(
-          "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-sector]:outline-hidden [&_.recharts-surface]:outline-hidden",
+          "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
           className,
         )}
         {...props}
@@ -242,7 +245,7 @@ const ChartTooltipContent = React.forwardRef<
                         </span>
                       </div>
                       {item.value && (
-                        <span className="font-mono font-medium tabular-nums text-foreground">
+                        <span className="font-mono font-medium text-foreground tabular-nums">
                           {item.value.toLocaleString()}
                         </span>
                       )}
@@ -353,9 +356,7 @@ function getPayloadConfigFromPayload(
     ] as string;
   }
 
-  return configLabelKey in config
-    ? config[configLabelKey]
-    : config[key];
+  return configLabelKey in config ? config[configLabelKey] : config[key];
 }
 
 export {

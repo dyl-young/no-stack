@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { FlatList, Keyboard, View } from "react-native";
+import * as Haptics from "expo-haptics";
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import * as Haptics from "expo-haptics";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner-native";
 
@@ -75,7 +75,9 @@ function CreatePostSheet() {
       handleIndicatorStyle={{ backgroundColor: theme.mutedForeground }}
       backgroundStyle={{ backgroundColor: theme.surface }}
     >
-      <BottomSheetView style={{ flex: 1, flexDirection: "column", padding: 20, gap: 16 }}>
+      <BottomSheetView
+        style={{ flex: 1, flexDirection: "column", padding: 20, gap: 16 }}
+      >
         <Text
           style={{ fontSize: 22, fontWeight: "700", color: theme.foreground }}
         >
@@ -84,9 +86,19 @@ function CreatePostSheet() {
 
         <View style={{ gap: 12, paddingBottom: 16 }}>
           <Input value={title} onChangeText={setTitle} placeholder="Title" />
-          {(error?.data?.zodError?.fieldErrors as Record<string, string[]> | undefined)?.title && (
+          {(
+            error?.data?.zodError?.fieldErrors as
+              | Record<string, string[]>
+              | undefined
+          )?.title && (
             <Text style={{ color: "red", fontSize: 13 }}>
-              {(error?.data?.zodError?.fieldErrors as Record<string, string[]> | undefined)?.title}
+              {
+                (
+                  error?.data?.zodError?.fieldErrors as
+                    | Record<string, string[]>
+                    | undefined
+                )?.title
+              }
             </Text>
           )}
 
@@ -96,11 +108,25 @@ function CreatePostSheet() {
             placeholder="Content"
             multiline
             numberOfLines={4}
-            style={{ minHeight: 80, textAlignVertical: "top", marginBottom: 26 }}
+            style={{
+              minHeight: 80,
+              textAlignVertical: "top",
+              marginBottom: 26,
+            }}
           />
-          {(error?.data?.zodError?.fieldErrors as Record<string, string[]> | undefined)?.content && (
+          {(
+            error?.data?.zodError?.fieldErrors as
+              | Record<string, string[]>
+              | undefined
+          )?.content && (
             <Text style={{ color: "red", fontSize: 13 }}>
-              {(error?.data?.zodError?.fieldErrors as Record<string, string[]> | undefined)?.content}
+              {
+                (
+                  error?.data?.zodError?.fieldErrors as
+                    | Record<string, string[]>
+                    | undefined
+                )?.content
+              }
             </Text>
           )}
         </View>

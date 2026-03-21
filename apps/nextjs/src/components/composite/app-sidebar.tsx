@@ -36,11 +36,19 @@ const items = [
 export function AppSidebar() {
   const { open } = useSidebar();
   return (
-    <Sidebar variant={open ? "inset" : "floating"} className="border-none" collapsible="icon">
+    <Sidebar
+      variant={open ? "inset" : "floating"}
+      className="border-none"
+      collapsible="icon"
+    >
       <SidebarContent>
         <SidebarHeader className="mx-auto flex items-start justify-center">
           <Link href="/">
-            <AnimatedCubeLogo size={32} animateFaces={["top", "left", "right"]} className=" mt-[1px] text-primary" />
+            <AnimatedCubeLogo
+              size={32}
+              animateFaces={["top", "left", "right"]}
+              className="mt-[1px] text-primary"
+            />
           </Link>
         </SidebarHeader>
         <SidebarGroup>

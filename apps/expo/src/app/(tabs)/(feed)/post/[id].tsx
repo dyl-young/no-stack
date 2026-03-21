@@ -2,16 +2,16 @@ import { ScrollView, View } from "react-native";
 import * as Haptics from "expo-haptics";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Trash2 } from "lucide-react-native";
 import { toast } from "sonner-native";
 
+import { HeaderButton } from "~/components/header";
 import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
 import { Text } from "~/components/ui/text";
 import { useThemeColours } from "~/lib/theme";
 import { confirmDelete } from "~/lib/utils";
 import { useTRPC } from "~/utils/api";
-import { Trash2 } from "lucide-react-native";
-import { HeaderButton } from "~/components/header";
 
 export default function PostDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -61,7 +61,12 @@ export default function PostDetailScreen() {
   if (postQuery.isError) {
     return (
       <View
-        style={{ flex: 1, alignItems: "center", justifyContent: "center", padding: 16 }}
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 16,
+        }}
       >
         <Text style={{ marginBottom: 16, color: theme.mutedForeground }}>
           Failed to load post
@@ -76,7 +81,12 @@ export default function PostDetailScreen() {
   if (!postQuery.data) {
     return (
       <View
-        style={{ flex: 1, alignItems: "center", justifyContent: "center", padding: 16 }}
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 16,
+        }}
       >
         <Text style={{ color: theme.mutedForeground }}>Post not found</Text>
       </View>
@@ -104,7 +114,10 @@ export default function PostDetailScreen() {
           ),
         }}
       />
-      <Text selectable style={{ fontSize: 28, fontWeight: "700", color: theme.foreground }}>
+      <Text
+        selectable
+        style={{ fontSize: 28, fontWeight: "700", color: theme.foreground }}
+      >
         {post.title}
       </Text>
       <Text selectable style={{ fontSize: 15, color: theme.mutedForeground }}>
@@ -112,7 +125,12 @@ export default function PostDetailScreen() {
       </Text>
       <Text
         selectable
-        style={{ fontSize: 17, lineHeight: 24, marginTop: 12, color: theme.foreground }}
+        style={{
+          fontSize: 17,
+          lineHeight: 24,
+          marginTop: 12,
+          color: theme.foreground,
+        }}
       >
         {post.content}
       </Text>

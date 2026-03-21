@@ -1,10 +1,10 @@
 import { relations } from "drizzle-orm";
 import { uuid, varchar } from "drizzle-orm/pg-core";
 
+import { timestamps } from "../lib";
 import { createTable } from "./_table";
 import { Users } from "./auth";
 import { Post } from "./post";
-import { timestamps } from "../lib";
 
 export const Profile = createTable("profile", {
   // Matches id from auth.users table in Supabase
