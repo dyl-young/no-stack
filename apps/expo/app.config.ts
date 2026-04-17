@@ -9,7 +9,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: "no-stack",
   scheme: "expo",
   version: releaseVersion,
-  newArchEnabled: true,
   orientation: "portrait",
   icon: "./assets/logo.png",
   userInterfaceStyle: "automatic",
@@ -51,6 +50,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   // },
   plugins: [
     "expo-dev-client",
+    "expo-image",
     "expo-router",
     "expo-secure-store",
     // "expo-apple-authentication", // Disabled for personal development team - requires paid Apple Developer account

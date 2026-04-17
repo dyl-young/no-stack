@@ -55,7 +55,8 @@ function SwitchNative({
   ref?: React.RefObject<SwitchPrimitives.RootRef>;
 }) {
   const { colorScheme: rawColorScheme } = useColorScheme();
-  const colorScheme: keyof typeof RGB_COLORS = rawColorScheme ?? "light";
+  const colorScheme: keyof typeof RGB_COLORS =
+    rawColorScheme === "dark" ? "dark" : "light";
   const translateX = useDerivedValue(() => (props.checked ? 18 : 0));
   const animatedRootStyle = useAnimatedStyle(() => {
     return {
