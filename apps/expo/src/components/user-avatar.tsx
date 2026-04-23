@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { Image, useColorScheme, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import initials from "initials";
+import { Image, View } from "react-native";
+import { User } from "lucide-react-native";
 
 import type { UserProfile } from "./types";
-import { Text } from "~/components/ui/text";
-import { cn } from "~/lib/utils";
+import { useThemeColours } from "~/lib/theme";
 
 interface UserAvatarProps {
   userProfile?: UserProfile;
@@ -13,29 +11,22 @@ interface UserAvatarProps {
 }
 
 const SIZES = {
-  small: { px: 32, text: "text-sm", icon: 18 },
-  medium: { px: 48, text: "text-lg", icon: 24 },
-  large: { px: 80, text: "text-2xl", icon: 36 },
-  "extra-large": { px: 120, text: "text-4xl", icon: 54 },
+  small: { px: 32, icon: 18 },
+  medium: { px: 48, icon: 24 },
+  large: { px: 80, icon: 36 },
+  "extra-large": { px: 120, icon: 54 },
 } as const;
 
 export function UserAvatar({ userProfile, size = "medium" }: UserAvatarProps) {
-  const colorScheme = useColorScheme();
-  const color = colorScheme === "dark" ? "#FFFFFF" : "#000000";
+  const theme = useThemeColours();
   const [imgError, setImgError] = useState(false);
 
-  const { px, text, icon } = SIZES[size];
-  const dimensionStyle = { width: px, height: px, borderRadius: px / 2 };
-
-  const fallbackInitials = userProfile
-    ? initials(userProfile.name || (userProfile.email ?? "")).slice(0, 2)
-    : null;
+  const { px, icon } = SIZES[size];
 
   if (userProfile?.image && !imgError) {
     return (
       <Image
-        className="rounded-full bg-muted"
-        style={dimensionStyle}
+        style={{ width: px, height: px, borderRadius: px / 2 }}
         source={{ uri: userProfile.image }}
         resizeMode="cover"
         alt="User Avatar"
@@ -44,27 +35,20 @@ export function UserAvatar({ userProfile, size = "medium" }: UserAvatarProps) {
     );
   }
 
-  if (fallbackInitials) {
-    return (
-      <View
-        className="items-center justify-center rounded-full border border-1 border-primary bg-muted"
-        style={dimensionStyle}
-      >
-        <Text
-          className={cn("text-center font-medium text-muted-foreground", text)}
-        >
-          {fallbackInitials}
-        </Text>
-      </View>
-    );
-  }
-
   return (
     <View
-      className="items-center justify-center rounded-full border border-primary"
-      style={dimensionStyle}
+      style={{
+        width: px,
+        height: px,
+        borderRadius: px / 2,
+        backgroundColor: theme.surface,
+        borderWidth: 1,
+        borderColor: theme.border,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
-      <FontAwesome name="user" size={icon} color={color} />
+      <User size={icon} color={theme.mutedForeground} />
     </View>
   );
 }

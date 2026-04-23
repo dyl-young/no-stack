@@ -41,8 +41,10 @@ export function UserAvatar({ imageUrl, name, email }: UserAvatarProps = {}) {
   const resolvedImage =
     imageUrl ?? (hasUserData ? undefined : userProfile?.image) ?? undefined;
 
-  const userInitials =
-    initials(resolvedName ?? resolvedEmail ?? "").slice(0, 2) || "?";
+  const userInitials = initials(resolvedName ?? resolvedEmail ?? "").slice(
+    0,
+    2,
+  );
 
   // Ref callback catches images that failed before React hydration
   const imgRef = useCallback(
@@ -59,16 +61,6 @@ export function UserAvatar({ imageUrl, name, email }: UserAvatarProps = {}) {
     return (
       <Avatar className="h-full w-full">
         <AvatarFallback />
-      </Avatar>
-    );
-  }
-
-  if (!resolvedName && !resolvedEmail && !resolvedImage) {
-    return (
-      <Avatar className="h-full w-full">
-        <AvatarFallback>
-          <User />
-        </AvatarFallback>
       </Avatar>
     );
   }
@@ -90,7 +82,7 @@ export function UserAvatar({ imageUrl, name, email }: UserAvatarProps = {}) {
 
   return (
     <Avatar className="h-full w-full">
-      <AvatarFallback>{userInitials}</AvatarFallback>
+      <AvatarFallback>{userInitials || <User />}</AvatarFallback>
     </Avatar>
   );
 }
