@@ -5,10 +5,61 @@ updates:
     schedule:
       interval: weekly
       day: monday
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 15
     cooldown:
       default-days: 5
     groups:
+      nextjs:
+        patterns: ["next", "@next/*", "eslint-config-next"]
+        update-types: [minor, patch]
+      react:
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom"]
+        update-types: [minor, patch]
+      supabase:
+        patterns: ["@supabase/*", "supabase"]
+        update-types: [minor, patch]
+      trpc:
+        patterns: ["@trpc/*"]
+        update-types: [minor, patch]
+      database:
+        patterns:
+          ["drizzle-*", "@vercel/postgres", "postgres", "pg", "@types/pg"]
+        update-types: [minor, patch]
+      tanstack:
+        patterns: ["@tanstack/*"]
+        update-types: [minor, patch]
+      radix-ui:
+        patterns: ["@radix-ui/*"]
+        update-types: [minor, patch]
+      icons:
+        patterns: ["lucide-*"]
+        update-types: [minor, patch]
+      turbo:
+        patterns: ["turbo", "@turbo/*", "eslint-config-turbo"]
+        update-types: [minor, patch]
+      eslint:
+        patterns:
+          [
+            "eslint",
+            "eslint-*",
+            "@eslint/*",
+            "@typescript-eslint/*",
+            "typescript-eslint",
+          ]
+        exclude-patterns:
+          ["eslint-config-turbo", "eslint-config-next", "@next/*"]
+        update-types: [minor, patch]
+      testing:
+        patterns:
+          ["vitest", "@vitest/*", "@testing-library/*", "happy-dom", "jsdom"]
+        update-types: [minor, patch]
+      typescript:
+        patterns: ["typescript", "tsx", "ts-node"]
+        update-types: [minor, patch]
+      types:
+        patterns: ["@types/*"]
+        exclude-patterns: ["@types/react", "@types/react-dom", "@types/pg"]
+        update-types: [minor, patch]
       dev-dependencies:
         dependency-type: development
         update-types: [minor, patch]
@@ -17,28 +68,15 @@ updates:
         update-types: [minor, patch]
     ignore:
       - dependency-name: expo
-        update-types:
-          [
-            version-update:semver-major,
-            version-update:semver-minor,
-            version-update:semver-patch,
-          ]
       - dependency-name: "expo-*"
-        update-types:
-          [
-            version-update:semver-major,
-            version-update:semver-minor,
-            version-update:semver-patch,
-          ]
       - dependency-name: "react-native*"
-        update-types:
-          [
-            version-update:semver-major,
-            version-update:semver-minor,
-            version-update:semver-patch,
-          ]
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 5
+    groups:
+      github-actions:
+        patterns: ["*"]
