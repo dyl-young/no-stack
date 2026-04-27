@@ -705,8 +705,8 @@ importers:
   supabase:
     devDependencies:
       supabase:
-        specifier: ^2.51.0
-        version: 2.92.1
+        specifier: ^2.93.0
+        version: 2.93.0
 
   tooling/eslint:
     dependencies:
@@ -8176,8 +8176,8 @@ packages:
   stylis@4.2.0:
     resolution: {integrity: sha512-Orov6g6BB1sDfYgzWfTHDOxamtX1bE/zo104Dh9e6fqJ3PooipYyfJ0pUmrZO2wAvO8YbEyeFrkV91XTsGMSrw==}
 
-  supabase@2.92.1:
-    resolution: {integrity: sha512-BB3olR2glhrE0YGDhq0vknJdrwjROaIHgiC/OZc94eLbBHnsJ3szKeRZkcF9dxRgxuq6QWdxCrn5m14lfu9tug==}
+  supabase@2.93.0:
+    resolution: {integrity: sha512-2R4nRuOfcSzwjnIGLbGPrsqLnDIUDzg8ozM3xWkwToMkEu0pKfZbhFJz8AaUpKgBnbs4RgQkbcxPA+IESJFypw==}
     engines: {npm: '>=8'}
     hasBin: true
 
@@ -17883,7 +17883,7 @@ snapshots:
 
   stylis@4.2.0: {}
 
-  supabase@2.92.1:
+  supabase@2.93.0:
     dependencies:
       bin-links: 6.0.0
       https-proxy-agent: 9.0.0
