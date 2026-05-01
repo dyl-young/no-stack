@@ -17,6 +17,8 @@ export const env = createEnv({
   // eslint-disable-next-line no-restricted-properties
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
+  // eslint-disable-next-line no-restricted-properties
+  skipValidation: !!process.env.CI || !!process.env.SKIP_ENV_VALIDATION,
 });
 
 // The following code is only used to connect to the local development environment supabase database
