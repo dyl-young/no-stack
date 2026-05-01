@@ -1,3 +1,5 @@
+import type { NodePgClient } from "drizzle-orm/node-postgres";
+import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
 import { neonConfig, Pool as NeonPool } from "@neondatabase/serverless";
 import { createEnv } from "@t3-oss/env-core";
 import { drizzle } from "drizzle-orm/node-postgres";
@@ -49,4 +51,7 @@ const client = process.env.VERCEL_ENV
       connectionString: env.POSTGRES_URL,
     });
 
-export const db = drizzle(client as Pool, { schema, casing: "snake_case" });
+export const db: PgDatabase<PgQueryResultHKT, typeof schema> = drizzle(
+  client as unknown as NodePgClient,
+  { schema, casing: "snake_case" },
+);

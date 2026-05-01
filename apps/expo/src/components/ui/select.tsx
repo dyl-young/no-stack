@@ -150,7 +150,7 @@ function SelectLabel({
   return (
     <SelectPrimitive.Label
       className={cn(
-        "native:pb-2 native:pl-10 native:text-base py-1.5 pl-8 pr-2 text-sm font-semibold text-popover-foreground",
+        "native:pb-2 native:pl-10 native:text-base py-1.5 pr-2 pl-8 text-sm font-semibold text-popover-foreground",
         className,
       )}
       {...props}
@@ -168,7 +168,7 @@ function SelectItem({
   return (
     <SelectPrimitive.Item
       className={cn(
-        "web:group web:cursor-default web:select-none native:py-2 native:pl-10 web:hover:bg-accent/50 web:outline-hidden web:focus:bg-accent relative flex w-full flex-row items-center rounded-xs py-1.5 pl-8 pr-2 active:bg-accent",
+        "web:group web:cursor-default web:select-none native:py-2 native:pl-10 web:hover:bg-accent/50 web:outline-hidden web:focus:bg-accent relative flex w-full flex-row items-center rounded-xs py-1.5 pr-2 pl-8 active:bg-accent",
         props.disabled && "web:pointer-events-none opacity-50",
         className,
       )}

@@ -1,6 +1,6 @@
+import type { ClassValue } from "clsx";
 import { Alert } from "react-native";
 import * as Haptics from "expo-haptics";
-import type { ClassValue } from "clsx";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 

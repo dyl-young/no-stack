@@ -53,6 +53,8 @@ function CreatePostSheet() {
     }),
   );
 
+  const fieldErrors = error?.data?.zodError?.fieldErrors;
+
   const renderBackdrop = useCallback(
     (props: React.ComponentProps<typeof BottomSheetBackdrop>) => (
       <BottomSheetBackdrop
@@ -86,19 +88,9 @@ function CreatePostSheet() {
 
         <View style={{ gap: 12, paddingBottom: 16 }}>
           <Input value={title} onChangeText={setTitle} placeholder="Title" />
-          {(
-            error?.data?.zodError?.fieldErrors as
-              | Record<string, string[]>
-              | undefined
-          )?.title && (
+          {fieldErrors?.title && (
             <Text style={{ color: "red", fontSize: 13 }}>
-              {
-                (
-                  error?.data?.zodError?.fieldErrors as
-                    | Record<string, string[]>
-                    | undefined
-                )?.title
-              }
+              {fieldErrors.title}
             </Text>
           )}
 
@@ -114,19 +106,9 @@ function CreatePostSheet() {
               marginBottom: 26,
             }}
           />
-          {(
-            error?.data?.zodError?.fieldErrors as
-              | Record<string, string[]>
-              | undefined
-          )?.content && (
+          {fieldErrors?.content && (
             <Text style={{ color: "red", fontSize: 13 }}>
-              {
-                (
-                  error?.data?.zodError?.fieldErrors as
-                    | Record<string, string[]>
-                    | undefined
-                )?.content
-              }
+              {fieldErrors.content}
             </Text>
           )}
         </View>
