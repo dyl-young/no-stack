@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Constants from "expo-constants";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCContext } from "@trpc/tanstack-react-query";
 import superjson from "superjson";
 
 import type { AppRouter } from "@no-stack/api";
+
+import { useSupabaseClient } from "./session";
 
 /**
  * A set of typesafe hooks for consuming your API.
