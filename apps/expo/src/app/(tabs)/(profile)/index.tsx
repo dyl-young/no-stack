@@ -12,7 +12,6 @@ import {
   View,
 } from "react-native";
 import * as AppleAuthentication from "expo-apple-authentication";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Eye, EyeOff } from "lucide-react-native";
 import { toast } from "sonner-native";
@@ -26,6 +25,7 @@ import { useImageUpload } from "~/hooks/useImageUpload";
 import { useThemeColours } from "~/lib/theme";
 import { useTRPC } from "~/utils/api";
 import { initiateAppleSignIn } from "~/utils/auth";
+import { useSupabaseClient, useUser } from "~/utils/session";
 
 export default function ProfileScreen() {
   const user = useUser();
