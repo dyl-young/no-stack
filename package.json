@@ -44,7 +44,7 @@
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@no-stack/prettier-config": "workspace:*",
-    "@turbo/gen": "^2.9.3",
+    "@turbo/gen": "^2.9.9",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "prettier": "catalog:",

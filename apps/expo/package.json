@@ -93,7 +93,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-env": "^7.29.5",
     "@babel/runtime": "^7.26.0",
     "@expo/config-plugins": "^55.0.7",
     "@no-stack/api": "workspace:*",
