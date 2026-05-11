@@ -49,7 +49,7 @@
     "lint-staged": "^16.4.0",
     "prettier": "catalog:",
     "sort-package-json": "^3.6.1",
-    "turbo": "^2.9.3",
+    "turbo": "^2.9.9",
     "typescript": "catalog:"
   },
   "packageManager": "pnpm@10.20.0",
