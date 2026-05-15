@@ -89,7 +89,7 @@
     "reactotron-react-native": "^5.1.12",
     "sonner-native": "^0.24.0",
     "superjson": "2.2.6",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
