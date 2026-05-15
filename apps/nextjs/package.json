@@ -56,7 +56,7 @@
     "remark-math": "^6.0.0",
     "sonner": "^1.7.1",
     "superjson": "2.2.6",
-    "tailwind-merge": "^2.6.0",
+    "tailwind-merge": "^3.6.0",
     "trpc-ui": "^1.0.15",
     "uuid": "^14.0.0",
     "vaul": "^1.1.2",
