@@ -35,7 +35,7 @@
   },
   "prettier": "@no-stack/prettier-config",
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4",
+    "@neondatabase/serverless": "^1.1.0",
     "@t3-oss/env-core": "^0.13.10",
     "@vercel/postgres": "^0.10.0",
     "drizzle-orm": "^0.45.2",
