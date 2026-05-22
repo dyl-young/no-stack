@@ -7,7 +7,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: "no-stack",
   description: "A simple expo app",
   slug: "no-stack",
-  scheme: "expo",
+  scheme: "nostack",
   version: releaseVersion,
   orientation: "portrait",
   icon: "./assets/logo.png",
@@ -24,7 +24,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     bundleIdentifier: "com.mostack.changeme",
     supportsTablet: true,
-    // usesAppleSignIn: true, // Disabled for personal development team - requires paid Apple Developer account
     config: {
       usesNonExemptEncryption: false,
     },
@@ -53,7 +52,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     "expo-image",
     "expo-router",
     "expo-secure-store",
-    // "expo-apple-authentication", // Disabled for personal development team - requires paid Apple Developer account
     [
       "expo-image-picker",
       {
