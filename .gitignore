@@ -60,3 +60,6 @@ docs/setup/DO_NOT_COMMIT_temporary_secrets_file.txt
 
 # Supabase SSL certificate
 prod-ca-2021.crt
+
+# Agent files
+.claude/*
