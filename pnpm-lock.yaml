@@ -628,6 +628,9 @@ importers:
       '@no-stack/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
+      '@types/ws':
+        specifier: ^8.18.1
+        version: 8.18.1
       dotenv-cli:
         specifier: ^11.0.0
         version: 11.0.0
