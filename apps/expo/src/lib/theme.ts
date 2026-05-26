@@ -32,5 +32,5 @@ export type ThemeColours = (typeof THEME_COLOURS)["light"];
 
 export function useThemeColours() {
   const colorScheme = useColorScheme();
-  return THEME_COLOURS[colorScheme ?? "light"];
+  return THEME_COLOURS[colorScheme === "dark" ? "dark" : "light"];
 }

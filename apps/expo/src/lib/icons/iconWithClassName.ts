@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react-native";
 import { styled } from "nativewind";
 
 export function iconWithClassName(icon: LucideIcon) {
-  styled(icon, {
+  return styled(icon, {
     className: {
       target: "style",
       nativeStyleToProp: {
@@ -10,5 +10,5 @@ export function iconWithClassName(icon: LucideIcon) {
         opacity: true,
       },
     },
-  });
+  } as never);
 }

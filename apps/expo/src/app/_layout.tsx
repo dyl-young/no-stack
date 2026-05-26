@@ -10,11 +10,11 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { Toaster } from "sonner-native";
 
 import { useThemeColours } from "~/lib/theme";
 import { TRPCProvider } from "~/utils/api";
+import { SessionContextProvider } from "~/utils/session";
 import { supabase } from "~/utils/supabase";
 
 import "../../polyfills";

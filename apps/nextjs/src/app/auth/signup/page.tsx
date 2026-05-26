@@ -9,7 +9,7 @@ export default function SignUpPage() {
         backButtonLabel="Have an account?"
         backButtonLinkLabel="Sign in"
         backButtonHref="/auth/signin"
-        showSocial={false}
+        showSocial
         showCredentials
       >
         <SignUpForm />

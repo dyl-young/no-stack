@@ -1,68 +1,15 @@
-import { useState } from "react";
-import { Image, Pressable, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Link, router } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import initials from "initials";
 import { Trash2 } from "lucide-react-native";
 import { toast } from "sonner-native";
 
 import type { RouterOutputs } from "~/utils/api";
 import { Text } from "~/components/ui/text";
+import { UserAvatar } from "~/components/user-avatar";
 import { useThemeColours } from "~/lib/theme";
 import { confirmDelete } from "~/lib/utils";
 import { useTRPC } from "~/utils/api";
-
-function PostAuthorAvatar({
-  image,
-  name,
-  email,
-}: {
-  image: string | null;
-  name: string | null;
-  email: string | null;
-}) {
-  const [imgError, setImgError] = useState(false);
-  const theme = useThemeColours();
-  const fallback = initials(name ?? email ?? "").slice(0, 2) || "?";
-
-  if (image && !imgError) {
-    return (
-      <Image
-        source={{ uri: image }}
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: 18,
-          backgroundColor: theme.border,
-        }}
-        onError={() => setImgError(true)}
-      />
-    );
-  }
-
-  return (
-    <View
-      style={{
-        width: 36,
-        height: 36,
-        borderRadius: 18,
-        backgroundColor: theme.border,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 14,
-          fontWeight: "500",
-          color: theme.mutedForeground,
-        }}
-      >
-        {fallback}
-      </Text>
-    </View>
-  );
-}
 
 export function PostCard({
   post,
@@ -115,11 +62,7 @@ export function PostCard({
             boxShadow: "0 1px 3px rgba(0, 0, 0, 0.08)",
           }}
         >
-          <PostAuthorAvatar
-            image={post.author.image}
-            name={post.author.name}
-            email={post.author.email}
-          />
+          <UserAvatar userProfile={post.author} size="small" />
           <View style={{ flex: 1, gap: 2 }}>
             <View
               style={{

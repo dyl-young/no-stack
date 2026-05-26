@@ -11,12 +11,11 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import * as AppleAuthentication from "expo-apple-authentication";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Eye, EyeOff } from "lucide-react-native";
 import { toast } from "sonner-native";
 
+import { GoogleIcon } from "~/components/google-icon";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
@@ -25,7 +24,8 @@ import { UserAvatar } from "~/components/user-avatar";
 import { useImageUpload } from "~/hooks/useImageUpload";
 import { useThemeColours } from "~/lib/theme";
 import { useTRPC } from "~/utils/api";
-import { initiateAppleSignIn } from "~/utils/auth";
+import { GoogleSignInCancelledError, signInWithGoogle } from "~/utils/auth";
+import { useSupabaseClient, useUser } from "~/utils/session";
 
 export default function ProfileScreen() {
   const user = useUser();
@@ -208,25 +208,19 @@ function SignedInView() {
 }
 
 function SignedOutView() {
-  const supabase = useSupabaseClient();
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
-  const signInWithApple = async () => {
+  const handleGoogleSignIn = async () => {
+    setIsSigningIn(true);
     try {
-      const { token, nonce } = await initiateAppleSignIn();
-      const { error } = await supabase.auth.signInWithIdToken({
-        provider: "apple",
-        token,
-        nonce,
-      });
-      if (error) return Alert.alert("Error", error.message);
+      await signInWithGoogle();
     } catch (e) {
-      if (typeof e === "object" && !!e && "code" in e) {
-        if (e.code !== "ERR_REQUEST_CANCELED") {
-          Alert.alert("Error", "Something went wrong with Apple Sign In.");
-        }
-      } else {
-        console.error("Unexpected error from Apple SignIn: ", e);
-      }
+      if (e instanceof GoogleSignInCancelledError) return;
+      console.error("Google sign in failed:", e);
+      const message = e instanceof Error ? e.message : "Something went wrong.";
+      Alert.alert("Error", message);
+    } finally {
+      setIsSigningIn(false);
     }
   };
 
@@ -242,13 +236,20 @@ function SignedOutView() {
         <View className="h-px flex-1 bg-border" />
       </View>
 
-      <AppleAuthentication.AppleAuthenticationButton
-        buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-        buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-        cornerRadius={8}
-        onPress={signInWithApple}
-        style={{ height: 48 }}
-      />
+      <Button
+        variant="secondary"
+        onPress={handleGoogleSignIn}
+        disabled={isSigningIn}
+      >
+        {isSigningIn ? (
+          <ActivityIndicator />
+        ) : (
+          <View className="flex-row items-center gap-2">
+            <GoogleIcon size={18} />
+            <Text>Continue with Google</Text>
+          </View>
+        )}
+      </Button>
     </View>
   );
 }
