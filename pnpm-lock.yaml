@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@tanstack/react-query':
-      specifier: ^5.87.1
-      version: 5.100.11
+      specifier: ^5.100.14
+      version: 5.100.14
     '@trpc/client':
       specifier: ^11.7.1
       version: 11.17.0
@@ -196,11 +196,11 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2
       '@supabase/supabase-js':
-        specifier: ^2.87.1
-        version: 2.106.1
+        specifier: ^2.106.2
+        version: 2.106.2
       '@tanstack/react-query':
         specifier: 'catalog:'
-        version: 5.100.11(react@19.2.6)
+        version: 5.100.14(react@19.2.6)
       '@trpc/client':
         specifier: 'catalog:'
         version: 11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3)
@@ -209,7 +209,7 @@ importers:
         version: 11.17.0(typescript@5.9.3)
       '@trpc/tanstack-react-query':
         specifier: 'catalog:'
-        version: 11.17.0(@tanstack/react-query@5.100.11(react@19.2.6))(@trpc/client@11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.17.0(typescript@5.9.3))(react@19.2.6)(typescript@5.9.3)
+        version: 11.17.0(@tanstack/react-query@5.100.14(react@19.2.6))(@trpc/client@11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.17.0(typescript@5.9.3))(react@19.2.6)(typescript@5.9.3)
       '@ungap/structured-clone':
         specifier: ^1.3.0
         version: 1.3.1
@@ -271,8 +271,8 @@ importers:
         specifier: ^19.2.6
         version: 19.2.6(react@19.2.6)
       react-hook-form:
-        specifier: ^7.68.0
-        version: 7.76.0(react@19.2.6)
+        specifier: ^7.76.1
+        version: 7.76.1(react@19.2.6)
       react-native:
         specifier: ~0.83.4
         version: 0.83.9(@babel/core@7.29.7)(@types/react@19.2.15)(bufferutil@4.1.0)(react@19.2.6)
@@ -369,7 +369,7 @@ importers:
     dependencies:
       '@hookform/resolvers':
         specifier: ^5.2.0
-        version: 5.4.0(react-hook-form@7.76.0(react@19.1.4))
+        version: 5.4.0(react-hook-form@7.76.1(react@19.1.4))
       '@no-stack/api':
         specifier: workspace:*
         version: link:../../packages/api
@@ -387,16 +387,16 @@ importers:
         version: 1.3.2(react@19.1.4)
       '@supabase/ssr':
         specifier: ^0.10.2
-        version: 0.10.3(@supabase/supabase-js@2.106.1)
+        version: 0.10.3(@supabase/supabase-js@2.106.2)
       '@supabase/supabase-js':
-        specifier: ^2.87.1
-        version: 2.106.1
+        specifier: ^2.106.2
+        version: 2.106.2
       '@t3-oss/env-nextjs':
         specifier: ^0.13.10
         version: 0.13.11(typescript@5.9.3)(zod@4.4.3)
       '@tanstack/react-query':
         specifier: 'catalog:'
-        version: 5.100.11(react@19.1.4)
+        version: 5.100.14(react@19.1.4)
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
@@ -408,7 +408,7 @@ importers:
         version: 11.17.0(typescript@5.9.3)
       '@trpc/tanstack-react-query':
         specifier: 'catalog:'
-        version: 11.17.0(@tanstack/react-query@5.100.11(react@19.1.4))(@trpc/client@11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.17.0(typescript@5.9.3))(react@19.1.4)(typescript@5.9.3)
+        version: 11.17.0(@tanstack/react-query@5.100.14(react@19.1.4))(@trpc/client@11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.17.0(typescript@5.9.3))(react@19.1.4)(typescript@5.9.3)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -419,8 +419,8 @@ importers:
         specifier: 1.1.1
         version: 1.1.1(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
       date-fns:
-        specifier: ^4.1.0
-        version: 4.2.1
+        specifier: ^4.3.0
+        version: 4.3.0
       embla-carousel-react:
         specifier: ^8.6.0
         version: 8.6.0(react@19.1.4)
@@ -437,8 +437,8 @@ importers:
         specifier: ^1.4.2
         version: 1.4.2(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
       katex:
-        specifier: ^0.16.27
-        version: 0.16.47
+        specifier: ^0.17.0
+        version: 0.17.0
       lucide-react:
         specifier: ^1.8.0
         version: 1.16.0(react@19.1.4)
@@ -446,8 +446,8 @@ importers:
         specifier: ^16.2.6
         version: 16.2.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
       next-safe-action:
-        specifier: ^8.5.2
-        version: 8.5.2(next@16.2.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.4(react@19.1.4))(react@19.1.4))(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
+        specifier: ^8.5.3
+        version: 8.5.3(next@16.2.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.4(react@19.1.4))(react@19.1.4))(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
@@ -464,14 +464,14 @@ importers:
         specifier: catalog:react19
         version: 19.1.4(react@19.1.4)
       react-hook-form:
-        specifier: ^7.68.0
-        version: 7.76.0(react@19.1.4)
+        specifier: ^7.76.1
+        version: 7.76.1(react@19.1.4)
       react-markdown:
         specifier: ^10.1.0
         version: 10.1.0(@types/react@19.2.15)(react@19.1.4)
       react-resizable-panels:
-        specifier: ^4.11.1
-        version: 4.11.1(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
+        specifier: ^4.11.2
+        version: 4.11.2(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
       recharts:
         specifier: ^3.5.1
         version: 3.8.1(@types/react@19.2.15)(react-dom@19.1.4(react@19.1.4))(react-is@19.2.6)(react@19.1.4)(redux@5.0.1)
@@ -555,8 +555,8 @@ importers:
         specifier: workspace:*
         version: link:../validators
       '@supabase/supabase-js':
-        specifier: ^2.87.1
-        version: 2.106.1
+        specifier: ^2.106.2
+        version: 2.106.2
       '@trpc/server':
         specifier: 'catalog:'
         version: 11.17.0(typescript@5.9.3)
@@ -653,8 +653,8 @@ importers:
   packages/files:
     dependencies:
       '@supabase/supabase-js':
-        specifier: ^2.87.1
-        version: 2.106.1
+        specifier: ^2.106.2
+        version: 2.106.2
     devDependencies:
       '@no-stack/eslint-config':
         specifier: workspace:*
@@ -4011,8 +4011,8 @@ packages:
   '@stoplight/json-schema-sampler@0.3.0':
     resolution: {integrity: sha512-G7QImi2xr9+8iPEg0D9YUi1BWhIiiEm19aMb91oWBSdxuhezOAqqRP3XNY6wczHV9jLWW18f+KkghTy9AG0BQA==}
 
-  '@supabase/auth-js@2.106.1':
-    resolution: {integrity: sha512-7eyheXfAGwkB9bZewJPs+N3UYt6kra2JG6mIxNEgbkvcO15PLD1e75PTIUEYYl3zrifm3GrpShVl7QZxKrXO/w==}
+  '@supabase/auth-js@2.106.2':
+    resolution: {integrity: sha512-VcAjUErkHkhC5Jaf+g/G1qbkQrFh8edaCdHa7pxJmHUjkWKjT7UnYCtPA89XV0N0GIYRkEqJZw5V62CtOxTmBQ==}
     engines: {node: '>=20.0.0'}
 
   '@supabase/cli-darwin-arm64@2.101.0':
@@ -4055,19 +4055,19 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@supabase/functions-js@2.106.1':
-    resolution: {integrity: sha512-XbOPnR2mW7jp/EcW447xmGwCa+/Wc00Hkw8t4tUIJjRsHQ4xAESsLKcyLRhRJjJoUnJVXUlC+w0wUxUCM7CG2A==}
+  '@supabase/functions-js@2.106.2':
+    resolution: {integrity: sha512-oRnr0QrL8H+zTO1YyQ1QjiHZU/957jvubbxSJTUm2XLAgzoGGV9Tahfyd+uvLsBLRVmXLtpU3oyCjdQIvkGMOA==}
     engines: {node: '>=20.0.0'}
 
   '@supabase/phoenix@0.4.2':
     resolution: {integrity: sha512-YSAGnmDAfuleFCVt3CeurQZAhxRfXWeZIIkwp7NhYzQ1UwW6ePSnzsFAiUm/mbCkfoCf70QQHKW/K6RKh52a4A==}
 
-  '@supabase/postgrest-js@2.106.1':
-    resolution: {integrity: sha512-Qbn6d2lqiqeaBX1Uko0e/hL90dtQGRN6CG2wMVQtJpRFstlVW45qmUTyTOsiB8dYUWu1fWYo4YzJuDbokGv3tQ==}
+  '@supabase/postgrest-js@2.106.2':
+    resolution: {integrity: sha512-tDOzyPgp9pIRMR2x6C9+uDSJrnXSzxLtt3d7nC+Lrsy3jnJDHYfdQC/xcRyhJE/TOBJ0heSqRKR3UmejDjZxsw==}
     engines: {node: '>=20.0.0'}
 
-  '@supabase/realtime-js@2.106.1':
-    resolution: {integrity: sha512-eQCYri5E8KsjpDgC7g28cOOS2britjUWdNSJluFMainqrMRepzjOnaxqXc3RoAz7H0dxmBrfLUNF6NGP8C+YaA==}
+  '@supabase/realtime-js@2.106.2':
+    resolution: {integrity: sha512-LdRGT7DNhyZkPjubUv5bSdAZ0jSEX8wTHvx7htj7+K59TOZRvz4TuQK7tL2RWxyIZVeFMRluL04SzWS61rKnUA==}
     engines: {node: '>=20.0.0'}
 
   '@supabase/ssr@0.10.3':
@@ -4075,12 +4075,12 @@ packages:
     peerDependencies:
       '@supabase/supabase-js': ^2.105.3
 
-  '@supabase/storage-js@2.106.1':
-    resolution: {integrity: sha512-HWcLIhqinhWKpOQ3WzglR2unjW0eh9J7yOu3IZrZNIEkraK4La/HDvTqndljGsNw0itPtyHhuKBxRoPG1VUARw==}
+  '@supabase/storage-js@2.106.2':
+    resolution: {integrity: sha512-xgKCSYuev1YarV+iVqr+zlfgSyremnJtn8T0NCT8L4XmMv1CLtESc0Q6kNp8+mKWdX/8ND0nzm7OMKx08kwNAw==}
     engines: {node: '>=20.0.0'}
 
-  '@supabase/supabase-js@2.106.1':
-    resolution: {integrity: sha512-gP4HurGkGu7Z3xoOCjtAI17BKKp7jpsmwY0Ssbsks9XQRzJ7ZhK7LxfLdBSYgUdgZCQgjRK+Mr7+cl4Gxrk0Rw==}
+  '@supabase/supabase-js@2.106.2':
+    resolution: {integrity: sha512-2/RZ/1fmJx/MRSEDG2Xk8+J4JVk5clM9V0uSI6kUTrcS32KA89DtqI5RUOC9r6mzY3WBC9qexLjssIHjbLyVJA==}
     engines: {node: '>=20.0.0'}
 
   '@swc/helpers@0.5.15':
@@ -4208,11 +4208,11 @@ packages:
   '@tailwindcss/postcss@4.3.0':
     resolution: {integrity: sha512-Jm05Tjx+9yCLGv5qw1c+84Psds8MnyrEQYCB+FFk2lgGiUjlRqdxke4mVTuYrj2xnVZqKim2Apr5ySuQRYAw/w==}
 
-  '@tanstack/query-core@5.100.11':
-    resolution: {integrity: sha512-lmE0994apShXPj8CUxgx4ch5yUJhE9k/+tVwihBvPOyerACWdBocfFg24t8+0RhtlTd7tEgchDkhlCxNssvDxw==}
+  '@tanstack/query-core@5.100.14':
+    resolution: {integrity: sha512-5X41dGpxgeaHISCRW2oYwcSycZeULZzAunaudXT9ov1KOTj9xwt0CH6hbwqP1/z74ZWF7rYFnDpyYH07XFcZew==}
 
-  '@tanstack/react-query@5.100.11':
-    resolution: {integrity: sha512-J0f9s5x3LE1450nNNfYx+e/n0DMa0uOBdFJUy5r0RvmsXd4nB/n0rbHtHI1vYXhikNFan+wf51p6Tmp4c8ucrg==}
+  '@tanstack/react-query@5.100.14':
+    resolution: {integrity: sha512-oOr6aRdSFEwWhzxEkD/9ZcItM3+LjBSkeVmadWKwUssAHTsqd/7bOjWrX4AbvEkoEhgAxzN0Xk6H/aYzXiYBAw==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -5154,8 +5154,8 @@ packages:
     resolution: {integrity: sha512-BS8PfmtDGnrgYdOonGZQdLZslWIeCGFP9tpan0hi1Co2Zr2NKADsvGYA8XxuG/4UWgJ6Cjtv+YJnB6MM69QGlQ==}
     engines: {node: '>= 0.4'}
 
-  date-fns@4.2.1:
-    resolution: {integrity: sha512-37RhSdxaG1suen6VDCza6rNrQfooyQh57HFVPwQGEq2QWliVLzPQZ8Oa017weOu+HZCnzI7N3Pf/wyoBKfEqrA==}
+  date-fns@4.3.0:
+    resolution: {integrity: sha512-OYcL+3N/jyWbYdFGqoMAhytDgxP9pbYPUUiRCOgn4Fewaadk9l/Wam4Avciiyp2BgkpfQyBV9B+ehnVJych+eQ==}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -5194,10 +5194,6 @@ packages:
 
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
-
-  deepmerge-ts@7.1.5:
-    resolution: {integrity: sha512-HOJkrhaYsweh+W+e74Yn7YStZOilkoPb6fycpwNLKzSPtruFs48nYis0zy5yJz1+ktUhHxoRDJ27RQAWLIJVJw==}
-    engines: {node: '>=16.0.0'}
 
   deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
@@ -6543,6 +6539,10 @@ packages:
     resolution: {integrity: sha512-Eeo8Ys1doU1z+x8AZsPpQu+p/QcZBI5PeOo7QGQdy2x2m0MU/hYagBbGOmXwr5KVbEfVuWv9LpnQWeehogurjg==}
     hasBin: true
 
+  katex@0.17.0:
+    resolution: {integrity: sha512-Vdw0ATsQ9V+LuegM/BTwQqV/6cTl5lbGcIrU+BCgLxyf6bo38ybOr372tuSIxir3CN720flu1meYR6XzNMwQnw==}
+    hasBin: true
+
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
@@ -7052,8 +7052,8 @@ packages:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
 
-  next-safe-action@8.5.2:
-    resolution: {integrity: sha512-M127lWo8FwbeIz8dO7h/hjCxIDe1hFZIo1Dw0tTqtR3xlRnxCA0Df1DojxFLB94/jPn/0AtdOp6wpckjvyyA3g==}
+  next-safe-action@8.5.3:
+    resolution: {integrity: sha512-wTz77X3dxij4B0n8JhxgQXqvIV4a0BiE03mA3GRyPofurMO5ePPJMSWhr3Owl1XMxQzfj20+FvjwscH6URd3QA==}
     engines: {node: '>=18.17'}
     peerDependencies:
       next: '>= 14.0.0'
@@ -7585,8 +7585,8 @@ packages:
     peerDependencies:
       react: '>=17.0.0'
 
-  react-hook-form@7.76.0:
-    resolution: {integrity: sha512-eKtLGgFeSgkHqQD8J59AMZ9a4uD1D83iSIzt4YlTGD7liDen5rrjcUO1rVIGd9yC1gofryjtHbv+4ny4hkLWlw==}
+  react-hook-form@7.76.1:
+    resolution: {integrity: sha512-rYM7tPiWlu3nZchkR/ex7piyzui2vFPyaLnXnI/RnblB/L4qfMmyses8llJVtF1NpE9WBBsJlGtcSZzPCXW1qQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -7725,8 +7725,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-resizable-panels@4.11.1:
-    resolution: {integrity: sha512-kA4w58V6wYdRLm2rg9pzroZwGlqBLul1FjMP0J8kqTo3zSHtjeH+LXmZaldCo6+HWqs1e5hOcPoajKXdOze37Q==}
+  react-resizable-panels@4.11.2:
+    resolution: {integrity: sha512-+kfFbDZ8mygc7g0vxOcDzCVGuwiIUOnILqPoUHo6/uP+Mmyx6HzZU+kj1aOPDlktXuobYbr6BtQekvJwHRX4Eg==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -10524,10 +10524,10 @@ snapshots:
       react: 19.2.6
       react-native: 0.83.9(@babel/core@7.29.7)(@types/react@19.2.15)(bufferutil@4.1.0)(react@19.2.6)
 
-  '@hookform/resolvers@5.4.0(react-hook-form@7.76.0(react@19.1.4))':
+  '@hookform/resolvers@5.4.0(react-hook-form@7.76.1(react@19.1.4))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.76.0(react@19.1.4)
+      react-hook-form: 7.76.1(react@19.1.4)
 
   '@humanfs/core@0.19.2':
     dependencies:
@@ -13013,7 +13013,7 @@ snapshots:
       '@types/json-schema': 7.0.15
       json-pointer: 0.6.2
 
-  '@supabase/auth-js@2.106.1':
+  '@supabase/auth-js@2.106.2':
     dependencies:
       tslib: 2.8.1
 
@@ -13041,38 +13041,38 @@ snapshots:
   '@supabase/cli-windows-x64@2.101.0':
     optional: true
 
-  '@supabase/functions-js@2.106.1':
+  '@supabase/functions-js@2.106.2':
     dependencies:
       tslib: 2.8.1
 
   '@supabase/phoenix@0.4.2': {}
 
-  '@supabase/postgrest-js@2.106.1':
+  '@supabase/postgrest-js@2.106.2':
     dependencies:
       tslib: 2.8.1
 
-  '@supabase/realtime-js@2.106.1':
+  '@supabase/realtime-js@2.106.2':
     dependencies:
       '@supabase/phoenix': 0.4.2
       tslib: 2.8.1
 
-  '@supabase/ssr@0.10.3(@supabase/supabase-js@2.106.1)':
+  '@supabase/ssr@0.10.3(@supabase/supabase-js@2.106.2)':
     dependencies:
-      '@supabase/supabase-js': 2.106.1
+      '@supabase/supabase-js': 2.106.2
       cookie: 1.1.1
 
-  '@supabase/storage-js@2.106.1':
+  '@supabase/storage-js@2.106.2':
     dependencies:
       iceberg-js: 0.8.1
       tslib: 2.8.1
 
-  '@supabase/supabase-js@2.106.1':
+  '@supabase/supabase-js@2.106.2':
     dependencies:
-      '@supabase/auth-js': 2.106.1
-      '@supabase/functions-js': 2.106.1
-      '@supabase/postgrest-js': 2.106.1
-      '@supabase/realtime-js': 2.106.1
-      '@supabase/storage-js': 2.106.1
+      '@supabase/auth-js': 2.106.2
+      '@supabase/functions-js': 2.106.2
+      '@supabase/postgrest-js': 2.106.2
+      '@supabase/realtime-js': 2.106.2
+      '@supabase/storage-js': 2.106.2
 
   '@swc/helpers@0.5.15':
     dependencies:
@@ -13159,16 +13159,16 @@ snapshots:
       postcss: 8.5.15
       tailwindcss: 4.3.0
 
-  '@tanstack/query-core@5.100.11': {}
+  '@tanstack/query-core@5.100.14': {}
 
-  '@tanstack/react-query@5.100.11(react@19.1.4)':
+  '@tanstack/react-query@5.100.14(react@19.1.4)':
     dependencies:
-      '@tanstack/query-core': 5.100.11
+      '@tanstack/query-core': 5.100.14
       react: 19.1.4
 
-  '@tanstack/react-query@5.100.11(react@19.2.6)':
+  '@tanstack/react-query@5.100.14(react@19.2.6)':
     dependencies:
-      '@tanstack/query-core': 5.100.11
+      '@tanstack/query-core': 5.100.14
       react: 19.2.6
 
   '@tanstack/react-table@8.21.3(react-dom@19.1.4(react@19.1.4))(react@19.1.4)':
@@ -13202,17 +13202,17 @@ snapshots:
     dependencies:
       typescript: 5.9.3
 
-  '@trpc/tanstack-react-query@11.17.0(@tanstack/react-query@5.100.11(react@19.1.4))(@trpc/client@11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.17.0(typescript@5.9.3))(react@19.1.4)(typescript@5.9.3)':
+  '@trpc/tanstack-react-query@11.17.0(@tanstack/react-query@5.100.14(react@19.1.4))(@trpc/client@11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.17.0(typescript@5.9.3))(react@19.1.4)(typescript@5.9.3)':
     dependencies:
-      '@tanstack/react-query': 5.100.11(react@19.1.4)
+      '@tanstack/react-query': 5.100.14(react@19.1.4)
       '@trpc/client': 11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3)
       '@trpc/server': 11.17.0(typescript@5.9.3)
       react: 19.1.4
       typescript: 5.9.3
 
-  '@trpc/tanstack-react-query@11.17.0(@tanstack/react-query@5.100.11(react@19.2.6))(@trpc/client@11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.17.0(typescript@5.9.3))(react@19.2.6)(typescript@5.9.3)':
+  '@trpc/tanstack-react-query@11.17.0(@tanstack/react-query@5.100.14(react@19.2.6))(@trpc/client@11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.17.0(typescript@5.9.3))(react@19.2.6)(typescript@5.9.3)':
     dependencies:
-      '@tanstack/react-query': 5.100.11(react@19.2.6)
+      '@tanstack/react-query': 5.100.14(react@19.2.6)
       '@trpc/client': 11.17.0(@trpc/server@11.17.0(typescript@5.9.3))(typescript@5.9.3)
       '@trpc/server': 11.17.0(typescript@5.9.3)
       react: 19.2.6
@@ -14230,7 +14230,7 @@ snapshots:
       es-errors: 1.3.0
       is-data-view: 1.0.2
 
-  date-fns@4.2.1: {}
+  date-fns@4.3.0: {}
 
   debug@2.6.9:
     dependencies:
@@ -14253,8 +14253,6 @@ snapshots:
   decode-uri-component@0.2.2: {}
 
   deep-is@0.1.4: {}
-
-  deepmerge-ts@7.1.5: {}
 
   deepmerge@4.3.1: {}
 
@@ -15718,6 +15716,10 @@ snapshots:
     dependencies:
       commander: 8.3.0
 
+  katex@0.17.0:
+    dependencies:
+      commander: 8.3.0
+
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
@@ -16516,9 +16518,8 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  next-safe-action@8.5.2(next@16.2.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.4(react@19.1.4))(react@19.1.4))(react-dom@19.1.4(react@19.1.4))(react@19.1.4):
+  next-safe-action@8.5.3(next@16.2.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.4(react@19.1.4))(react@19.1.4))(react-dom@19.1.4(react@19.1.4))(react@19.1.4):
     dependencies:
-      deepmerge-ts: 7.1.5
       next: 16.2.6(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.4(react@19.1.4))(react@19.1.4)
       react: 19.1.4
       react-dom: 19.1.4(react@19.1.4)
@@ -17003,7 +17004,7 @@ snapshots:
   react-day-picker@10.0.1(@types/react@19.2.15)(react@19.1.4):
     dependencies:
       '@date-fns/tz': 1.5.0
-      date-fns: 4.2.1
+      date-fns: 4.3.0
       react: 19.1.4
     optionalDependencies:
       '@types/react': 19.2.15
@@ -17032,11 +17033,11 @@ snapshots:
     dependencies:
       react: 19.2.6
 
-  react-hook-form@7.76.0(react@19.1.4):
+  react-hook-form@7.76.1(react@19.1.4):
     dependencies:
       react: 19.1.4
 
-  react-hook-form@7.76.0(react@19.2.6):
+  react-hook-form@7.76.1(react@19.2.6):
     dependencies:
       react: 19.2.6
 
@@ -17269,7 +17270,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.15
 
-  react-resizable-panels@4.11.1(react-dom@19.1.4(react@19.1.4))(react@19.1.4):
+  react-resizable-panels@4.11.2(react-dom@19.1.4(react@19.1.4))(react@19.1.4):
     dependencies:
       react: 19.1.4
       react-dom: 19.1.4(react@19.1.4)

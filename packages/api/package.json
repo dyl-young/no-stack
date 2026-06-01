@@ -22,7 +22,7 @@
   "dependencies": {
     "@no-stack/db": "workspace:*",
     "@no-stack/validators": "workspace:*",
-    "@supabase/supabase-js": "^2.87.1",
+    "@supabase/supabase-js": "^2.106.2",
     "@trpc/server": "catalog:",
     "nanoid": "^5.0.9",
     "pg": "^8.12.0",
