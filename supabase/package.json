@@ -8,6 +8,6 @@
     "update-config": "npx supabase stop --all --no-backup && npx supabase start"
   },
   "devDependencies": {
-    "supabase": "^2.98.2"
+    "supabase": "^2.104.0"
   }
 }
