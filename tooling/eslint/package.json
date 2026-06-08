@@ -15,7 +15,7 @@
   },
   "prettier": "@no-stack/prettier-config",
   "dependencies": {
-    "@next/eslint-plugin-next": "^16.2.4",
+    "@next/eslint-plugin-next": "^16.2.7",
     "eslint-config-turbo": "^2.9.15",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
