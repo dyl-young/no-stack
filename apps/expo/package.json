@@ -19,7 +19,7 @@
   "prettier": "@no-stack/prettier-config",
   "dependencies": {
     "@bacons/text-decoder": "^0.0.0",
-    "@expo/metro-config": "^55.0.16",
+    "@expo/metro-config": "^56.0.14",
     "@gorhom/bottom-sheet": "^5",
     "@no-stack/files": "workspace:*",
     "@rn-primitives/accordion": "^1.1.0",
