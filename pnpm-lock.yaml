@@ -706,8 +706,8 @@ importers:
   supabase:
     devDependencies:
       supabase:
-        specifier: ^2.106.0
-        version: 2.106.0
+        specifier: ^2.107.0
+        version: 2.107.0
 
   tooling/eslint:
     dependencies:
@@ -716,7 +716,7 @@ importers:
         version: 16.2.6
       eslint-config-turbo:
         specifier: ^2.9.16
-        version: 2.9.16(eslint@9.39.4(jiti@2.7.0))(turbo@2.9.18)
+        version: 2.9.16(eslint@9.39.4(jiti@2.7.0))(turbo@2.10.0)
       eslint-plugin-import:
         specifier: ^2.31.0
         version: 2.32.0(@typescript-eslint/parser@8.60.1(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.4(jiti@2.7.0))
@@ -4015,43 +4015,43 @@ packages:
     resolution: {integrity: sha512-VcAjUErkHkhC5Jaf+g/G1qbkQrFh8edaCdHa7pxJmHUjkWKjT7UnYCtPA89XV0N0GIYRkEqJZw5V62CtOxTmBQ==}
     engines: {node: '>=20.0.0'}
 
-  '@supabase/cli-darwin-arm64@2.106.0':
-    resolution: {integrity: sha512-xi/IAjjbebh6xA9Nkkb7ZwC5ACKJ38OqMoYk1y20ScW5Wt+pxTCcOcaWDWu+2u2Pwc3vTYnXhbknVcQt9UcChQ==}
+  '@supabase/cli-darwin-arm64@2.107.0':
+    resolution: {integrity: sha512-930MojHei14+PrGNF0QzlPJAjOYilCofgO9aTtKiQ6x36ZUI7dc4ujl5VzccC/19ex/f4ird0lH1d2U92MwDqQ==}
     cpu: [arm64]
     os: [darwin]
 
-  '@supabase/cli-darwin-x64@2.106.0':
-    resolution: {integrity: sha512-AT2s/8/3Ffb7IkcUXK6sA/iPCzJhh4Fh/XqzAGNGsVd1xCA/ZGniqU8BL03TqPkN1sR0iDaShjMLLIlHEflyPQ==}
+  '@supabase/cli-darwin-x64@2.107.0':
+    resolution: {integrity: sha512-qcnichkHiCCNybtCqoeqYO6q8WuTxilaah18QilZskEM+zCSdV5rOXXfeF1BPexRxsvGYbghZ+fEQfWp7+lOUQ==}
     cpu: [x64]
     os: [darwin]
 
-  '@supabase/cli-linux-arm64-musl@2.106.0':
-    resolution: {integrity: sha512-2LExuOHuU6odXorNTvq4M/OvueW+wOs3KDsaCpk+scQMnB6LbmqNidEjXAsKpZu3zyE8MmmtdbJBlRNN/KLdcw==}
+  '@supabase/cli-linux-arm64-musl@2.107.0':
+    resolution: {integrity: sha512-5se1bYRIzivL+ehImnwFjBpzKZ+AwLS6/cBg6lvJOJdWatuaK9Edu6wOZAmPjVMy4vZRJ27tdL+3F7N+Vk64AA==}
     cpu: [arm64]
     os: [linux]
 
-  '@supabase/cli-linux-arm64@2.106.0':
-    resolution: {integrity: sha512-L/pX7fkV31x7zPrUOcD6KMtZ03j16o41XxgkACFoOAE9lFz8KaJOBSHvn2QLeWEa2kLz7jwpisvpshPSMjuxOw==}
+  '@supabase/cli-linux-arm64@2.107.0':
+    resolution: {integrity: sha512-an0dsOhPcLQXZ0sFEBm6NU1HFUjXCStHxetfJvgt4u7SiH/EyDMLfDvV7W9ef56bgG+3hoWHtih2Kplj3cecQA==}
     cpu: [arm64]
     os: [linux]
 
-  '@supabase/cli-linux-x64-musl@2.106.0':
-    resolution: {integrity: sha512-wz7heB3wwzmRdLRgqngd2VjPPNIdv6/Y8Q0dX/ZvjcL9/Nk8BYSZ7yjypapLpra+swRnbEJ4jAU6eAShiaB1Hg==}
+  '@supabase/cli-linux-x64-musl@2.107.0':
+    resolution: {integrity: sha512-gXDzvDsmmJw9HbeVRFD6xboGwbu/cpBp84ZESEcXKyB8Onvs3igWKwoXMofx+ppFM1EaZb/flTwJ77b19EMD1A==}
     cpu: [x64]
     os: [linux]
 
-  '@supabase/cli-linux-x64@2.106.0':
-    resolution: {integrity: sha512-+ihtqFNURc8ssULgQoHQBR4AtUmxez9dtqjclqOV0y5r65SX7Ginmiby4XDW9LPlqHT+MB7OyD1vk0T6pQUtPA==}
+  '@supabase/cli-linux-x64@2.107.0':
+    resolution: {integrity: sha512-8ttnpfBFEXk0JFmH6gw8ZCVcMa/UNH1sD6iG9PQLbK2eXdZ6kDIzGs5g+CEvxZ3j6HxEIYn9h9rfxoqGoBUgwA==}
     cpu: [x64]
     os: [linux]
 
-  '@supabase/cli-windows-arm64@2.106.0':
-    resolution: {integrity: sha512-QkEfRDiuuQwcfASo2DIJZ59AFV6xpqhPNo4r0kSVt38StYk3iL7ZcSOkZvGQWLlJ8kXKPBWEMhLnfHQF9r+Xfg==}
+  '@supabase/cli-windows-arm64@2.107.0':
+    resolution: {integrity: sha512-V/4q5dbDgBQXhDAJaHamTm9u/kY2UJ4nNibVKOYMaLh9q7H74b8unteJ+rYHSwWZy0EIT8DTDryGP6xatKQicw==}
     cpu: [arm64]
     os: [win32]
 
-  '@supabase/cli-windows-x64@2.106.0':
-    resolution: {integrity: sha512-1tQFbrH1KJhWJqHrY087XPz1WRi20eKG1pebG+6PjSD6XN+j0+x1PTOtBZrylXgY1fOg8BqgU8kl3KX8hI5l9w==}
+  '@supabase/cli-windows-x64@2.107.0':
+    resolution: {integrity: sha512-ciDDFUGHt6bFjtVD00cojFhB5oscZAyjPo2vg94RGUeKHXx1zo/UzfMvUlCA32y5b5KONZ4TKStCHhlFK7Clrw==}
     cpu: [x64]
     os: [win32]
 
@@ -4259,9 +4259,19 @@ packages:
       react: '>=18.2.0'
       typescript: '>=5.7.2'
 
+  '@turbo/darwin-64@2.10.0':
+    resolution: {integrity: sha512-EwvHThXzpY0KGd1/NAmuewI5D+aVa3Rl/OlxE36yfjUKb/+ySrfJrSlEFt8aD1OXwnnaHnQnPKHFndor0Zxlsg==}
+    cpu: [x64]
+    os: [darwin]
+
   '@turbo/darwin-64@2.9.18':
     resolution: {integrity: sha512-9f27peFu16ur8c0v9nUFUEyBnbKuuFsUTjHFWfmwGfzySBXbHwzU44QhZon6Mznz0cHsIr3984NQj/bVrnGSRw==}
     cpu: [x64]
+    os: [darwin]
+
+  '@turbo/darwin-arm64@2.10.0':
+    resolution: {integrity: sha512-9d2fTyyG0lf5Wq1bwJA9qUaeecViMkLcdctWaMMmCkxZ/JqypmqOwK3W6vmejeKVgkr06gSoiX8bD+xN5Jpxcg==}
+    cpu: [arm64]
     os: [darwin]
 
   '@turbo/darwin-arm64@2.9.18':
@@ -4273,9 +4283,19 @@ packages:
     resolution: {integrity: sha512-9Ry3V2eqFANYI7A5dyjehq2EOuLTY30XQSg4aDR7F3cJOuiP/Ad2KXwrxD3AnwNDkuSDVbJjlbES7yfJ0y7dhw==}
     hasBin: true
 
+  '@turbo/linux-64@2.10.0':
+    resolution: {integrity: sha512-sZBtjMuufitanjzi6UssoUpJMnnPlLMcdcJj3m3ptNsSq31Xh7MnjhwA5nWvLDTfEFg8GPcbYFXMo8vSdKRfqQ==}
+    cpu: [x64]
+    os: [linux]
+
   '@turbo/linux-64@2.9.18':
     resolution: {integrity: sha512-zCdIDtz69AnbYh913elJRRoF3QY5aa2HNnf+4rAkc7bQ+tWujiDkCNV7stazOUPggaDvhKIf2Z87qHftTeXSkw==}
     cpu: [x64]
+    os: [linux]
+
+  '@turbo/linux-arm64@2.10.0':
+    resolution: {integrity: sha512-vkq/Z8R+1DQ+kifWFa810IjRy2NNBVvha3cg9sWA3nFh6nnGrHSMnnJKrzH7c/No9kq4Jb55Ru44YKsCSBgrKg==}
+    cpu: [arm64]
     os: [linux]
 
   '@turbo/linux-arm64@2.9.18':
@@ -4283,9 +4303,19 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@turbo/windows-64@2.10.0':
+    resolution: {integrity: sha512-CRUEguLWxFQHptYZS7HjPhNhAFawfea07iR+xAQ5e4klgLrPCMdexBkXwSCwOxqTFknJ7RZFN3gOaADsw+Gttg==}
+    cpu: [x64]
+    os: [win32]
+
   '@turbo/windows-64@2.9.18':
     resolution: {integrity: sha512-m0kDhZANxSNz9ck1ybogFscHabriAsp4eDFNrN/1H5WrgTF7b3VlcPZnhuO3v2+E2KnCbeAc+UUT10BZZHdDKw==}
     cpu: [x64]
+    os: [win32]
+
+  '@turbo/windows-arm64@2.10.0':
+    resolution: {integrity: sha512-dVHGaf9F8twzgibcBqKoADT/LLqf9++jDb+hq/LPWWaOmRpp4M+/pVOm7vy4z9D++xg8eaxWLT0+wQxFwhYu9A==}
+    cpu: [arm64]
     os: [win32]
 
   '@turbo/windows-arm64@2.9.18':
@@ -6032,6 +6062,7 @@ packages:
   git-raw-commits@5.0.1:
     resolution: {integrity: sha512-Y+csSm2GD/PCSh6Isd/WiMjNAydu0VBiG9J7EdQsNA5P9uXvLayqjmTsNlK5Gs9IhblFZqOU0yid5Il5JPoLiQ==}
     engines: {node: '>=18'}
+    deprecated: Deprecated and no longer maintained. Use @conventional-changelog/git-client instead.
     hasBin: true
 
   glob-parent@5.1.2:
@@ -8210,8 +8241,8 @@ packages:
   stylis@4.2.0:
     resolution: {integrity: sha512-Orov6g6BB1sDfYgzWfTHDOxamtX1bE/zo104Dh9e6fqJ3PooipYyfJ0pUmrZO2wAvO8YbEyeFrkV91XTsGMSrw==}
 
-  supabase@2.106.0:
-    resolution: {integrity: sha512-jV0PJi5LqXUMZ4kriRLvST3DX1YDhrxOgnFJLOn6oUw3KQEFJPXhA60yLQ9aWG1E1uZCp4vUJwSuSGq3HPfaSQ==}
+  supabase@2.107.0:
+    resolution: {integrity: sha512-qYAbm3D//buhnY5v4L//IrBQhowN2Jd2kx16hNyOfu0+TVuWVIR1L5WsS/YOk+UJh3Ch5ABmqKebWpwn1p0ysg==}
     hasBin: true
 
   superjson@2.2.6:
@@ -8332,6 +8363,10 @@ packages:
   tsx@4.22.4:
     resolution: {integrity: sha512-X8EX+XV4QR5xCsrgxaED954zTDfY8KqlDtskKEL0cHhyS/P8b4IFOvGDQpsC9Q1XnLq915wEfwwY/zzskCtmhg==}
     engines: {node: '>=18.0.0'}
+    hasBin: true
+
+  turbo@2.10.0:
+    resolution: {integrity: sha512-o016H9PPtuH2deb3mh3Vci3Avfi9UYgM/RONQisY7HnloupP0IFSbFS3gFYJgFJP8nwBrByHWFQIDa8T2zIXPw==}
     hasBin: true
 
   turbo@2.9.18:
@@ -13008,28 +13043,28 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@supabase/cli-darwin-arm64@2.106.0':
+  '@supabase/cli-darwin-arm64@2.107.0':
     optional: true
 
-  '@supabase/cli-darwin-x64@2.106.0':
+  '@supabase/cli-darwin-x64@2.107.0':
     optional: true
 
-  '@supabase/cli-linux-arm64-musl@2.106.0':
+  '@supabase/cli-linux-arm64-musl@2.107.0':
     optional: true
 
-  '@supabase/cli-linux-arm64@2.106.0':
+  '@supabase/cli-linux-arm64@2.107.0':
     optional: true
 
-  '@supabase/cli-linux-x64-musl@2.106.0':
+  '@supabase/cli-linux-x64-musl@2.107.0':
     optional: true
 
-  '@supabase/cli-linux-x64@2.106.0':
+  '@supabase/cli-linux-x64@2.107.0':
     optional: true
 
-  '@supabase/cli-windows-arm64@2.106.0':
+  '@supabase/cli-windows-arm64@2.107.0':
     optional: true
 
-  '@supabase/cli-windows-x64@2.106.0':
+  '@supabase/cli-windows-x64@2.107.0':
     optional: true
 
   '@supabase/functions-js@2.106.2':
@@ -13209,7 +13244,13 @@ snapshots:
       react: 19.2.7
       typescript: 5.9.3
 
+  '@turbo/darwin-64@2.10.0':
+    optional: true
+
   '@turbo/darwin-64@2.9.18':
+    optional: true
+
+  '@turbo/darwin-arm64@2.10.0':
     optional: true
 
   '@turbo/darwin-arm64@2.9.18':
@@ -13222,13 +13263,25 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
+  '@turbo/linux-64@2.10.0':
+    optional: true
+
   '@turbo/linux-64@2.9.18':
+    optional: true
+
+  '@turbo/linux-arm64@2.10.0':
     optional: true
 
   '@turbo/linux-arm64@2.9.18':
     optional: true
 
+  '@turbo/windows-64@2.10.0':
+    optional: true
+
   '@turbo/windows-64@2.9.18':
+    optional: true
+
+  '@turbo/windows-arm64@2.10.0':
     optional: true
 
   '@turbo/windows-arm64@2.9.18':
@@ -14543,11 +14596,11 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  eslint-config-turbo@2.9.16(eslint@9.39.4(jiti@2.7.0))(turbo@2.9.18):
+  eslint-config-turbo@2.9.16(eslint@9.39.4(jiti@2.7.0))(turbo@2.10.0):
     dependencies:
       eslint: 9.39.4(jiti@2.7.0)
-      eslint-plugin-turbo: 2.9.16(eslint@9.39.4(jiti@2.7.0))(turbo@2.9.18)
-      turbo: 2.9.18
+      eslint-plugin-turbo: 2.9.16(eslint@9.39.4(jiti@2.7.0))(turbo@2.10.0)
+      turbo: 2.10.0
 
   eslint-import-resolver-node@0.3.10:
     dependencies:
@@ -14641,11 +14694,11 @@ snapshots:
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-turbo@2.9.16(eslint@9.39.4(jiti@2.7.0))(turbo@2.9.18):
+  eslint-plugin-turbo@2.9.16(eslint@9.39.4(jiti@2.7.0))(turbo@2.10.0):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.39.4(jiti@2.7.0)
-      turbo: 2.9.18
+      turbo: 2.10.0
 
   eslint-scope@8.4.0:
     dependencies:
@@ -17852,16 +17905,16 @@ snapshots:
 
   stylis@4.2.0: {}
 
-  supabase@2.106.0:
+  supabase@2.107.0:
     optionalDependencies:
-      '@supabase/cli-darwin-arm64': 2.106.0
-      '@supabase/cli-darwin-x64': 2.106.0
-      '@supabase/cli-linux-arm64': 2.106.0
-      '@supabase/cli-linux-arm64-musl': 2.106.0
-      '@supabase/cli-linux-x64': 2.106.0
-      '@supabase/cli-linux-x64-musl': 2.106.0
-      '@supabase/cli-windows-arm64': 2.106.0
-      '@supabase/cli-windows-x64': 2.106.0
+      '@supabase/cli-darwin-arm64': 2.107.0
+      '@supabase/cli-darwin-x64': 2.107.0
+      '@supabase/cli-linux-arm64': 2.107.0
+      '@supabase/cli-linux-arm64-musl': 2.107.0
+      '@supabase/cli-linux-x64': 2.107.0
+      '@supabase/cli-linux-x64-musl': 2.107.0
+      '@supabase/cli-windows-arm64': 2.107.0
+      '@supabase/cli-windows-x64': 2.107.0
 
   superjson@2.2.6:
     dependencies:
@@ -18000,6 +18053,15 @@ snapshots:
       esbuild: 0.25.5
     optionalDependencies:
       fsevents: 2.3.3
+
+  turbo@2.10.0:
+    optionalDependencies:
+      '@turbo/darwin-64': 2.10.0
+      '@turbo/darwin-arm64': 2.10.0
+      '@turbo/linux-64': 2.10.0
+      '@turbo/linux-arm64': 2.10.0
+      '@turbo/windows-64': 2.10.0
+      '@turbo/windows-arm64': 2.10.0
 
   turbo@2.9.18:
     optionalDependencies:
