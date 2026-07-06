@@ -41,10 +41,10 @@
   },
   "prettier": "@no-stack/prettier-config",
   "devDependencies": {
-    "@commitlint/cli": "^21.1.0",
-    "@commitlint/config-conventional": "^21.1.0",
+    "@commitlint/cli": "^21.2.0",
+    "@commitlint/config-conventional": "^21.2.0",
     "@no-stack/prettier-config": "workspace:*",
-    "@turbo/gen": "^2.9.18",
+    "@turbo/gen": "^2.10.2",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
     "prettier": "catalog:",
