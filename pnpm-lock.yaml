@@ -76,8 +76,8 @@ importers:
         specifier: workspace:*
         version: link:tooling/prettier
       '@turbo/gen':
-        specifier: ^2.10.2
-        version: 2.10.2(@types/node@25.9.1)
+        specifier: ^2.10.4
+        version: 2.10.4(@types/node@25.9.1)
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -4305,8 +4305,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  '@turbo/gen@2.10.2':
-    resolution: {integrity: sha512-euo5g9gAjMaWt0sl8Xg2ThahSIuGvK/hqciXt8sthH+HrifzjKa9TQaIVtdTpFzsTKfOqBlUvd5O+aPrEnvxqQ==}
+  '@turbo/gen@2.10.4':
+    resolution: {integrity: sha512-FP3XAL344PohE7yN8cR+SDLyhWIMk7kn+jCNlovzhXDQJBHjfn9Iv7GgMf1dnSTO7etYeOfe4v41Ix26bzYm+A==}
     hasBin: true
 
   '@turbo/linux-64@2.10.2':
@@ -13305,7 +13305,7 @@ snapshots:
   '@turbo/darwin-arm64@2.10.4':
     optional: true
 
-  '@turbo/gen@2.10.2(@types/node@25.9.1)':
+  '@turbo/gen@2.10.4(@types/node@25.9.1)':
     dependencies:
       '@inquirer/prompts': 7.10.1(@types/node@25.9.1)
       esbuild: 0.25.5
