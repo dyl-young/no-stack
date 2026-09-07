@@ -24,7 +24,7 @@
     "@no-stack/validators": "workspace:*",
     "@supabase/supabase-js": "^2.112.4",
     "@trpc/server": "catalog:",
-    "nanoid": "^5.0.9",
+    "nanoid": "^6.0.1",
     "pg": "^8.23.0",
     "postgres": "^3.4.4",
     "superjson": "2.2.6",
