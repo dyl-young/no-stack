@@ -21,7 +21,7 @@
   },
   "prettier": "@no-stack/prettier-config",
   "dependencies": {
-    "@supabase/supabase-js": "^2.112.4"
+    "@supabase/supabase-js": "^2.116.0"
   },
   "devDependencies": {
     "@no-stack/eslint-config": "workspace:*",
