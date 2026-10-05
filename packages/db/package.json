@@ -38,7 +38,7 @@
     "@neondatabase/serverless": "^1.1.0",
     "@t3-oss/env-core": "^0.13.10",
     "@vercel/postgres": "^0.10.0",
-    "drizzle-orm": "^0.45.2",
+    "drizzle-orm": "^0.45.3",
     "drizzle-zod": "^0.8.3"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "drizzle-kit": "^0.31.5",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "tsx": "^4.23.13",
+    "tsx": "^4.23.15",
     "typescript": "catalog:"
   }
 }
