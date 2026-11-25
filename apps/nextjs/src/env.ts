@@ -1,6 +1,16 @@
 /* eslint-disable no-restricted-properties -- Read server configuration at request time. */
 import { z } from "zod";
 
+export function isEmailAllowed(email: string | null) {
+  const list = process.env.GOOGLE_ALLOWED_EMAILS;
+  if (!list) return true;
+  if (!email) return false;
+  const normalized = email.toLowerCase();
+  return list
+    .split(",")
+    .some((entry) => entry.trim().toLowerCase() === normalized);
+}
+
 export function authConfig() {
   const origin = z.url().parse(process.env.APP_ORIGIN);
   const clientId = z.string().min(1).parse(process.env.GOOGLE_WEB_CLIENT_ID);

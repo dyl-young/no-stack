@@ -8,6 +8,8 @@ Choose a billing-enabled Google Cloud project and a region near your users. The 
 2. Create iOS and Android OAuth clients in the same project using the bundle ID and package from starter.json. Register each Android build's signing certificate SHA-1. The native SDK requests an ID token for the web client ID, which the API verifies on both platforms. [Native Google setup](https://react-native-google-signin.github.io/docs/setting-up/expo)
 3. For live Expo builds set EXPO_PUBLIC_BASE_URL to the canonical HTTPS origin, EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID to the web client ID and EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID to the iOS client ID. Remove EXPO_PUBLIC_LOCAL_GOOGLE_URL. Rebuild after changing IDs so the iOS plugin registers the reversed client ID scheme.
 
+To limit access, set `GOOGLE_ALLOWED_EMAILS` in the deployment environment (for example, `you@gmail.com,friend@gmail.com`). An unset or empty value allows any valid Google sign-in. Web and mobile use the same server setting. After you remove an address and deploy the updated setting, its existing sessions lose access too.
+
 ### Database and service identity
 
 Provision PostgreSQL accessible from Cloud Run. Store its connection URL in Secret Manager. Grant the dedicated runtime service account Secret Manager Secret Accessor on that secret. For a remote TCP database configure verified TLS in the connection URL. Each instance uses a pool of up to five connections. Size the database for scaling and overlapping revisions.

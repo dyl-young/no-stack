@@ -1,6 +1,6 @@
 import type { AccountContext } from "@no-stack/api";
 
-import { authConfig } from "~/env";
+import { authConfig, isEmailAllowed } from "~/env";
 
 export const sessionSeconds = 60 * 60 * 24 * 5;
 
@@ -17,11 +17,12 @@ export function sessionCookie() {
 
 export async function verifiedContext(token?: string): Promise<AccountContext> {
   const store = await import("@no-stack/db/auth");
+  const account =
+    token && /^[A-Za-z0-9_-]{43}$/.test(token)
+      ? await store.sessionAccount(token)
+      : null;
   return {
-    account:
-      token && /^[A-Za-z0-9_-]{43}$/.test(token)
-        ? await store.sessionAccount(token)
-        : null,
+    account: account && isEmailAllowed(account.email) ? account : null,
     deleteIdentity: store.deleteAccount,
   };
 }

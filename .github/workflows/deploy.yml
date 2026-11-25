@@ -26,6 +26,7 @@ jobs:
           REGION: ${{ vars.REGION }}
           RUNTIME_SERVICE_ACCOUNT: ${{ vars.RUNTIME_SERVICE_ACCOUNT }}
           GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
+          GOOGLE_ALLOWED_EMAILS: ${{ vars.GOOGLE_ALLOWED_EMAILS }}
           POSTGRES_URL_SECRET: ${{ vars.POSTGRES_URL_SECRET }}
           CLOUD_SQL_INSTANCE: ${{ vars.CLOUD_SQL_INSTANCE }}
           APP_ORIGIN: ${{ vars.APP_ORIGIN }}

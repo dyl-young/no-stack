@@ -14,6 +14,6 @@ origin=${APP_ORIGIN:-https://${service}-${number}.${REGION}.run.app}
 gcloud run deploy "$service" --source=. --project="$PROJECT_ID" --region="$REGION" \
   --service-account="$RUNTIME_SERVICE_ACCOUNT" --allow-unauthenticated \
   --cpu=1 --memory=512Mi --min-instances=0 --max-instances=3 --concurrency=40 \
-  --set-env-vars="GOOGLE_WEB_CLIENT_ID=$GOOGLE_WEB_CLIENT_ID,APP_ORIGIN=$origin" \
+  --set-env-vars="^|^GOOGLE_WEB_CLIENT_ID=$GOOGLE_WEB_CLIENT_ID|APP_ORIGIN=$origin|GOOGLE_ALLOWED_EMAILS=${GOOGLE_ALLOWED_EMAILS:-}" \
   --set-secrets="POSTGRES_URL=$POSTGRES_URL_SECRET" \
   "${sql_args[@]}"

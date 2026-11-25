@@ -44,6 +44,7 @@
     "K_SERVICE",
     "EXPO_PUBLIC_*",
     "GOOGLE_WEB_CLIENT_ID",
+    "GOOGLE_ALLOWED_EMAILS",
     "LOCAL_GOOGLE_AUTH"
   ]
 }

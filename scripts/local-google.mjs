@@ -14,11 +14,16 @@ export async function startLocalGoogle(host = "127.0.0.1") {
     use: "sig",
   };
   const issuer = "http://127.0.0.1:9099";
-  async function sign(name, audience = "local-demo", expiry = "5m") {
+  async function sign(
+    name,
+    audience = "local-demo",
+    expiry = "5m",
+    verified = true,
+  ) {
     return new SignJWT({
       name,
       email: name + "@example.test",
-      email_verified: true,
+      email_verified: verified,
     })
       .setProtectedHeader({ alg: "RS256", kid: key.kid })
       .setIssuer(issuer)

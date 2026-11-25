@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { authConfig } from "~/env";
+import { authConfig, isEmailAllowed } from "~/env";
 import { googleProfile } from "~/utils/google";
 import { sessionCookie, sessionSeconds } from "~/utils/session";
 
@@ -30,6 +30,8 @@ export async function POST(request: NextRequest) {
   }
   const profile = await googleProfile(idToken);
   if (!profile) return new Response(null, { status: 401 });
+  if (!isEmailAllowed(profile.email))
+    return new Response(null, { status: 403 });
   const cookie = sessionCookie();
   const store = await import("@no-stack/db/auth");
   const token = await store.issueSession(

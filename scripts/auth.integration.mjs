@@ -59,7 +59,7 @@ async function startDatabase(cleanups) {
       ).stdout.trim(),
   };
 }
-async function startService(cleanups, database) {
+async function startService(cleanups, database, allowedEmails = "") {
   const probe = createServer().listen(0, "127.0.0.1");
   await once(probe, "listening");
   const { port } = probe.address();
@@ -84,6 +84,7 @@ async function startService(cleanups, database) {
         POSTGRES_URL: database,
         LOCAL_GOOGLE_AUTH: "1",
         GOOGLE_WEB_CLIENT_ID: "local-demo",
+        GOOGLE_ALLOWED_EMAILS: allowedEmails,
         NEXT_TELEMETRY_DISABLED: "1",
       },
       stdio: "inherit",
@@ -204,4 +205,56 @@ test("verified Google identities create revocable PostgreSQL sessions on web and
     "UPDATE sessions SET expires_at=now() - interval '1 second'",
   );
   assert.equal((await me(bearer(restored))).status, 401);
+});
+
+test("the email allowlist gates web and native sessions", async (t) => {
+  const cleanups = [];
+  t.after(async () => {
+    for (const cleanup of cleanups.reverse()) await cleanup();
+  });
+  const database = await startDatabase(cleanups);
+  const { server, sign } = await startLocalGoogle();
+  cleanups.push(() => new Promise((resolve) => server.close(resolve)));
+  const origin = await startService(
+    cleanups,
+    database.url,
+    "other@example.test, ALICE@example.test ",
+  );
+  const login = (idToken, native) =>
+    fetch(
+      origin + "/api/session",
+      native
+        ? { method: "POST", headers: { authorization: "Bearer " + idToken } }
+        : {
+            method: "POST",
+            headers: { origin, "content-type": "application/json" },
+            body: JSON.stringify({ idToken }),
+          },
+    );
+
+  const bob = await sign("bob");
+  const unverifiedAlice = await sign("alice", "local-demo", "5m", false);
+  for (const token of [bob, unverifiedAlice]) {
+    for (const native of [false, true]) {
+      const response = await login(token, native);
+      assert.equal(response.status, 403);
+      assert.equal(response.headers.get("set-cookie"), null);
+      assert.equal(await response.text(), "");
+    }
+  }
+  assert.equal(await database.sql("SELECT count(*) FROM accounts"), "0");
+  assert.equal(await database.sql("SELECT count(*) FROM sessions"), "0");
+
+  const alice = await sign("alice");
+  const web = await login(alice, false);
+  const native = await login(alice, true);
+  assert.equal(web.status, 204);
+  assert.equal(native.status, 200);
+  const cookie = web.headers.get("set-cookie").split(";")[0];
+  const { token } = await native.json();
+  await database.sql("UPDATE accounts SET email = 'outside@example.test'");
+  for (const headers of [{ cookie }, { authorization: "Bearer " + token }]) {
+    const me = await fetch(origin + "/api/trpc/account.me", { headers });
+    assert.equal(me.status, 401);
+  }
 });
