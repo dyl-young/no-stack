@@ -29,15 +29,6 @@ if (
     "Supply a name, lowercase slug and scheme, and reverse-domain app ID.",
   );
 }
-const supabaseUrl = new URL("supabase/config.toml", root);
-const previous = await readFile(supabaseUrl, "utf8");
-const updated = previous
-  .replace(/^project_id = "[^"]+"/m, 'project_id = "' + config.slug + '"')
-  .replace(
-    /"[^":]+:\/\/auth\/callback"/,
-    '"' + config.scheme + '://auth/callback"',
-  );
-if (updated !== previous) await writeFile(supabaseUrl, updated);
 if (JSON.stringify(original) !== JSON.stringify(config))
   await writeFile(configUrl, JSON.stringify(config, null, 2) + "\n");
 

@@ -7,7 +7,8 @@ const root = path.resolve(
 );
 /** @type {import("next").NextConfig} */
 export default {
-  transpilePackages: ["@no-stack/api"],
+  output: "standalone",
+  transpilePackages: ["@no-stack/api", "@no-stack/db"],
   turbopack: { root },
   outputFileTracingRoot: root,
 };

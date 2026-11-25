@@ -1,119 +1,31 @@
 name: CI
-
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  typecheck:
-    name: Typecheck
+  starter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6.0.2
-
       - uses: pnpm/action-setup@v6.0.8
-
       - uses: actions/setup-node@v6.4.0
         with:
           node-version-file: .nvmrc
           cache: pnpm
-
       - run: pnpm install --frozen-lockfile
-
-      - run: pnpm typecheck
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6.0.2
-
-      - uses: pnpm/action-setup@v6.0.8
-
-      - uses: actions/setup-node@v6.4.0
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
-
-      - run: pnpm lint
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-
-  format:
-    name: Format
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6.0.2
-
-      - uses: pnpm/action-setup@v6.0.8
-
-      - uses: actions/setup-node@v6.4.0
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
-
-      - run: pnpm format
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-
-  audit:
-    name: Security Audit
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6.0.2
-
-      - uses: pnpm/action-setup@v6.0.8
-
-      - uses: actions/setup-node@v6.4.0
-        with:
-          node-version-file: .nvmrc
-
-      - run: pnpm audit --audit-level=high
-
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    container: node:24-bookworm
-    services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: --health-cmd pg_isready --health-interval 3s --health-retries 10
-    needs: [typecheck, lint, format]
-    steps:
-      - uses: actions/checkout@v6.0.2
-
-      - uses: pnpm/action-setup@v6.0.8
-
-      - uses: actions/setup-node@v6.4.0
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
-
       - run: pnpm setup:local
-      - name: Verify ordinary PostgreSQL connectivity
-        working-directory: packages/db
-        run: node --import tsx --input-type=module -e 'import { db, sql } from "./src/index.ts"; await db.execute(sql`select 1`);'
-        env:
-          POSTGRES_URL: postgres://postgres:postgres@postgres:5432/postgres
+      - run: pnpm audit
+      - run: pnpm format
+      - run: pnpm lint
+      - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm turbo build --filter=@no-stack/nextjs
+      - run: pnpm test:auth
       - run: pnpm --filter @no-stack/expo exec expo export --platform ios --platform android
+      - run: docker build -t no-stack:ci .

@@ -1,17 +1,19 @@
 # no-stack
 
-A small TypeScript monorepo for personal web, iOS and Android apps. Next.js hosts the web client and tRPC API. Expo Router handles native navigation. Both clients support Google sign-in, viewing the provider profile, signing out and deleting the app account. Drizzle and PostgreSQL are ready for your first feature. The fresh starter has no product tables.
+A Google-only starter for web, iOS and Android. Next.js hosts the web app and shared tRPC API. Both clients exchange a Google ID token for an app session stored in PostgreSQL. Each Google subject maps to an app-owned account ID. Signing out revokes the current session. Deleting an account revokes all its sessions.
 
-## First run
+```sh
+pnpm install --frozen-lockfile
+pnpm setup:local
+docker compose up -d --wait
+pnpm db:migrate
+pnpm auth:local
+# In another terminal
+pnpm --filter @no-stack/nextjs dev
+```
 
-Use the Node version in .nvmrc and the pnpm version in package.json. Run `pnpm install --frozen-lockfile` and `pnpm setup:local`. Follow the [local setup guide](docs/setup/LOCAL_SETUP.md) to configure Google, start Supabase and open a device build. Run `pnpm test` to exercise account behavior without cloud credentials.
+Open http://localhost:3000 and choose Alice or Bob. The development signer and database run locally without Google credentials.
 
-## Project layout
-
-- apps/nextjs contains web routes, the auth adapter and the API entry point.
-- apps/expo contains the native screens and secure session storage.
-- packages/api owns the verified account contract and authorization tests.
-- packages/db owns the PostgreSQL connection and application schema.
-- tooling contains shared TypeScript, ESLint and Prettier configuration.
-
-Use `pnpm lint`, `pnpm typecheck`, `pnpm format` and `pnpm build` to verify a change. The [implementation plan](docs/implementation-plan.md) records the baseline and future experiments.
+- [Local setup and tests](docs/setup/LOCAL_SETUP.md)
+- [Google clients and Cloud Run deployment](docs/setup/DEPLOYMENT.md)
+- [Architecture](docs/diagrams/C4.md)

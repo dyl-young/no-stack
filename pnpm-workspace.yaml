@@ -3,7 +3,6 @@ packages:
   - "!apps/admin"
   - packages/*
   - tooling/*
-  - supabase
 
 catalog:
   "@tanstack/react-query": ^5.102.8
@@ -39,7 +38,6 @@ onlyBuiltDependencies:
   - detox
   - esbuild
   - msw
-  - supabase
 
 overrides:
   "@types/minimatch": 5.1.2

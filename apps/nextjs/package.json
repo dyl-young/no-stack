@@ -16,14 +16,13 @@
   "prettier": "@no-stack/prettier-config",
   "dependencies": {
     "@no-stack/api": "workspace:*",
-    "@supabase/ssr": "^0.12.7",
-    "@supabase/supabase-js": "^2.116.0",
-    "@t3-oss/env-nextjs": "^0.13.10",
     "@trpc/server": "catalog:",
     "next": "16.4.6",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@no-stack/db": "workspace:*",
+    "jose": "6.2.13"
   },
   "devDependencies": {
     "@no-stack/eslint-config": "workspace:*",

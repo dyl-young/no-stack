@@ -1,9 +1,39 @@
 # Local setup
 
-Install Node 24, the pinned pnpm from package.json, and Docker. Run `pnpm install --frozen-lockfile`, then `pnpm setup:local` to create the root and Expo environment files. Existing files are preserved.
+Use Node 24.16.0, pnpm 10.20.0 and Docker Compose. Run from the repository root.
 
-Register a Google OAuth web client and set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in the root .env. Register the Supabase OAuth callback (locally http://localhost:54321/auth/v1/callback) with Google. Configure the web callback and native scheme in Supabase's redirect allowlist. Hosted Supabase projects need the same Google-only provider settings applied separately. Keep the service role key on the server.
+```sh
+pnpm install --frozen-lockfile
+pnpm setup:local
+docker compose up -d --wait
+pnpm db:migrate
+pnpm auth:local
+# In a second terminal
+pnpm --filter @no-stack/nextjs dev
+```
 
-Use `pnpm dev:without-expo` for the web and API. For a native development build run `pnpm expo:ios` or `pnpm expo:android`. Set EXPO_PUBLIC_BASE_URL and EXPO_PUBLIC_SUPABASE_URL to addresses reachable by that device. On a physical phone use the development machine's LAN address and register the reachable Supabase callback. Use HTTPS or a configured tunnel where Google requires it. For a new project, run `pnpm setup:local --name "Field Notes" --slug field-notes --app-id dev.example.fieldnotes`. This synchronizes project identity and the local OAuth redirect. Point hosted auth at the same callback before deployment.
+Open http://localhost:3000. Choose Alice or Bob to exercise profile, sign-out, switching and permanent deletion. The development signer on port 9099 issues short-lived signed test identities. The API uses the same ID-token verifier, PostgreSQL transaction and session checks as live login. Local mode requires a loopback APP_ORIGIN, the local-demo audience and a development server. The standalone production image accepts only Google sign-in.
 
-This is a fresh-project schema. Existing apps must keep their migrations and migrate accounts separately.
+Setup creates missing environment files and preserves existing overrides. To name a generated project run `pnpm setup:local --name "My App" --slug my-app --app-id dev.example.myapp`. When upgrading a local checkout, reconcile .env and apps/expo/.env with their examples. Use a fresh PostgreSQL database for this greenfield schema. Compose keeps development data in a named volume across restarts. An existing PostgreSQL instance also works via POSTGRES_URL.
+
+### Native
+
+Run `pnpm expo:ios` or `pnpm expo:android` with platform tooling installed, then `pnpm expo:dev` on subsequent runs. iOS Simulator can use the default Expo URLs. For Android Emulator change the host in both Expo URLs to 10.0.2.2. For a physical phone use your computer's LAN address for both Expo URLs, run `LOCAL_SIGNER_HOST=0.0.0.0 pnpm auth:local` and bind Next with `pnpm --filter @no-stack/nextjs dev --hostname 0.0.0.0`. Use a trusted development network and a local database. Anyone with access to the fixture can select either identity.
+
+### Verification
+
+```sh
+pnpm audit
+pnpm format
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm test:auth
+pnpm turbo build --filter=@no-stack/nextjs
+pnpm --filter @no-stack/expo exec expo export --platform ios --platform android
+docker build --platform linux/amd64 -t no-stack:local .
+```
+
+Stop the interactive signer and Next dev server before running test:auth. It starts a disposable PostgreSQL 16 container on a free port, applies the committed migration, starts the signer and Next, then exercises both session transports. Tests cover rejected ID tokens, expiry, account isolation, cookie CSRF protection, server-side sign-out and cascading deletion.
+
+For product tables, edit packages/db/src/schema, run `pnpm db:generate`, review the migration and apply it with `pnpm db:migrate`.

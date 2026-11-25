@@ -1,12 +1,16 @@
-import { signInWithGoogle } from "../actions";
+import { redirect } from "next/navigation";
 
-export default function SignIn() {
+import { authConfig } from "~/env";
+import { cookieContext } from "~/trpc/server";
+import { GoogleButton } from "./google-button";
+
+export default async function SignIn() {
+  if ((await cookieContext()).account) redirect("/dashboard");
+  const env = authConfig();
   return (
     <>
       <h1>Sign in</h1>
-      <form action={signInWithGoogle}>
-        <button>Continue with Google</button>
-      </form>
+      <GoogleButton local={env.local} clientId={env.clientId} />
     </>
   );
 }

@@ -1,15 +1,23 @@
-/* eslint-disable no-restricted-properties */
-import { createEnv } from "@t3-oss/env-nextjs";
+/* eslint-disable no-restricted-properties -- Read server configuration at request time. */
 import { z } from "zod";
 
-export const env = createEnv({
-  server: { SUPABASE_SERVICE_ROLE_SECRET: z.string().min(1) },
-  client: {
-    NEXT_PUBLIC_SUPABASE_URL: z.url(),
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
-  },
-  experimental__runtimeEnv: {
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  },
-});
+export function authConfig() {
+  const origin = z.url().parse(process.env.APP_ORIGIN);
+  const clientId = z.string().min(1).parse(process.env.GOOGLE_WEB_CLIENT_ID);
+  const local = process.env.LOCAL_GOOGLE_AUTH === "1";
+  if (origin !== new URL(origin).origin)
+    throw new Error("Set APP_ORIGIN to the canonical origin");
+  if (
+    local &&
+    (process.env.NODE_ENV === "production" ||
+      process.env.K_SERVICE ||
+      clientId !== "local-demo" ||
+      !["localhost", "127.0.0.1"].includes(new URL(origin).hostname))
+  )
+    throw new Error(
+      "Local identities require development mode, localhost and the demo client",
+    );
+  if (!local && !origin.startsWith("https:"))
+    throw new Error("Google sign-in requires an HTTPS origin");
+  return { origin, clientId, local };
+}

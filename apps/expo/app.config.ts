@@ -2,6 +2,7 @@ import type { ExpoConfig } from "expo/config";
 
 import project from "../../starter.json";
 
+const iosId = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID;
 const config: ExpoConfig = {
   name: project.name,
   slug: project.slug,
@@ -14,7 +15,14 @@ const config: ExpoConfig = {
     "expo-router",
     "expo-secure-store",
     "expo-dev-client",
-    "expo-web-browser",
+    ...(iosId
+      ? [
+          [
+            "@react-native-google-signin/google-signin",
+            { iosUrlScheme: iosId.split(".").reverse().join(".") },
+          ] as [string, { iosUrlScheme: string }],
+        ]
+      : []),
   ],
 };
 export default config;

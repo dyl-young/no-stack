@@ -1,29 +1,28 @@
 "use server";
 
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { authConfig } from "~/env";
 import { getCaller } from "~/trpc/server";
-import { createClient } from "~/utils/supabase/server";
+import { sessionCookie } from "~/utils/session";
 
-export async function signInWithGoogle() {
-  const origin = (await headers()).get("origin");
-  if (!origin) redirect("/auth/error");
-  const client = await createClient();
-  const { data, error } = await client.auth.signInWithOAuth({
-    provider: "google",
-    options: { redirectTo: new URL("/auth/callback", origin).href },
-  });
-  if (error) redirect("/auth/error");
-  redirect(data.url);
+async function checkOrigin() {
+  if ((await headers()).get("origin") !== authConfig().origin)
+    throw new Error("Invalid origin");
 }
+
 export async function signOut() {
-  const client = await createClient();
-  const { error } = await client.auth.signOut({ scope: "local" });
-  if (error) throw error;
+  await checkOrigin();
+  const jar = await cookies();
+  const cookie = sessionCookie();
+  const token = jar.get(cookie.name)?.value;
+  if (token) await (await import("@no-stack/db/auth")).revokeSession(token);
+  jar.set({ ...cookie, value: "", maxAge: 0 });
   redirect("/auth/signin");
 }
 export async function deleteAccount() {
+  await checkOrigin();
   const caller = await getCaller();
   try {
     await caller.account.remove();

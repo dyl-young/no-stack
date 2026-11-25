@@ -42,8 +42,8 @@ yarn-error.log*
 .env*.local
 *.local.*
 
-# vercel
-.vercel
+# Cloud deployment credentials
+gha-creds-*.json
 
 # typescript
 *.tsbuildinfo
@@ -57,9 +57,6 @@ docs/setup/DO_NOT_COMMIT_temporary_secrets_file.txt
 
 # ide settings
 .idea
-
-# Supabase SSL certificate
-prod-ca-2021.crt
 
 # Agent files
 .claude/*

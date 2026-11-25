@@ -6,13 +6,14 @@ import { z } from "zod";
 import * as schema from "./schema";
 
 export const env = createEnv({
-  server: { POSTGRES_URL: z.url(), SUPABASE_SSL_CERT: z.string().optional() },
+  server: { POSTGRES_URL: z.url(), POSTGRES_SSL_CA: z.string().optional() },
   // eslint-disable-next-line no-restricted-properties -- Validate the environment at this boundary.
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 });
-const ca = env.SUPABASE_SSL_CERT;
+const ca = env.POSTGRES_SSL_CA;
 const pool = new pg.Pool({
+  max: 5,
   connectionString: env.POSTGRES_URL,
   ...(ca
     ? {

@@ -3,21 +3,25 @@ import { Alert, Button, Image, Text, View } from "react-native";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { useTRPC } from "~/utils/api";
-import { supabase } from "~/utils/supabase";
+import { useSession } from "~/utils/session";
 
 export default function Account() {
+  const { logout: signOutAccount, clear, token } = useSession();
   const trpc = useTRPC();
   const profile = useQuery(trpc.account.me.queryOptions());
   const remove = useMutation(trpc.account.remove.mutationOptions());
   const [message, setMessage] = useState("");
   async function signOut() {
-    const { error } = await supabase.auth.signOut({ scope: "local" });
-    if (error) setMessage(error.message);
+    try {
+      await signOutAccount();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Sign-out failed");
+    }
   }
   async function deleteAccount() {
     try {
       await remove.mutateAsync();
-      await signOut();
+      if (token) await clear(token);
     } catch (e) {
       setMessage(e instanceof Error ? e.message : "Deletion failed");
     }

@@ -1,64 +1,51 @@
-import * as Linking from "expo-linking";
-import * as WebBrowser from "expo-web-browser";
-import { WebBrowserResultType } from "expo-web-browser";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
-import { supabase } from "./supabase";
-
-WebBrowser.maybeCompleteAuthSession();
-
-const REDIRECT_URL = Linking.createURL("auth/callback");
-
-export class GoogleSignInCancelledError extends Error {
-  constructor() {
-    super("Google sign in was cancelled");
-    this.name = "GoogleSignInCancelledError";
-  }
-}
-
-/**
- * Initiates the auth flow for Google Sign In via the system browser and
- * completes the PKCE code exchange with Supabase.
- */
-export async function signInWithGoogle() {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: { redirectTo: REDIRECT_URL, skipBrowserRedirect: true },
+export const localGoogle = process.env.EXPO_PUBLIC_LOCAL_GOOGLE_URL;
+const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
+if (!baseUrl)
+  throw new Error("Set EXPO_PUBLIC_BASE_URL to the web service origin");
+const origin = new URL(baseUrl);
+if (
+  origin.protocol !== "https:" &&
+  !(localGoogle && origin.protocol === "http:")
+)
+  throw new Error("Live Google sign-in requires an HTTPS API endpoint");
+export const apiOrigin = origin.origin;
+if (!localGoogle)
+  GoogleSignin.configure({
+    webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+    iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
   });
-  if (error) throw error;
-  if (!data.url) throw new Error("Missing OAuth URL from Supabase");
 
-  const result = await WebBrowser.openAuthSessionAsync(data.url, REDIRECT_URL);
-
+export async function googleSession(localUser = "alice") {
+  let credential: string;
+  if (localGoogle) {
+    const result = await fetch(
+      new URL("/token/" + localUser, localGoogle).href,
+    );
+    if (!result.ok) throw new Error("Local sign-in service is unavailable");
+    credential = await result.text();
+  } else {
+    await GoogleSignin.hasPlayServices();
+    if (GoogleSignin.hasPreviousSignIn()) await GoogleSignin.signOut();
+    const result = await GoogleSignin.signIn();
+    if (result.type === "cancelled") return null;
+    if (!result.data.idToken)
+      throw new Error("Google returned no ID token. Check the web client ID.");
+    credential = result.data.idToken;
+  }
+  const response = await fetch(apiOrigin + "/api/session", {
+    method: "POST",
+    headers: { authorization: "Bearer " + credential },
+  });
+  if (!response.ok) throw new Error("Could not start the session");
+  const data: unknown = await response.json();
   if (
-    result.type === WebBrowserResultType.CANCEL ||
-    result.type === WebBrowserResultType.DISMISS
-  ) {
-    throw new GoogleSignInCancelledError();
-  }
-  if (!("url" in result)) {
-    throw new Error(`Google sign in failed: ${result.type}`);
-  }
-
-  const params = new URL(result.url).searchParams;
-  const oauthError = params.get("error");
-  if (oauthError) {
-    const description = params.get("error_description") ?? oauthError;
-    throw new Error(description);
-  }
-
-  const code = params.get("code");
-  if (!code) throw new Error("Missing code in OAuth callback URL");
-
-  await finishSignIn(code);
-}
-
-// The system browser and a cold deep link may deliver the same one-use code.
-let pending: { code: string; result: Promise<void> } | undefined;
-export function finishSignIn(code: string) {
-  if (pending?.code !== code) pending = { code, result: exchangeCode(code) };
-  return pending.result;
-}
-async function exchangeCode(code: string) {
-  const exchange = await supabase.auth.exchangeCodeForSession(code);
-  if (exchange.error) throw exchange.error;
+    !data ||
+    typeof data !== "object" ||
+    !("token" in data) ||
+    typeof data.token !== "string"
+  )
+    throw new Error("Invalid session response");
+  return data.token;
 }
