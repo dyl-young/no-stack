@@ -21,14 +21,6 @@ export function SessionContextProvider({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let active = true;
-
-    void supabaseClient.auth.getSession().then(({ data }) => {
-      if (!active) return;
-      setSession(data.session);
-      setIsLoading(false);
-    });
-
     const { data: subscription } = supabaseClient.auth.onAuthStateChange(
       (_event, nextSession) => {
         setSession(nextSession);
@@ -37,7 +29,6 @@ export function SessionContextProvider({
     );
 
     return () => {
-      active = false;
       subscription.subscription.unsubscribe();
     };
   }, [supabaseClient]);
@@ -56,7 +47,7 @@ export function SessionContextProvider({
   );
 }
 
-function useSessionContext() {
+export function useSessionContext() {
   const ctx = useContext(SessionContext);
   if (!ctx) {
     throw new Error(

@@ -1,13 +1,12 @@
-import { authRouter } from "./router/auth/auth.router";
-import { postRouter } from "./router/post/post.router";
-import { userRouter } from "./router/user/user.router";
-import { createTRPCRouter } from "./trpc";
+import { createTRPCRouter, protectedProcedure } from "./trpc";
 
 export const appRouter = createTRPCRouter({
-  auth: authRouter,
-  post: postRouter,
-  user: userRouter,
+  account: createTRPCRouter({
+    me: protectedProcedure.query(({ ctx }) => ctx.account),
+    remove: protectedProcedure.mutation(async ({ ctx }) => {
+      await ctx.deleteIdentity(ctx.account.id);
+      return { deleted: true };
+    }),
+  }),
 });
-
-// export type definition of API
 export type AppRouter = typeof appRouter;

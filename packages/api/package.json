@@ -16,17 +16,12 @@
     "dev": "tsc --watch",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "test": "node --import tsx --test tests/*.test.ts"
   },
   "prettier": "@no-stack/prettier-config",
   "dependencies": {
-    "@no-stack/db": "workspace:*",
-    "@no-stack/validators": "workspace:*",
-    "@supabase/supabase-js": "^2.116.0",
     "@trpc/server": "catalog:",
-    "nanoid": "^5.0.9",
-    "pg": "^8.23.0",
-    "postgres": "^3.4.4",
     "superjson": "2.2.6",
     "zod": "catalog:"
   },
@@ -34,10 +29,9 @@
     "@no-stack/eslint-config": "workspace:*",
     "@no-stack/prettier-config": "workspace:*",
     "@no-stack/tsconfig": "workspace:*",
-    "@types/pg": "^8.23.1",
     "eslint": "catalog:",
-    "minimatch": "^10.2.6",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "tsx": "catalog:"
   }
 }

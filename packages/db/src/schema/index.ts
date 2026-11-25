@@ -1,3 +1,2 @@
-export * from "./auth";
-export * from "./profile";
-export * from "./post";
+// Add application tables here. Auth identities are owned by the auth provider.
+export {};

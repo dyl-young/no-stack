@@ -1,19 +1,12 @@
-import { CardWrapper } from "@/components/composite/auth/card-wrapper";
-import { SignInForm } from "@/components/composite/auth/sign-in-form";
+import { signInWithGoogle } from "../actions";
 
-export default function SignInPage() {
+export default function SignIn() {
   return (
-    <main>
-      <CardWrapper
-        headerLabel="Welcome back"
-        backButtonLabel="No account?"
-        backButtonLinkLabel="Sign up"
-        backButtonHref="/auth/signup"
-        showSocial
-        showCredentials
-      >
-        <SignInForm />
-      </CardWrapper>
-    </main>
+    <>
+      <h1>Sign in</h1>
+      <form action={signInWithGoogle}>
+        <button>Continue with Google</button>
+      </form>
+    </>
   );
 }

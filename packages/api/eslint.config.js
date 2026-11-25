@@ -6,4 +6,8 @@ export default [
     ignores: ["dist/**"],
   },
   ...baseConfig,
+  {
+    files: ["tests/*.test.ts"],
+    languageOptions: { parserOptions: { project: "./tests/tsconfig.json" } },
+  },
 ];

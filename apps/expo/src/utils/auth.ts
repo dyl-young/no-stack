@@ -1,3 +1,4 @@
+import * as Linking from "expo-linking";
 import * as WebBrowser from "expo-web-browser";
 import { WebBrowserResultType } from "expo-web-browser";
 
@@ -5,7 +6,7 @@ import { supabase } from "./supabase";
 
 WebBrowser.maybeCompleteAuthSession();
 
-const REDIRECT_URL = "nostack://auth/callback";
+const REDIRECT_URL = Linking.createURL("auth/callback");
 
 export class GoogleSignInCancelledError extends Error {
   constructor() {
@@ -48,8 +49,16 @@ export async function signInWithGoogle() {
   const code = params.get("code");
   if (!code) throw new Error("Missing code in OAuth callback URL");
 
+  await finishSignIn(code);
+}
+
+// The system browser and a cold deep link may deliver the same one-use code.
+let pending: { code: string; result: Promise<void> } | undefined;
+export function finishSignIn(code: string) {
+  if (pending?.code !== code) pending = { code, result: exchangeCode(code) };
+  return pending.result;
+}
+async function exchangeCode(code: string) {
   const exchange = await supabase.auth.exchangeCodeForSession(code);
   if (exchange.error) throw exchange.error;
-
-  return exchange.data;
 }

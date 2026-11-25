@@ -60,14 +60,20 @@ export async function updateSession(request: NextRequest) {
 
   if (isProtectedRoute && !user) {
     const url = new URL(DEFAULT_AUTH_ROUTE, request.url);
-    return NextResponse.redirect(url);
+    const redirect = NextResponse.redirect(url);
+    for (const cookie of supabaseResponse.cookies.getAll())
+      redirect.cookies.set(cookie);
+    return redirect;
   }
   // Forward authed user to DEFAULT_LOGIN_REDIRECT if auth route
   const isAuthRoute = authRoutes.includes(request.nextUrl.pathname);
 
   if (isAuthRoute && user) {
     const url = new URL(DEFAULT_LOGIN_REDIRECT, request.url);
-    return NextResponse.redirect(url);
+    const redirect = NextResponse.redirect(url);
+    for (const cookie of supabaseResponse.cookies.getAll())
+      redirect.cookies.set(cookie);
+    return redirect;
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're

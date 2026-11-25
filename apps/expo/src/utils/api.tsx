@@ -14,10 +14,9 @@ import { useSupabaseClient } from "./session";
  */
 export const { TRPCProvider: TRPCInnerProvider, useTRPC } =
   createTRPCContext<AppRouter>();
-export { type RouterInputs, type RouterOutputs } from "@no-stack/api";
 
 const getBaseUrl = () => {
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.EXPO_PUBLIC_BASE_URL) {
     return process.env.EXPO_PUBLIC_BASE_URL;
   }
 
@@ -31,20 +30,9 @@ const getBaseUrl = () => {
   const localhost = debuggerHost?.split(":")[0];
 
   if (!localhost) {
-    return process.env.EXPO_PUBLIC_BASE_URL;
+    throw new Error("Configure EXPO_PUBLIC_BASE_URL for the device");
   }
   return `http://${localhost}:3000`;
-};
-
-export const generateAPIUrl = (relativePath: string) => {
-  const baseUrl = getBaseUrl();
-  const path = relativePath.startsWith("/") ? relativePath : `/${relativePath}`;
-
-  if (!baseUrl) {
-    throw new Error("Base URL could not be determined.");
-  }
-
-  return baseUrl.concat(path);
 };
 
 /**
@@ -78,7 +66,7 @@ export const TRPCProvider = (props: { children: React.ReactNode }) => {
 
             const { data } = await supabase.auth.getSession();
             const token = data.session?.access_token;
-            if (token) headers.set("authorization", token);
+            if (token) headers.set("authorization", `Bearer ${token}`);
 
             return Object.fromEntries(headers);
           },
