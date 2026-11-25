@@ -12,9 +12,11 @@ Base the implementation on main at 0e93c94. This branch targets freshly generate
 
 The isolated branch implements the fresh-project baseline on Next 16.4.6 and a newly built Expo SDK 58 shell. Local checks passed for account authorization and deletion errors, lint, types, formatting, production web compilation and native production JS exports. A repeat run of named-project setup preserved the existing environment file. Local Turbo cache hits restored the API and database declaration outputs after removing the generated directories.
 
+The refreshed lockfile passed a frozen install and a full registry audit on 25 November with zero known findings across all severities. The baseline had 58 findings, including one critical and 37 high. Two transitive overrides remain for minimatch and the esbuild version used by Drizzle's legacy loader. Expo fingerprinting and Drizzle migration generation both passed with the patched tools. The three native peer packages now match the SDK 58 matrix.
+
 Release checks still open:
 
-- Update the audited dependency graph and align the three Expo native peers. The first online audit recorded 37 high and one critical finding, including an Expo CLI transitive dependency. The subsequent dependency refresh was blocked by automatic approval review. The audit is still enforced in CI.
+- Expo's compatibility check recommends TypeScript ~6.0.3. The workspace typechecks and exports with the existing 5.9.3 compiler. Verify the shared compiler configuration during the planned TypeScript upgrade.
 - Run live Google OAuth, cancellation, session restoration, account switching and deletion on web and real native development builds. A native JS export does not verify native compilation or provider callbacks.
 - Run the Node-container/PostgreSQL CI job. The local Docker daemon was unavailable. A developer can run account unit tests offline. Exercising the full local Google flow without registered credentials still needs a local test identity provider.
 - Measure setup and interactive performance on the working auth baseline before evaluating alternative renderers and cloud deployments.
