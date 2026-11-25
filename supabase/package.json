@@ -1,11 +1,11 @@
 {
   "name": "@no-stack/supabase",
   "scripts": {
-    "clean-db": "npx supabase db reset || npx supabase start",
-    "dev": "npx supabase status || npx supabase start",
-    "supabase:deploy": "npx supabase link --project-ref $SUPABASE_PROJECT_REF --password $SUPABASE_DB_PASSWORD && npx supabase db push",
-    "supabase:migrate-local": "npx supabase db push --local",
-    "update-config": "npx supabase stop --all --no-backup && npx supabase start"
+    "dev": "supabase --workdir .. start",
+    "clean-db": "supabase --workdir .. db reset --local",
+    "supabase:deploy": "supabase --workdir .. link --project-ref \"$SUPABASE_PROJECT_REF\" && supabase --workdir .. db push",
+    "supabase:migrate-local": "supabase --workdir .. db push --local",
+    "update-config": "supabase --workdir .. stop && supabase --workdir .. start"
   },
   "devDependencies": {
     "supabase": "^2.121.0"

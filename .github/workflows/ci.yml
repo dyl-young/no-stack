@@ -88,6 +88,13 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    container: node:24-bookworm
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: --health-cmd pg_isready --health-interval 3s --health-retries 10
     needs: [typecheck, lint, format]
     steps:
       - uses: actions/checkout@v6.0.2
@@ -101,10 +108,12 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm turbo build --filter=@no-stack/nextjs
+      - run: pnpm setup:local
+      - name: Verify ordinary PostgreSQL connectivity
+        working-directory: packages/db
+        run: node --import tsx --input-type=module -e 'import { db, sql } from "./src/index.ts"; await db.execute(sql`select 1`);'
         env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          POSTGRES_URL: postgres://postgres:postgres@postgres:5432/postgres
+      - run: pnpm test
+      - run: pnpm turbo build --filter=@no-stack/nextjs
+      - run: pnpm --filter @no-stack/expo exec expo export --platform ios --platform android

@@ -1,7 +1,3 @@
-# Local development
+# Adding a feature
 
-[Take me 🔙](../../README.md)
-
-This guide will explain how to run the local development environment and contribute to the codebase.
-
-It is assumed that you've already followed the instructions in [LOCAL_SETUP.md](../setup/LOCAL_SETUP.md)
+Define application tables in packages/db/src/schema. Generate and inspect a migration before applying it. Keep server queries and authorization in packages/api. Expose narrow typed results to both clients. Add web and native routes that use the same contract. The existing account tests demonstrate injecting a verified user and exercising unauthorized access.
