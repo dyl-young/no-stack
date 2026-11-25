@@ -33,6 +33,6 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Build and submit
+      - name: Build
         working-directory: apps/expo
-        run: eas build --platform all --non-interactive --no-wait --profile ${{ inputs.profile }} --auto-submit
+        run: eas build --platform all --non-interactive --no-wait --profile ${{ inputs.profile }}

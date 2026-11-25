@@ -1,19 +1,16 @@
-import { CardWrapper } from "@/components/composite/auth/card-wrapper";
-import { SignInForm } from "@/components/composite/auth/sign-in-form";
+import { redirect } from "next/navigation";
 
-export default function SignInPage() {
+import { authConfig } from "~/env";
+import { cookieContext } from "~/trpc/server";
+import { GoogleButton } from "./google-button";
+
+export default async function SignIn() {
+  if ((await cookieContext()).account) redirect("/dashboard");
+  const env = authConfig();
   return (
-    <main>
-      <CardWrapper
-        headerLabel="Welcome back"
-        backButtonLabel="No account?"
-        backButtonLinkLabel="Sign up"
-        backButtonHref="/auth/signup"
-        showSocial
-        showCredentials
-      >
-        <SignInForm />
-      </CardWrapper>
-    </main>
+    <>
+      <h1>Sign in</h1>
+      <GoogleButton local={env.local} clientId={env.clientId} />
+    </>
   );
 }

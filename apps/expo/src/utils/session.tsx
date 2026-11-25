@@ -1,79 +1,78 @@
-import type { Session, SupabaseClient, User } from "@supabase/supabase-js";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { Text } from "react-native";
+import * as SecureStore from "expo-secure-store";
 
-interface SessionContextValue {
-  supabaseClient: SupabaseClient;
-  session: Session | null;
-  user: User | null;
-  isLoading: boolean;
+import { apiOrigin, googleSession } from "./auth";
+
+interface SessionContext {
+  token: string | null;
+  login: (localUser?: string) => Promise<void>;
+  logout: () => Promise<void>;
+  clear: (expired: string) => Promise<void>;
 }
-
-const SessionContext = createContext<SessionContextValue | null>(null);
-
+const Context = createContext<SessionContext | null>(null);
+// Scope credentials to the API that issued them, including for development builds.
+const key =
+  "google-app-session." +
+  apiOrigin.replace(
+    /[^a-zA-Z0-9.-]/g,
+    (char) => "_" + char.charCodeAt(0).toString(16) + "_",
+  );
 export function SessionContextProvider({
-  supabaseClient,
   children,
 }: {
-  supabaseClient: SupabaseClient;
   children: React.ReactNode;
 }) {
-  const [session, setSession] = useState<Session | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [token, setToken] = useState<string | null>();
+  const [failed, setFailed] = useState(false);
+  const current = useRef<string | null>(null);
   useEffect(() => {
-    let active = true;
-
-    void supabaseClient.auth.getSession().then(({ data }) => {
-      if (!active) return;
-      setSession(data.session);
-      setIsLoading(false);
-    });
-
-    const { data: subscription } = supabaseClient.auth.onAuthStateChange(
-      (_event, nextSession) => {
-        setSession(nextSession);
-        setIsLoading(false);
-      },
+    void SecureStore.getItemAsync(key)
+      .then((stored) => {
+        current.current = stored;
+        setToken(stored);
+      })
+      .catch(() => setFailed(true));
+  }, []);
+  if (failed)
+    return (
+      <Text>
+        Could not open secure session storage. Reopen the app to retry.
+      </Text>
     );
-
-    return () => {
-      active = false;
-      subscription.subscription.unsubscribe();
-    };
-  }, [supabaseClient]);
-
+  if (token === undefined) return null;
+  async function clear(expired: string) {
+    if (current.current !== expired) return;
+    await SecureStore.deleteItemAsync(key);
+    if (current.current === expired) {
+      current.current = null;
+      setToken(null);
+    }
+  }
+  async function login(localUser?: string) {
+    const next = await googleSession(localUser);
+    if (!next) return;
+    await SecureStore.setItemAsync(key, next);
+    current.current = next;
+    setToken(next);
+  }
+  async function logout() {
+    if (!token) return;
+    const result = await fetch(apiOrigin + "/api/session", {
+      method: "DELETE",
+      headers: { authorization: "Bearer " + token },
+    });
+    if (!result.ok) throw new Error("Sign-out failed. Please retry.");
+    await clear(token);
+  }
   return (
-    <SessionContext.Provider
-      value={{
-        supabaseClient,
-        session,
-        user: session?.user ?? null,
-        isLoading,
-      }}
-    >
+    <Context.Provider value={{ token, login, logout, clear }}>
       {children}
-    </SessionContext.Provider>
+    </Context.Provider>
   );
 }
-
-function useSessionContext() {
-  const ctx = useContext(SessionContext);
-  if (!ctx) {
-    throw new Error(
-      "Supabase session hooks must be used within a SessionContextProvider",
-    );
-  }
-  return ctx;
-}
-
-export function useSupabaseClient() {
-  return useSessionContext().supabaseClient;
-}
-
 export function useSession() {
-  return useSessionContext().session;
-}
-
-export function useUser() {
-  return useSessionContext().user;
+  const session = useContext(Context);
+  if (!session) throw new Error("Session provider missing");
+  return session;
 }

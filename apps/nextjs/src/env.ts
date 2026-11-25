@@ -1,41 +1,33 @@
-/* eslint-disable no-restricted-properties */
-import { createEnv } from "@t3-oss/env-nextjs";
-import { vercel } from "@t3-oss/env-nextjs/presets-zod";
+/* eslint-disable no-restricted-properties -- Read server configuration at request time. */
 import { z } from "zod";
 
-export const env = createEnv({
-  extends: [vercel()],
-  shared: {
-    NODE_ENV: z
-      .enum(["development", "test", "production"])
-      .default("development"),
-  },
-  /**
-   * Specify your server-side environment variables schema here. This way you can ensure the app isn't
-   * built with invalid env vars.
-   */
-  server: {
-    POSTGRES_URL: z.string().url(),
-    SUPABASE_SERVICE_ROLE_SECRET: z.string().min(1),
-  },
-  /**
-   * Specify your client-side environment variables schema here.
-   * For them to be exposed to the client, prefix them with `NEXT_PUBLIC_`.
-   */
-  client: {
-    NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
-  },
-  /**
-   * Destructure all variables from `process.env` to make sure they aren't tree-shaken away.
-   */
-  experimental__runtimeEnv: {
-    NODE_ENV: process.env.NODE_ENV,
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  },
-  skipValidation:
-    !!process.env.CI ||
-    !!process.env.SKIP_ENV_VALIDATION ||
-    process.env.npm_lifecycle_event === "lint",
-});
+export function isEmailAllowed(email: string | null) {
+  const list = process.env.GOOGLE_ALLOWED_EMAILS;
+  if (!list) return true;
+  if (!email) return false;
+  const normalized = email.toLowerCase();
+  return list
+    .split(",")
+    .some((entry) => entry.trim().toLowerCase() === normalized);
+}
+
+export function authConfig() {
+  const origin = z.url().parse(process.env.APP_ORIGIN);
+  const clientId = z.string().min(1).parse(process.env.GOOGLE_WEB_CLIENT_ID);
+  const local = process.env.LOCAL_GOOGLE_AUTH === "1";
+  if (origin !== new URL(origin).origin)
+    throw new Error("Set APP_ORIGIN to the canonical origin");
+  if (
+    local &&
+    (process.env.NODE_ENV === "production" ||
+      process.env.K_SERVICE ||
+      clientId !== "local-demo" ||
+      !["localhost", "127.0.0.1"].includes(new URL(origin).hostname))
+  )
+    throw new Error(
+      "Local identities require development mode, localhost and the demo client",
+    );
+  if (!local && !origin.startsWith("https:"))
+    throw new Error("Google sign-in requires an HTTPS origin");
+  return { origin, clientId, local };
+}

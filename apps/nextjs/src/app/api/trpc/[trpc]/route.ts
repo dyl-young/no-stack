@@ -1,53 +1,28 @@
-import type { NextRequest } from "next/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
-import { appRouter, createTRPCContext } from "@no-stack/api";
+import { appRouter } from "@no-stack/api";
 
-import { createAdminClient, createClient } from "~/utils/supabase/server";
+import { authConfig } from "~/env";
+import { cookieContext } from "~/trpc/server";
+import { verifiedContext } from "~/utils/session";
 
-export const runtime = "nodejs";
-
-/**
- * Configure basic CORS headers
- * You should extend this to match your needs
- */
-function setCorsHeaders(res: Response) {
-  res.headers.set("Access-Control-Allow-Origin", "*");
-  res.headers.set("Access-Control-Request-Method", "*");
-  res.headers.set("Access-Control-Allow-Methods", "OPTIONS, GET, POST");
-  res.headers.set("Access-Control-Allow-Headers", "*");
-}
-
-export function OPTIONS() {
-  const response = new Response(null, {
-    status: 204,
-  });
-  setCorsHeaders(response);
-  return response;
-}
-
-const handler = async (req: NextRequest) => {
-  const supabase = await createClient();
-  const supabaseAdminServerClient = createAdminClient();
-
-  const response = await fetchRequestHandler({
-    endpoint: "/api/trpc",
-    router: appRouter,
+function handler(req: Request) {
+  const authorization = req.headers.get("authorization");
+  if (authorization !== null && !/^Bearer \S+$/i.test(authorization))
+    return new Response(null, { status: 401 });
+  if (
+    !authorization &&
+    req.method === "POST" &&
+    req.headers.get("origin") !== authConfig().origin
+  )
+    return new Response(null, { status: 403 });
+  return fetchRequestHandler({
     req,
-    createContext: () =>
-      createTRPCContext({
-        headers: req.headers,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Supabase SDK generic variance mismatch
-        supabase,
-        supabaseAdminServerClient,
-      }),
-    onError({ error, path }) {
-      console.error(`>>> tRPC Error on '${path}'`, error);
-    },
+    router: appRouter,
+    endpoint: "/api/trpc",
+    createContext: authorization
+      ? () => verifiedContext(authorization.slice(7))
+      : cookieContext,
   });
-
-  setCorsHeaders(response);
-  return response;
-};
-
+}
 export { handler as GET, handler as POST };

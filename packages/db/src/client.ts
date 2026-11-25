@@ -1,59 +1,27 @@
-import type { NodePgClient } from "drizzle-orm/node-postgres";
-import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
-import { neonConfig, Pool as NeonPool } from "@neondatabase/serverless";
 import { createEnv } from "@t3-oss/env-core";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { Pool } from "pg";
-import ws from "ws";
+import pg from "pg";
 import { z } from "zod";
 
 import * as schema from "./schema";
 
 export const env = createEnv({
-  server: {
-    POSTGRES_URL: z.string().url(),
-    SUPABASE_SSL_CERT: z.string().optional(),
-  },
-  // eslint-disable-next-line no-restricted-properties
+  server: { POSTGRES_URL: z.url(), POSTGRES_SSL_CA: z.string().optional() },
+  // eslint-disable-next-line no-restricted-properties -- Validate the environment at this boundary.
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
-  // eslint-disable-next-line no-restricted-properties
-  skipValidation: !!process.env.CI || !!process.env.SKIP_ENV_VALIDATION,
 });
-
-// The following code is only used to connect to the local development environment supabase database
-// See more in docs/architecture-decision-records/decisions/0001-neondb-for-local-db-connection.md
-// eslint-disable-next-line no-restricted-properties
-if (!process.env.VERCEL_ENV) {
-  neonConfig.webSocketConstructor = ws;
-  neonConfig.useSecureWebSocket = false;
-  neonConfig.pipelineTLS = false;
-  neonConfig.pipelineConnect = false;
-  neonConfig.wsProxy = (host) => `${host}:54321/pooler/v2/`;
-}
-
-// 2. Create the client based on the environment
-// eslint-disable-next-line no-restricted-properties
-const client = process.env.VERCEL_ENV
-  ? new Pool({
-      // PRODUCTION (Vercel -> Supabase)
-      // We use standard 'pg' (TCP) because Supabase Transaction Poolers (port 6543)
-      // do not support the WebSockets that @Vercel/postgres uses.
-      connectionString: env.POSTGRES_URL,
-      ssl: {
-        rejectUnauthorized: true,
-        ca: env.SUPABASE_SSL_CERT
-          ? Buffer.from(env.SUPABASE_SSL_CERT, "base64").toString("utf-8")
-          : undefined,
-      },
-    })
-  : new NeonPool({
-      // LOCAL DEV (Local -> Supabase via Neon Proxy)
-      // We use NeonPool to respect the 'neonConfig' proxy settings above.
-      connectionString: env.POSTGRES_URL,
-    });
-
-export const db: PgDatabase<PgQueryResultHKT, typeof schema> = drizzle(
-  client as unknown as NodePgClient,
-  { schema, casing: "snake_case" },
-);
+const ca = env.POSTGRES_SSL_CA;
+const pool = new pg.Pool({
+  max: 5,
+  connectionString: env.POSTGRES_URL,
+  ...(ca
+    ? {
+        ssl: {
+          ca: Buffer.from(ca, "base64").toString("utf8"),
+          rejectUnauthorized: true,
+        },
+      }
+    : {}),
+});
+export const db = drizzle(pool, { schema, casing: "snake_case" });

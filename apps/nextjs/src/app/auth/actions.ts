@@ -1,107 +1,33 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import {
-  ForgotPasswordSchema,
-  ResetPasswordSchema,
-  SignInSchema,
-  SignUpSchema,
-} from "@no-stack/validators";
+import { authConfig } from "~/env";
+import { getCaller } from "~/trpc/server";
+import { sessionCookie } from "~/utils/session";
 
-import { DEFAULT_LOGIN_REDIRECT } from "~/config/routes";
-import { actionClient } from "~/lib/safe-action";
-import { createClient } from "~/utils/supabase/server";
+async function checkOrigin() {
+  if ((await headers()).get("origin") !== authConfig().origin)
+    throw new Error("Invalid origin");
+}
 
-export const signInWithPassword = actionClient
-  .schema(SignInSchema)
-  .action(async ({ parsedInput: { email, password } }) => {
-    const supabase = await createClient();
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) throw error;
-
-    revalidatePath("/", "layout");
-    redirect(DEFAULT_LOGIN_REDIRECT);
-  });
-
-export const signUp = actionClient
-  .schema(SignUpSchema)
-  .action(async ({ parsedInput: { email, password } }) => {
-    const supabase = await createClient();
-
-    const { error, data } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    // User already exists, so fake data is returned. See https://supabase.com/docs/reference/javascript/auth-signup
-    if (data.user?.identities?.length === 0) {
-      throw new Error("An error occurred. Please try again.");
-    }
-
-    if (error) throw error;
-    return data.user;
-  });
-
-export const signInWithGoogle = async () => {
-  const origin = (await headers()).get("origin");
-  const supabase = await createClient();
-
-  const redirectUrl = `${origin}/auth/callback?next=${encodeURIComponent(DEFAULT_LOGIN_REDIRECT)}`;
-
-  const res = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: { redirectTo: redirectUrl },
-  });
-
-  if (res.data.url) redirect(res.data.url);
-  throw res.error ?? new Error("OAuth sign-in failed");
-};
-
-export const signOut = async () => {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
-  redirect("/");
-};
-
-export const forgotPassword = actionClient
-  .schema(ForgotPasswordSchema)
-  .action(async ({ parsedInput: { email } }) => {
-    const supabase = await createClient();
-    const origin = (await headers()).get("origin");
-
-    if (!email) {
-      throw new Error("Email is required");
-    }
-
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${origin}/auth/callback?next=/auth/reset-password`,
-    });
-
-    if (error) {
-      console.error(error.message);
-      throw new Error("Could not reset password");
-    }
-
-    return "success";
-  });
-
-export const resetPassword = actionClient
-  .schema(ResetPasswordSchema)
-  .action(async ({ parsedInput: { password } }) => {
-    const supabase = await createClient();
-    const { error } = await supabase.auth.updateUser({
-      password,
-    });
-
-    if (error) throw error;
-
-    return "success";
-  });
+export async function signOut() {
+  await checkOrigin();
+  const jar = await cookies();
+  const cookie = sessionCookie();
+  const token = jar.get(cookie.name)?.value;
+  if (token) await (await import("@no-stack/db/auth")).revokeSession(token);
+  jar.set({ ...cookie, value: "", maxAge: 0 });
+  redirect("/auth/signin");
+}
+export async function deleteAccount() {
+  await checkOrigin();
+  const caller = await getCaller();
+  try {
+    await caller.account.remove();
+  } catch {
+    redirect("/dashboard/account?failed=1");
+  }
+  await signOut();
+}
